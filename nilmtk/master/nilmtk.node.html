@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.node &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.plots module" href="nilmtk.plots.html" />
+    <link rel="prev" title="nilmtk.metrics" href="nilmtk.metrics.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.node</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.metrics.html" title="Previous Chapter: nilmtk.metrics"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.metrics</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.plots.html" title="Next Chapter: nilmtk.plots module"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.plots module &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.node.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-node">
+<h1>nilmtk.node<a class="headerlink" href="#nilmtk-node" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.node"></span><p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.node.find_unsatisfied_requirements" title="nilmtk.node.find_unsatisfied_requirements"><code class="xref py py-obj docutils literal"><span class="pre">find_unsatisfied_requirements</span></code></a>(state,&nbsp;…)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.node.Node" title="nilmtk.node.Node"><code class="xref py py-obj docutils literal"><span class="pre">Node</span></code></a>([upstream,&nbsp;generator])</td>
+<td>Abstract class defining interface for all Node subclasses, where a ‘node’ is a module which runs pre-processing or statistics (or, later, maybe NILM training or disaggregation).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: Node</p>
+<dl class="class">
+<dt id="nilmtk.node.Node">
+<em class="property">class </em><code class="descclassname">nilmtk.node.</code><code class="descname">Node</code><span class="sig-paren">(</span><em>upstream=None</em>, <em>generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/node.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.node.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Abstract class defining interface for all Node subclasses,
+where a ‘node’ is a module which runs pre-processing or statistics
+(or, later, maybe NILM training or disaggregation).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>upstream</strong> : an ElecMeter or MeterGroup or a Node subclass</p>
+<blockquote>
+<div><p>Required methods:
+- dry_run_metadata
+- get_metadata
+- process (not required if <cite>generator</cite> supplied)</p>
+</div></blockquote>
+<p><strong>generator</strong> : Python generator. Optional</p>
+<blockquote class="last">
+<div><p>Used when <cite>upstream</cite> object is an ElecMeter or MeterGroup.
+Provides source of data.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.node.Node.check_requirements" title="nilmtk.node.Node.check_requirements"><code class="xref py py-obj docutils literal"><span class="pre">check_requirements</span></code></a>()</td>
+<td>Checks that <cite>self.upstream.dry_run_metadata</cite> satisfies <cite>self.requirements</cite>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.node.Node.dry_run_metadata" title="nilmtk.node.Node.dry_run_metadata"><code class="xref py py-obj docutils literal"><span class="pre">dry_run_metadata</span></code></a>()</td>
+<td>Does a ‘dry run’ so we can validate the full pipeline before loading any data.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.node.Node.get_metadata" title="nilmtk.node.Node.get_metadata"><code class="xref py py-obj docutils literal"><span class="pre">get_metadata</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.node.Node.process" title="nilmtk.node.Node.process"><code class="xref py py-obj docutils literal"><span class="pre">process</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.node.Node.required_measurements" title="nilmtk.node.Node.required_measurements"><code class="xref py py-obj docutils literal"><span class="pre">required_measurements</span></code></a>(state)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.node.Node.reset" title="nilmtk.node.Node.reset"><code class="xref py py-obj docutils literal"><span class="pre">reset</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.node.Node.run" title="nilmtk.node.Node.run"><code class="xref py py-obj docutils literal"><span class="pre">run</span></code></a>()</td>
+<td>Pulls data through the pipeline.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.node.Node.postconditions" title="nilmtk.node.Node.postconditions"><code class="xref py py-obj docutils literal"><span class="pre">postconditions</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.node.Node.requirements" title="nilmtk.node.Node.requirements"><code class="xref py py-obj docutils literal"><span class="pre">requirements</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.node.Node.results_class" title="nilmtk.node.Node.results_class"><code class="xref py py-obj docutils literal"><span class="pre">results_class</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.node"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.node.</code><code class="descname">Node</code><span class="sig-paren">(</span><em>upstream=None</em>, <em>generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/node.html#Node"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Abstract class defining interface for all Node subclasses,
+where a ‘node’ is a module which runs pre-processing or statistics
+(or, later, maybe NILM training or disaggregation).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>upstream</strong> : an ElecMeter or MeterGroup or a Node subclass</p>
+<blockquote>
+<div><p>Required methods:
+- dry_run_metadata
+- get_metadata
+- process (not required if <cite>generator</cite> supplied)</p>
+</div></blockquote>
+<p><strong>generator</strong> : Python generator. Optional</p>
+<blockquote class="last">
+<div><p>Used when <cite>upstream</cite> object is an ElecMeter or MeterGroup.
+Provides source of data.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nilmtk.node.Node.check_requirements">
+<code class="descname">check_requirements</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/node.html#Node.check_requirements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.node.Node.check_requirements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks that <cite>self.upstream.dry_run_metadata</cite> satisfies <cite>self.requirements</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>UnsatistfiedRequirementsError</strong></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.node.Node.dry_run_metadata">
+<code class="descname">dry_run_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/node.html#Node.dry_run_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.node.Node.dry_run_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does a ‘dry run’ so we can validate the full pipeline before
+loading any data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>dict</strong> : dry run metadata</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.node.Node.get_metadata">
+<code class="descname">get_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/node.html#Node.get_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.node.Node.get_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.node.Node.postconditions">
+<code class="descname">postconditions</code><em class="property"> = {}</em><a class="headerlink" href="#nilmtk.node.Node.postconditions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.node.Node.process">
+<code class="descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/node.html#Node.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.node.Node.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.node.Node.required_measurements">
+<code class="descname">required_measurements</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/node.html#Node.required_measurements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.node.Node.required_measurements" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Set of measurements that need to be loaded from disk for this node.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.node.Node.requirements">
+<code class="descname">requirements</code><em class="property"> = {}</em><a class="headerlink" href="#nilmtk.node.Node.requirements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.node.Node.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/node.html#Node.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.node.Node.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.node.Node.results_class">
+<code class="descname">results_class</code><em class="property"> = None</em><a class="headerlink" href="#nilmtk.node.Node.results_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.node.Node.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/node.html#Node.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.node.Node.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pulls data through the pipeline.  Useful if we just want to calculate 
+some stats.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="nilmtk.node.UnsatisfiedRequirementsError">
+<em class="property">exception </em><code class="descclassname">nilmtk.node.</code><code class="descname">UnsatisfiedRequirementsError</code><a class="reference internal" href="_modules/nilmtk/node.html#UnsatisfiedRequirementsError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.node.UnsatisfiedRequirementsError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.node.find_unsatisfied_requirements">
+<code class="descclassname">nilmtk.node.</code><code class="descname">find_unsatisfied_requirements</code><span class="sig-paren">(</span><em>state</em>, <em>requirements</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/node.html#find_unsatisfied_requirements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.node.find_unsatisfied_requirements" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>state, requirements</strong> : dict</p>
+<blockquote>
+<div><p>If a property is required but the specific value does not
+matter then use ‘ANY VALUE’ as the value in <cite>requirements</cite>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of strings describing (for human consumption) which</p>
+<p>conditions are not satisfied.  If all conditions are satisfied</p>
+<p class="last">then returns an empty list.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

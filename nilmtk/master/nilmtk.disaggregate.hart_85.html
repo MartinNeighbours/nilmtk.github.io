@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.disaggregate.hart_85 &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.disaggregate.maximum_likelihood_estimation" href="nilmtk.disaggregate.maximum_likelihood_estimation.html" />
+    <link rel="prev" title="nilmtk.disaggregate.fhmm_exact" href="nilmtk.disaggregate.fhmm_exact.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.disaggregate.hart_85</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.disaggregate.fhmm_exact.html" title="Previous Chapter: nilmtk.disaggregate.fhmm_exact"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.disagg...</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.disaggregate.maximum_likelihood_estimation.html" title="Next Chapter: nilmtk.disaggregate.maximum_likelihood_estimation"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.disagg... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.disaggregate.hart_85.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-disaggregate-hart-85">
+<h1>nilmtk.disaggregate.hart_85<a class="headerlink" href="#nilmtk-disaggregate-hart-85" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.disaggregate.hart_85"></span><p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.Hart85" title="nilmtk.disaggregate.hart_85.Hart85"><code class="xref py py-obj docutils literal"><span class="pre">Hart85</span></code></a>()</td>
+<td>1 or 2 dimensional Hart 1985 algorithm.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.MyDeque" title="nilmtk.disaggregate.hart_85.MyDeque"><code class="xref py py-obj docutils literal"><span class="pre">MyDeque</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.PairBuffer" title="nilmtk.disaggregate.hart_85.PairBuffer"><code class="xref py py-obj docutils literal"><span class="pre">PairBuffer</span></code></a>(buffer_size,&nbsp;min_tolerance,&nbsp;…)</td>
+<td>Attributes:</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: Hart85</p>
+<dl class="class">
+<dt id="nilmtk.disaggregate.hart_85.Hart85">
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.hart_85.</code><code class="descname">Hart85</code><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#Hart85"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.Hart85" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.disaggregate.disaggregator.html#nilmtk.disaggregate.disaggregator.Disaggregator" title="nilmtk.disaggregate.disaggregator.Disaggregator"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.disaggregate.disaggregator.Disaggregator</span></code></a></p>
+<p>1 or 2 dimensional Hart 1985 algorithm.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>model</strong></td>
+<td>(dict) Each key is either the instance integer for an ElecMeter, or a tuple of instances for a MeterGroup. Each value is a sorted list of power in different states.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This class has inherited methods, see the base class(es) for additional methods</p>
+</div>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.Hart85.assign_power_from_states" title="nilmtk.disaggregate.hart_85.Hart85.assign_power_from_states"><code class="xref py py-obj docutils literal"><span class="pre">assign_power_from_states</span></code></a>(states_chunk,&nbsp;prev)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.Hart85.disaggregate" title="nilmtk.disaggregate.hart_85.Hart85.disaggregate"><code class="xref py py-obj docutils literal"><span class="pre">disaggregate</span></code></a>(mains,&nbsp;output_datastore,&nbsp;…)</td>
+<td>Disaggregate mains according to the model learnt previously.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.Hart85.disaggregate_chunk" title="nilmtk.disaggregate.hart_85.Hart85.disaggregate_chunk"><code class="xref py py-obj docutils literal"><span class="pre">disaggregate_chunk</span></code></a>(chunk,&nbsp;prev,&nbsp;transients)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.Hart85.pair" title="nilmtk.disaggregate.hart_85.Hart85.pair"><code class="xref py py-obj docutils literal"><span class="pre">pair</span></code></a>(buffer_size,&nbsp;min_tolerance,&nbsp;…)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.Hart85.train" title="nilmtk.disaggregate.hart_85.Hart85.train"><code class="xref py py-obj docutils literal"><span class="pre">train</span></code></a>(metergroup[,&nbsp;cols,&nbsp;buffer_size,&nbsp;…])</td>
+<td>Train using Hart85.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="topic">
+<p class="topic-title first">Class: MyDeque</p>
+<dl class="class">
+<dt id="nilmtk.disaggregate.hart_85.MyDeque">
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.hart_85.</code><code class="descname">MyDeque</code><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#MyDeque"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.MyDeque" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">collections.deque</span></code></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.MyDeque.popmiddle" title="nilmtk.disaggregate.hart_85.MyDeque.popmiddle"><code class="xref py py-obj docutils literal"><span class="pre">popmiddle</span></code></a>(pos)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">maxlen</span></code></td>
+<td>maximum size of a deque or None if unbounded</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="topic">
+<p class="topic-title first">Class: PairBuffer</p>
+<dl class="class">
+<dt id="nilmtk.disaggregate.hart_85.PairBuffer">
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.hart_85.</code><code class="descname">PairBuffer</code><span class="sig-paren">(</span><em>buffer_size</em>, <em>min_tolerance</em>, <em>percent_tolerance</em>, <em>large_transition</em>, <em>num_measurements</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#PairBuffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.PairBuffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Attributes:
+* transitionList (list of tuples)
+* matchedPairs (dataframe containing matched pairs of transitions)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>buffer_size: int, optional</strong></p>
+<blockquote>
+<div><p>size of the buffer to use for finding edges</p>
+</div></blockquote>
+<p><strong>min_tolerance: int, optional</strong></p>
+<blockquote>
+<div><p>variance in power draw allowed for pairing a match</p>
+</div></blockquote>
+<p><strong>percent_tolerance: float, optional</strong></p>
+<blockquote>
+<div><p>if transition is greater than large_transition, then use percent of large_transition</p>
+</div></blockquote>
+<p><strong>large_transition: float, optional</strong></p>
+<blockquote>
+<div><p>power draw of a Large transition</p>
+</div></blockquote>
+<p><strong>num_measurements: int, optional</strong></p>
+<blockquote class="last">
+<div><p>2 if only active power
+3 if both active and reactive power</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.PairBuffer.add_transition" title="nilmtk.disaggregate.hart_85.PairBuffer.add_transition"><code class="xref py py-obj docutils literal"><span class="pre">add_transition</span></code></a>(transition)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.PairBuffer.clean_buffer" title="nilmtk.disaggregate.hart_85.PairBuffer.clean_buffer"><code class="xref py py-obj docutils literal"><span class="pre">clean_buffer</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.hart_85.PairBuffer.pair_transitions" title="nilmtk.disaggregate.hart_85.PairBuffer.pair_transitions"><code class="xref py py-obj docutils literal"><span class="pre">pair_transitions</span></code></a>()</td>
+<td>Hart 85, P 33.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.disaggregate.hart_85"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.hart_85.</code><code class="descname">Hart85</code><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#Hart85"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.disaggregate.disaggregator.html#nilmtk.disaggregate.disaggregator.Disaggregator" title="nilmtk.disaggregate.disaggregator.Disaggregator"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.disaggregate.disaggregator.Disaggregator</span></code></a></p>
+<p>1 or 2 dimensional Hart 1985 algorithm.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>model</strong></td>
+<td>(dict) Each key is either the instance integer for an ElecMeter, or a tuple of instances for a MeterGroup. Each value is a sorted list of power in different states.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nilmtk.disaggregate.hart_85.Hart85.assign_power_from_states">
+<code class="descname">assign_power_from_states</code><span class="sig-paren">(</span><em>states_chunk</em>, <em>prev</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#Hart85.assign_power_from_states"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.Hart85.assign_power_from_states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.hart_85.Hart85.disaggregate">
+<code class="descname">disaggregate</code><span class="sig-paren">(</span><em>mains</em>, <em>output_datastore</em>, <em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#Hart85.disaggregate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.Hart85.disaggregate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disaggregate mains according to the model learnt previously.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mains</strong> : nilmtk.ElecMeter or nilmtk.MeterGroup</p>
+<p><strong>output_datastore</strong> : instance of nilmtk.DataStore subclass</p>
+<blockquote>
+<div><p>For storing power predictions from disaggregation algorithm.</p>
+</div></blockquote>
+<p><strong>sample_period</strong> : number, optional</p>
+<blockquote>
+<div><p>The desired sample period in seconds.</p>
+</div></blockquote>
+<p><strong>**load_kwargs</strong> : key word arguments</p>
+<blockquote class="last">
+<div><p>Passed to <cite>mains.power_series(**kwargs)</cite></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.hart_85.Hart85.disaggregate_chunk">
+<code class="descname">disaggregate_chunk</code><span class="sig-paren">(</span><em>chunk</em>, <em>prev</em>, <em>transients</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#Hart85.disaggregate_chunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.Hart85.disaggregate_chunk" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>chunk</strong> : pd.DataFrame</p>
+<blockquote>
+<div><p>mains power</p>
+</div></blockquote>
+<p><strong>prev</strong></p>
+<p><strong>transients</strong> : returned by find_steady_state_transients</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>states</strong> : pd.DataFrame</p>
+<blockquote class="last">
+<div><p>with same index as <cite>chunk</cite>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.hart_85.Hart85.pair">
+<code class="descname">pair</code><span class="sig-paren">(</span><em>buffer_size</em>, <em>min_tolerance</em>, <em>percent_tolerance</em>, <em>large_transition</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#Hart85.pair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.Hart85.pair" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.hart_85.Hart85.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>metergroup, cols=[('power', 'active')], buffer_size=20, noise_level=70, state_threshold=15, min_tolerance=100, percent_tolerance=0.035, large_transition=1000, **kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#Hart85.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.Hart85.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train using Hart85. Places the learnt model in <cite>model</cite> attribute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>metergroup</strong> : a nilmtk.MeterGroup object</p>
+<p><strong>cols: nilmtk.Measurement, should be one of the following</strong></p>
+<blockquote>
+<div><p>[(‘power’,’active’)]
+[(‘power’,’apparent’)]
+[(‘power’,’reactive’)]
+[(‘power’,’active’), (‘power’, ‘reactive’)]</p>
+</div></blockquote>
+<p><strong>buffer_size: int, optional</strong></p>
+<blockquote>
+<div><p>size of the buffer to use for finding edges</p>
+</div></blockquote>
+<p><strong>min_tolerance: int, optional</strong></p>
+<blockquote>
+<div><p>variance in power draw allowed for pairing a match</p>
+</div></blockquote>
+<p><strong>percent_tolerance: float, optional</strong></p>
+<blockquote>
+<div><p>if transition is greater than large_transition,
+then use percent of large_transition</p>
+</div></blockquote>
+<p><strong>large_transition: float, optional</strong></p>
+<blockquote class="last">
+<div><p>power draw of a Large transition</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.hart_85.</code><code class="descname">MyDeque</code><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#MyDeque"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">collections.deque</span></code></p>
+<dl class="method">
+<dt id="nilmtk.disaggregate.hart_85.MyDeque.popmiddle">
+<code class="descname">popmiddle</code><span class="sig-paren">(</span><em>pos</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#MyDeque.popmiddle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.MyDeque.popmiddle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.hart_85.</code><code class="descname">PairBuffer</code><span class="sig-paren">(</span><em>buffer_size</em>, <em>min_tolerance</em>, <em>percent_tolerance</em>, <em>large_transition</em>, <em>num_measurements</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#PairBuffer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Attributes:
+* transitionList (list of tuples)
+* matchedPairs (dataframe containing matched pairs of transitions)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>buffer_size: int, optional</strong></p>
+<blockquote>
+<div><p>size of the buffer to use for finding edges</p>
+</div></blockquote>
+<p><strong>min_tolerance: int, optional</strong></p>
+<blockquote>
+<div><p>variance in power draw allowed for pairing a match</p>
+</div></blockquote>
+<p><strong>percent_tolerance: float, optional</strong></p>
+<blockquote>
+<div><p>if transition is greater than large_transition, then use percent of large_transition</p>
+</div></blockquote>
+<p><strong>large_transition: float, optional</strong></p>
+<blockquote>
+<div><p>power draw of a Large transition</p>
+</div></blockquote>
+<p><strong>num_measurements: int, optional</strong></p>
+<blockquote class="last">
+<div><p>2 if only active power
+3 if both active and reactive power</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nilmtk.disaggregate.hart_85.PairBuffer.add_transition">
+<code class="descname">add_transition</code><span class="sig-paren">(</span><em>transition</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#PairBuffer.add_transition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.PairBuffer.add_transition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.hart_85.PairBuffer.clean_buffer">
+<code class="descname">clean_buffer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#PairBuffer.clean_buffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.PairBuffer.clean_buffer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.hart_85.PairBuffer.pair_transitions">
+<code class="descname">pair_transitions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/hart_85.html#PairBuffer.pair_transitions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.hart_85.PairBuffer.pair_transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hart 85, P 33.
+When searching the working buffer for pairs, the order in which 
+entries are examined is very important. If an Appliance has 
+on and off several times in succession, there can be many 
+pairings between entries in the buffer. The algorithm must not
+allow an 0N transition to match an OFF which occurred at the end 
+of a different cycle, so that only ON/OFF pairs which truly belong 
+together are paired up. Otherwise the energy consumption of the 
+appliance will be greatly overestimated. The most straightforward 
+search procedures can make errors of this nature when faced with 
+types of transition sequences.</p>
+<p>Hart 85, P 32.
+For the two-state load monitor, a pair is defined as two entries
+which meet the following four conditions:
+(1) They are on the same leg, or are both 240 V,
+(2) They are both unmarked, 
+(3) The earlier has a positive real power component, and 
+(4) When added together, they result in a vector in which the 
+absolute value of the real power component is less than 35 
+Watts (or 3.5% of the real power, if the transitions are 
+over 1000 W) and the absolute value of the reactive power 
+component is less than 35 VAR (or 3.5%).</p>
+<p>… the correct way to search the buffer is to start by checking 
+elements which are close together in the buffer, and gradually 
+increase the distance. First, adjacent  elements are checked for 
+pairs which meet all four requirements above; if any are found 
+they are processed and marked. Then elements two entries apart 
+are checked, then three, and so on, until the first and last 
+element are checked…</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

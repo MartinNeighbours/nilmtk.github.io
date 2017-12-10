@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nilmtk.appliance &mdash; NILMTK 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <title>nilmtk.appliance &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
-    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="NILMTK 0.2 documentation" href="../../index.html" />
-    <link rel="up" title="nilmtk" href="../nilmtk.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -56,7 +51,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
                 <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
             
@@ -115,21 +109,22 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 content">
       
   <h1>Source code for nilmtk.appliance</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">.hashable</span> <span class="kn">import</span> <span class="n">Hashable</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">flatten_2d_list</span>
-<span class="kn">from</span> <span class="nn">nilm_metadata</span> <span class="kn">import</span> <span class="n">get_appliance_types</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="k">import</span> <span class="n">iteritems</span>
+<span class="kn">from</span> <span class="nn">.hashable</span> <span class="k">import</span> <span class="n">Hashable</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">flatten_2d_list</span>
+<span class="kn">from</span> <span class="nn">nilm_metadata</span> <span class="k">import</span> <span class="n">get_appliance_types</span>
 
-<span class="n">ApplianceID</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">&#39;ApplianceID&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">,</span> <span class="s">&#39;instance&#39;</span><span class="p">])</span>
+<span class="n">ApplianceID</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;ApplianceID&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;instance&#39;</span><span class="p">])</span>
 <span class="n">DEFAULT_ON_POWER_THRESHOLD</span> <span class="o">=</span> <span class="mi">10</span>
 
-<div class="viewcode-block" id="Appliance"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.appliance.Appliance">[docs]</a><span class="k">class</span> <span class="nc">Appliance</span><span class="p">(</span><span class="n">Hashable</span><span class="p">):</span>
+<div class="viewcode-block" id="Appliance"><a class="viewcode-back" href="../../nilmtk.appliance.html#nilmtk.appliance.Appliance">[docs]</a><span class="k">class</span> <span class="nc">Appliance</span><span class="p">(</span><span class="n">Hashable</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Represents an appliance instance.</span>
 
 <span class="sd">    Attributes</span>
@@ -139,46 +134,58 @@
 <span class="sd">       http://nilm-metadata.readthedocs.org/en/latest/dataset_metadata.html#appliance</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c">#: Static (AKA class) variable. Maps from appliance_type (string) to a dict</span>
-    <span class="c">#: describing metadata about each appliance type.</span>
-    <span class="n">appliance_types</span> <span class="o">=</span> <span class="p">{}</span> 
+    <span class="c1">#: Static (AKA class) variable. Maps from appliance_type (string) to a dict</span>
+    <span class="c1">#: describing metadata about each appliance type.</span>
+    <span class="n">appliance_types</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">metadata</span>
+    <span class="c1">#: Static variable.  Controls whether Appliance.matches() allows synonyms</span>
+    <span class="c1">#: for appliance type names.</span>
+    <span class="n">allow_synonyms</span> <span class="o">=</span> <span class="kc">True</span>
 
-        <span class="c"># Instantiate static appliance_types</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">metadata</span>
+
+        <span class="c1"># Instantiate static appliance_types</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Appliance</span><span class="o">.</span><span class="n">appliance_types</span><span class="p">:</span>
             <span class="n">Appliance</span><span class="o">.</span><span class="n">appliance_types</span> <span class="o">=</span> <span class="n">get_appliance_types</span><span class="p">()</span>
 
-        <span class="c"># Check appliance type</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span> <span class="ow">and</span> 
-            <span class="ow">not</span> <span class="n">Appliance</span><span class="o">.</span><span class="n">appliance_types</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span><span class="p">)):</span>
-            <span class="n">warn</span><span class="p">(</span><span class="s">&quot;&#39;{}&#39; is not a recognised appliance type.&quot;</span>
+        <span class="c1"># Check appliance type</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Appliance</span><span class="o">.</span><span class="n">appliance_types</span><span class="p">):</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is not a recognised appliance type.&quot;</span>
                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span><span class="p">),</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Appliance.identifier"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.appliance.Appliance.identifier">[docs]</a>    <span class="k">def</span> <span class="nf">identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return ApplianceID&quot;&quot;&quot;</span>
         <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span>
-        <span class="k">return</span> <span class="n">ApplianceID</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;type&#39;</span><span class="p">),</span> <span class="n">md</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;instance&#39;</span><span class="p">))</span>
-</div>
+        <span class="k">return</span> <span class="n">ApplianceID</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">),</span> <span class="n">md</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;instance&#39;</span><span class="p">))</span>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Appliance.type"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.appliance.Appliance.type">[docs]</a>    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return deepcopy of dict describing appliance type.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">Appliance</span><span class="o">.</span><span class="n">appliance_types</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span><span class="p">])</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Appliance.n_meters"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.appliance.Appliance.n_meters">[docs]</a>    <span class="k">def</span> <span class="nf">n_meters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return number of meters (int) to which this appliance is connected&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;meters&#39;</span><span class="p">])</span>
-</div>
-<div class="viewcode-block" id="Appliance.on_power_threshold"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.appliance.Appliance.on_power_threshold">[docs]</a>    <span class="k">def</span> <span class="nf">on_power_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">threshold_from_appliance_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;on_power_threshold&#39;</span><span class="p">,</span> 
-                                                      <span class="n">DEFAULT_ON_POWER_THRESHOLD</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;on_power_threshold&#39;</span><span class="p">,</span> 
-                                 <span class="n">threshold_from_appliance_type</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="Appliance.label"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.appliance.Appliance.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">n_meters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return number of meters (int) to which this</span>
+<span class="sd">        appliance is connected&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;meters&#39;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="Appliance.on_power_threshold"><a class="viewcode-back" href="../../nilmtk.appliance.html#nilmtk.appliance.Appliance.on_power_threshold">[docs]</a>    <span class="k">def</span> <span class="nf">on_power_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;on_power_threshold&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;nominal_consumption&#39;</span><span class="p">][</span><span class="s1">&#39;on_power&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">threshold_from_appliance_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s1">&#39;on_power_threshold&#39;</span><span class="p">,</span> <span class="n">DEFAULT_ON_POWER_THRESHOLD</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">threshold_from_appliance_type</span></div>
+
+<div class="viewcode-block" id="Appliance.label"><a class="viewcode-back" href="../../nilmtk.appliance.html#nilmtk.appliance.Appliance.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return string &#39;(&lt;type&gt;, &lt;identifier&gt;)&#39; e.g. &#39;(fridge, 1)&#39;</span>
 <span class="sd">        if `pretty=False` else if `pretty=True` then return a string like</span>
 <span class="sd">        &#39;Fridge&#39; or &#39;Fridge 2&#39;. If type == &#39;unknown&#39; then </span>
@@ -187,21 +194,28 @@
             <span class="n">label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">instance</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">label</span> <span class="o">+=</span> <span class="s">&quot; {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">instance</span><span class="p">)</span>
+                <span class="n">label</span> <span class="o">+=</span> <span class="s2">&quot; </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">instance</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">))</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="s">&#39;unknown&#39;</span><span class="p">:</span>
-            <span class="n">label</span> <span class="o">+=</span> <span class="s">&#39;, original name = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;original_name&#39;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">label</span>
-</div>
-<div class="viewcode-block" id="Appliance.categories"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.appliance.Appliance.categories">[docs]</a>    <span class="k">def</span> <span class="nf">categories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="s1">&#39;unknown&#39;</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">+=</span> <span class="s1">&#39;, original name = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;original_name&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">label</span></div>
+
+<div class="viewcode-block" id="Appliance.categories"><a class="viewcode-back" href="../../nilmtk.appliance.html#nilmtk.appliance.Appliance.categories">[docs]</a>    <span class="k">def</span> <span class="nf">categories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return 1D list of category names (strings).&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">flatten_2d_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;categories&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-</div>
-<div class="viewcode-block" id="Appliance.matches"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.appliance.Appliance.matches">[docs]</a>    <span class="k">def</span> <span class="nf">matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">flatten_2d_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;categories&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Appliance.matches"><a class="viewcode-back" href="../../nilmtk.appliance.html#nilmtk.appliance.Appliance.matches">[docs]</a>    <span class="k">def</span> <span class="nf">matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns True if all key:value pairs in `key` match </span>
+<span class="sd">        `appliance.metadata` or</span>
+<span class="sd">        `Appliance.appliance_types[appliance.metadata[&#39;type&#39;]]`.</span>
+<span class="sd">        Returns True if key is empty dict.</span>
+
+<span class="sd">        By default, matches synonyms.  Set `Appliance.allow_synonyms = False`</span>
+<span class="sd">        if you do not want to allow synonyms.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        key : dict</span>
@@ -209,42 +223,44 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Bool</span>
-<span class="sd">            True if all key:value pairs in `key` match `appliance.metadata`</span>
-<span class="sd">            or `Appliance.appliance_types[appliance.metadata[&#39;type&#39;]]`.</span>
-<span class="sd">            Returns True if key is empty dict.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
 
-        <span class="n">match</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">key</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
-                    <span class="n">match</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="k">if</span> <span class="n">Appliance</span><span class="o">.</span><span class="n">allow_synonyms</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span>
+                    <span class="n">synonyms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;synonyms&#39;</span><span class="p">,</span> <span class="p">[])</span>
+                    <span class="n">synonyms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">synonyms</span><span class="p">:</span>
+                        <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">elif</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+            <span class="k">elif</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
-                    <span class="n">match</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="k">elif</span> <span class="n">k</span> <span class="o">==</span> <span class="s">&#39;category&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">&#39;category&#39;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">categories</span><span class="p">():</span>
-                    <span class="n">match</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+            <span class="k">elif</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
                 <span class="n">metadata_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">metadata_value</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> 
-                    <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
-                    <span class="c"># for example, &#39;control&#39; is a list in metadata</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">metadata_value</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span>
+                        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+                    <span class="c1"># for example, &#39;control&#39; is a list in metadata</span>
                     <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">metadata_value</span><span class="p">:</span>
-                        <span class="n">match</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">elif</span> <span class="n">metadata_value</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
-                    <span class="n">match</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;&#39;{}&#39; not a valid key.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; not a valid key.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">match</span></div></div>
 </pre></div>
@@ -261,7 +277,7 @@
     </p>
     <p>
         &copy; Copyright 2014, NILMTK Authors.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

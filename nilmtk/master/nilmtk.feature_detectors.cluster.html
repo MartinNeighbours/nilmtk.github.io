@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.feature_detectors.cluster module &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.feature_detectors.steady_states module" href="nilmtk.feature_detectors.steady_states.html" />
+    <link rel="prev" title="nilmtk.feature_detectors package" href="nilmtk.feature_detectors.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.feature_detectors.cluster module</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.feature_detectors.html" title="Previous Chapter: nilmtk.feature_detectors package"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.featur...</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.feature_detectors.steady_states.html" title="Next Chapter: nilmtk.feature_detectors.steady_states module"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.featur... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.feature_detectors.cluster.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="module-nilmtk.feature_detectors.cluster">
+<span id="nilmtk-feature-detectors-cluster-module"></span><h1>nilmtk.feature_detectors.cluster module<a class="headerlink" href="#module-nilmtk.feature_detectors.cluster" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="nilmtk.feature_detectors.cluster.cluster">
+<code class="descclassname">nilmtk.feature_detectors.cluster.</code><code class="descname">cluster</code><span class="sig-paren">(</span><em>X</em>, <em>max_num_clusters=3</em>, <em>exact_num_clusters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/feature_detectors/cluster.html#cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.feature_detectors.cluster.cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies clustering on reduced data, 
+i.e. data where power is greater than threshold.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>X</strong> : pd.Series or single-column pd.DataFrame</p>
+<p><strong>max_num_clusters</strong> : int</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>centroids</strong> : ndarray of int32s</p>
+<blockquote class="last">
+<div><p>Power in different states of an appliance, sorted</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.feature_detectors.cluster.hart85_means_shift_cluster">
+<code class="descclassname">nilmtk.feature_detectors.cluster.</code><code class="descname">hart85_means_shift_cluster</code><span class="sig-paren">(</span><em>pair_buffer_df</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/feature_detectors/cluster.html#hart85_means_shift_cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.feature_detectors.cluster.hart85_means_shift_cluster" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

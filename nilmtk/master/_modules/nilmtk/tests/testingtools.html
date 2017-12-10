@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nilmtk.tests.testingtools &mdash; NILMTK 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <title>nilmtk.tests.testingtools &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
-    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="NILMTK 0.2 documentation" href="../../../index.html" />
-    <link rel="up" title="nilmtk" href="../../nilmtk.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -56,7 +51,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
                 <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
             
@@ -115,36 +109,36 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 content">
       
   <h1>Source code for nilmtk.tests.testingtools</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Tools to help with testing.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">inspect</span><span class="o">,</span> <span class="nn">warnings</span>
 
-<div class="viewcode-block" id="data_dir"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.testingtools.data_dir">[docs]</a><span class="k">def</span> <span class="nf">data_dir</span><span class="p">():</span>
-    <span class="c"># Taken from http://stackoverflow.com/a/6098238/732596</span>
+<div class="viewcode-block" id="data_dir"><a class="viewcode-back" href="../../../nilmtk.tests.testingtools.html#nilmtk.tests.testingtools.data_dir">[docs]</a><span class="k">def</span> <span class="nf">data_dir</span><span class="p">():</span>
+    <span class="c1"># Taken from http://stackoverflow.com/a/6098238/732596</span>
     <span class="n">current_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()))</span>
-    <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_file_path</span><span class="p">,</span> <span class="s">&#39;..&#39;</span><span class="p">,</span> <span class="s">&#39;..&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">)</span>
+    <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_file_path</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
     <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">),</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s">&quot; does not exist.&quot;</span>
-    <span class="k">return</span> <span class="n">data_dir</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">),</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot; does not exist.&quot;</span>
+    <span class="k">return</span> <span class="n">data_dir</span></div>
 
-</div>
-<div class="viewcode-block" id="WarningTestMixin"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.testingtools.WarningTestMixin">[docs]</a><span class="k">class</span> <span class="nc">WarningTestMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="WarningTestMixin"><a class="viewcode-back" href="../../../nilmtk.tests.testingtools.html#nilmtk.tests.testingtools.WarningTestMixin">[docs]</a><span class="k">class</span> <span class="nc">WarningTestMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A test which checks if the specified warning was raised.</span>
 
 <span class="sd">    Taken from http://stackoverflow.com/a/12935176/732596</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="WarningTestMixin.assertWarns"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.testingtools.WarningTestMixin.assertWarns">[docs]</a>    <span class="k">def</span> <span class="nf">assertWarns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">warning</span><span class="p">,</span> <span class="nb">callable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">warning_list</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s">&#39;always&#39;</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="nb">callable</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<div class="viewcode-block" id="WarningTestMixin.assertWarns"><a class="viewcode-back" href="../../../nilmtk.tests.testingtools.html#nilmtk.tests.testingtools.WarningTestMixin.assertWarns">[docs]</a>    <span class="k">def</span> <span class="nf">assertWarns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">warning</span><span class="p">,</span> <span class="n">callable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">warning_list</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;always&#39;</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">callable</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="n">warning</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">warning_list</span><span class="p">),</span>
-                            <span class="n">msg</span><span class="o">=</span><span class="s">&quot;Warning &#39;{}&#39; not raised.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">warning</span><span class="p">))</span></div></div>
+                            <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Warning &#39;</span><span class="si">{}</span><span class="s2">&#39; not raised.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">warning</span><span class="p">))</span></div></div>
 </pre></div>
 
     </div>
@@ -159,7 +153,7 @@
     </p>
     <p>
         &copy; Copyright 2014, NILMTK Authors.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

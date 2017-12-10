@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.disaggregate.maximum_likelihood_estimation &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for nilmtk.disaggregate.maximum_likelihood_estimation</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">..timeframe</span> <span class="k">import</span> <span class="n">merge_timeframes</span><span class="p">,</span> <span class="n">TimeFrame</span>
+<span class="kn">from</span> <span class="nn">.disaggregator</span> <span class="k">import</span> <span class="n">Disaggregator</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">poisson</span><span class="p">,</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">mixture</span>
+
+
+<div class="viewcode-block" id="MLE"><a class="viewcode-back" href="../../../nilmtk.disaggregate.maximum_likelihood_estimation.html#nilmtk.disaggregate.maximum_likelihood_estimation.MLE">[docs]</a><span class="k">class</span> <span class="nc">MLE</span><span class="p">(</span><span class="n">Disaggregator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Disaggregation of a single appliance based on its features and</span>
+<span class="sd">    using the maximum likelihood of all features.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    appliance: str</span>
+<span class="sd">        Name of the appliance</span>
+<span class="sd">    stats: list of dicts</span>
+<span class="sd">        One dict for feature with:</span>
+<span class="sd">    units: tuple</span>
+<span class="sd">        For instance: (&#39;power&#39;,&#39;active&#39;)</span>
+<span class="sd">    resistive: boolean</span>
+<span class="sd">        To decide if &#39;apparent&#39; == &#39;active&#39;</span>
+<span class="sd">    thDelta: int</span>
+<span class="sd">        Treshold for delta values on the power. Used on train_on_chunk method</span>
+<span class="sd">    thLikelihood: int</span>
+<span class="sd">        Treshold for the maximum likelihood</span>
+<span class="sd">    sample_period: str</span>
+<span class="sd">        For resampling in training and disaggregate methods</span>
+<span class="sd">    sample_method: str</span>
+<span class="sd">        Pandas method for resampling</span>
+<span class="sd">    onpower: dict</span>
+<span class="sd">        {&#39;name&#39;:str, &#39;gmm&#39;: str, &#39;model&#39;: sklearn model}</span>
+<span class="sd">    offpower: dict</span>
+<span class="sd">        {&#39;name&#39;:str, &#39;gmm&#39;: str, &#39;model&#39;: sklearn model}</span>
+<span class="sd">    duration: dict</span>
+<span class="sd">        {&#39;name&#39;:str, &#39;gmm&#39;: str, &#39;model&#39;: sklearn model}</span>
+<span class="sd">    onpower_train: pandas.Dataframe()</span>
+<span class="sd">        Training samples of onpower</span>
+<span class="sd">    offpower_train: pandas.Dataframe()</span>
+<span class="sd">        Training samples of offpower</span>
+<span class="sd">    duaration_train: pandas.Dataframe()</span>
+<span class="sd">        Training samples of duration</span>
+<span class="sd">    powerNoise: int</span>
+<span class="sd">        For the disaggregate_chunk method, minimum delta value of a event to be</span>
+<span class="sd">         considered, otherwise is noise.</span>
+<span class="sd">    powerPair: int</span>
+<span class="sd">        For the disaggregate_chunk method, max delta value difference between</span>
+<span class="sd">         onpower and offpower</span>
+<span class="sd">    timeWindow: int</span>
+<span class="sd">        For the disaggregate_chunk method, a time frame to speed up</span>
+<span class="sd">         disaggregate_chunk method.</span>
+
+<span class="sd">    TODO:</span>
+<span class="sd">    -----</span>
+<span class="sd">    * Build a method for choosing thLikelihood automatically based on its</span>
+<span class="sd">     optimization using ROC curve.</span>
+<span class="sd">    * Method for measuring ROC curve.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inizialise of the model by default</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MLE</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Metadata</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">appliance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resistive</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thDelta</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thLikelihood</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sample_period</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sampling_method</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># FEATURES:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onpower</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;gmm&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">mixture</span><span class="o">.</span><span class="n">GMM</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offpower</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;gmm&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">mixture</span><span class="o">.</span><span class="n">GMM</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;poisson&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">poisson</span><span class="p">(</span><span class="mi">0</span><span class="p">)}</span>
+
+        <span class="c1"># Trainings:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;onpower&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;offpower&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Constrains</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">powerNoise</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1"># Background noise in the main</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">powerPair</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Max diff between onpower and offpower</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeWindow</span> <span class="o">=</span> <span class="mi">0</span>        <span class="c1"># To avoid high computation</span>
+
+    <span class="k">def</span> <span class="nf">__retrain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">feature_train</span><span class="p">):</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training &quot;</span> <span class="o">+</span> <span class="n">feature_train</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">mu</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">feature_train</span><span class="p">)</span>
+        <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">std</span><span class="p">)</span>
+        <span class="sd">&#39;&#39;&#39;if feature[&#39;name&#39;] == &#39;gmm&#39;:</span>
+<span class="sd">            feature[&#39;model&#39;].fit(feature_train)</span>
+<span class="sd">        elif feature[&#39;name&#39;] == &#39;norm&#39;:</span>
+<span class="sd">            mu, std = norm.fit(feature_train)</span>
+<span class="sd">            feature[&#39;model&#39;] = norm(loc=mu, scale=std)</span>
+<span class="sd">        elif feature[&#39;name&#39;] == &#39;poisson&#39;:</span>
+<span class="sd">            self.onpower[&#39;model&#39;] = poisson(feature_train.mean())</span>
+<span class="sd">        else:</span>
+<span class="sd">            raise NameError(</span>
+<span class="sd">                &quot;Name of the model for &quot; + </span>
+<span class="sd">                str(feature_train.columns[0]) + </span>
+<span class="sd">                &quot; unknown or not implemented&quot;)       &#39;&#39;&#39;</span> 
+
+    <span class="k">def</span> <span class="nf">__physical_quantity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk</span><span class="p">):</span> 
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">resistive</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Checking units&quot;</span><span class="p">)</span>
+            <span class="n">units_mismatched</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
+                    <span class="n">units</span> <span class="o">=</span> <span class="n">name</span>
+                    <span class="n">units_mismatched</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">units_mismatched</span><span class="p">:</span>
+                <span class="n">stringError</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">appliance</span> <span class="o">+</span> <span class="s2">&quot; cannot be disaggregated. &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">appliance</span> <span class="o">+</span> \
+                    <span class="s2">&quot; is a non-resistive element and  units mismatches: disaggregated data is in &quot;</span> <span class="o">+</span> \
+                    <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">)</span> <span class="o">+</span> \
+                    <span class="s2">&quot; and aggregated data is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">stringError</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">units</span>
+
+    <span class="k">def</span> <span class="nf">__pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;norm&#39;</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;gmm&#39;</span><span class="p">:</span>
+            <span class="c1">#score = np.exp(feature[&#39;model&#39;].score([delta]))[0]</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;poisson&#39;</span><span class="p">:</span>
+            <span class="c1"># Decimal values produce odd values in poisson (bug)</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+            <span class="c1">#score = feature[&#39;model&#39;].pmf(delta)</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Wrong model for&quot;</span> <span class="o">+</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">+</span>
+                                 <span class="s2">&quot; It must be: gmm, norm or poisson&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">score</span>   
+
+    <span class="k">def</span> <span class="nf">__pdf2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;norm&#39;</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;gmm&#39;</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">feature</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">score</span><span class="p">([</span><span class="n">delta</span><span class="p">]))</span>
+        <span class="k">elif</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;poisson&#39;</span><span class="p">:</span>
+            <span class="c1"># Decimal values produce odd values in poisson (bug)</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Wrong model for&quot;</span> <span class="o">+</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">+</span>
+                                 <span class="s2">&quot; It must be: gmm, norm or poisson&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">score</span>   
+
+<div class="viewcode-block" id="MLE.update"><a class="viewcode-back" href="../../../nilmtk.disaggregate.maximum_likelihood_estimation.html#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method will update attributes of the model passed by kwargs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : key word arguments</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Updating model&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="MLE.train"><a class="viewcode-back" href="../../../nilmtk.disaggregate.maximum_likelihood_estimation.html#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metergroup</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train using ML.</span>
+<span class="sd">        Call disaggregate_chunk method</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        metergroup : a nilmtk.MeterGroup object</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        * Inizialise &quot;stats&quot; and &quot;feature_train&quot; on the model.</span>
+<span class="sd">        * Instance is initialised to 1. Use meter.instance to provide more</span>
+<span class="sd">         information (TODO)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Inizialise stats and training data:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;onpower&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;offpower&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Calling train_on_chunk by meter:</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># initial instance.</span>
+        <span class="k">for</span> <span class="n">meter</span> <span class="ow">in</span> <span class="n">metergroup</span><span class="o">.</span><span class="n">meters</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">meter</span><span class="o">.</span><span class="n">power_series</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Chunk empty&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training on chunk&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">train_on_chunk</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">sample_period</span><span class="p">,</span>
+                        <span class="n">how</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sampling_method</span><span class="p">)),</span>
+                        <span class="n">meter</span>
+                    <span class="p">)</span>
+
+            <span class="n">instance</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="MLE.train_on_chunk"><a class="viewcode-back" href="../../../nilmtk.disaggregate.maximum_likelihood_estimation.html#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.train_on_chunk">[docs]</a>    <span class="k">def</span> <span class="nf">train_on_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk</span><span class="p">,</span> <span class="n">meter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extracts features  from chunk, concatenates feature_train</span>
+<span class="sd">        (onpower_train, offpower_train and duration_train) with new features</span>
+<span class="sd">        and retrains feature</span>
+<span class="sd">        models.</span>
+<span class="sd">        Updates stats attribute.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunk : pd.DataFrame where each column represents a disaggregated</span>
+<span class="sd">        meter : ElecMeter for this chunk</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        * Disaggregates only the selected appliance.(TODO: Disaggregates many)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># EXTRACT FEATURES:</span>
+        <span class="c1"># find units:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># Loading treshold for getting events:</span>
+        <span class="n">thDelta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;thDelta&#39;</span><span class="p">)</span>
+        <span class="n">chunk</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;date_time&#39;</span>
+        <span class="c1"># To prevent learning many samples at the middle of a edge:</span>
+        <span class="n">chunk</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">chunk</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">thDelta</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Learning edges</span>
+        <span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+        <span class="n">chunk</span><span class="o">.</span><span class="n">delta</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">thDelta</span><span class="p">]</span><span class="o">.</span><span class="n">delta</span>
+        <span class="c1"># Pairing on/off events</span>
+        <span class="c1">#print(chunk)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">offpower</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">edges</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">onpower</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">edges</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">offpower</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">date_time</span> <span class="o">-</span> \
+                <span class="n">onpower</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">date_time</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">duration</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[s]&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Set consistent index for concatenation:</span>
+            <span class="n">onpower</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">onpower</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">onpower</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;onpower&#39;</span><span class="p">]</span>
+            <span class="n">offpower</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">offpower</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">offpower</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;offpower&#39;</span><span class="p">]</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">duration</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span>
+
+            <span class="c1"># Len of samples:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Samples of onpower: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">onpower</span><span class="p">)))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Samples of offpower: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">offpower</span><span class="p">)))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Samples of duration: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">duration</span><span class="p">)))</span>
+
+            <span class="n">number_of_events</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">onpower</span><span class="p">)</span>
+            <span class="c1"># Features (concatenation)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="p">,</span> <span class="n">onpower</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="p">,</span> <span class="n">offpower</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="p">,</span> <span class="n">duration</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">number_of_events</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;WARNING: No paired events found on this chunk.</span>
+<span class="s2">            Is it thDelta too high?&quot;&quot;&quot;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">duration</span><span class="o">&lt;</span><span class="mi">400</span><span class="p">]</span>
+
+        <span class="c1"># RE-TRAIN FEATURE MODELS:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__retrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onpower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__retrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__retrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="p">)</span>
+
+        <span class="c1"># UPDATE STATS:</span>
+        <span class="n">stat_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;appliance&#39;</span><span class="p">:</span> <span class="n">meter</span><span class="o">.</span><span class="n">identifier</span><span class="p">[</span>
+            <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;instance&#39;</span><span class="p">:</span> <span class="n">meter</span><span class="o">.</span><span class="n">identifier</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;Nevents&#39;</span><span class="p">:</span> <span class="n">number_of_events</span><span class="p">}</span>
+        <span class="n">instanceFound</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stat_dict</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">((</span><span class="n">stat</span><span class="p">[</span><span class="s1">&#39;appliance&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">stat_dict</span><span class="p">[</span><span class="s1">&#39;appliance&#39;</span><span class="p">])</span> <span class="ow">and</span>
+                        <span class="p">(</span><span class="n">stat</span><span class="p">[</span><span class="s1">&#39;instance&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">stat_dict</span><span class="p">[</span><span class="s1">&#39;instance&#39;</span><span class="p">])):</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;Nevents&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span>
+                        <span class="n">index</span><span class="p">][</span><span class="s1">&#39;Nevents&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">number_of_events</span>
+                    <span class="n">instanceFound</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">instanceFound</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stat_dict</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MLE.disaggregate"><a class="viewcode-back" href="../../../nilmtk.disaggregate.maximum_likelihood_estimation.html#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.disaggregate">[docs]</a>    <span class="k">def</span> <span class="nf">disaggregate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mains</span><span class="p">,</span> <span class="n">output_datastore</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Passes each chunk from mains generator to disaggregate_chunk()</span>
+<span class="sd">        and passes the output to _write_disaggregated_chunk_to_datastore()</span>
+<span class="sd">        Will have a default implementation in super class.</span>
+<span class="sd">        Can be overridden for more simple in-memory disaggregation,</span>
+<span class="sd">        or more complex out-of-core disaggregation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mains : nilmtk.ElecMeter (single-phase) or nilmtk.MeterGroup (multi-phase)</span>
+<span class="sd">        output_datastore : instance of nilmtk.DataStore or str of datastore location</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">building_path</span> <span class="o">=</span> <span class="s1">&#39;/building</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mains</span><span class="o">.</span><span class="n">building</span><span class="p">())</span>
+        <span class="c1"># only writes one appliance and meter per building</span>
+        <span class="n">meter_instance</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">mains_data_location</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/elec/meter1&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">building_path</span><span class="p">)</span>
+        
+        <span class="c1">#dis_main = pd.DataFrame()</span>
+        <span class="n">chunk_number</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">timeframes</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">mains</span><span class="o">.</span><span class="n">power_series</span><span class="p">():</span>
+        
+            <span class="c1"># Record metadata</span>
+            <span class="n">timeframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">timeframe</span><span class="p">)</span>
+            <span class="n">measurement</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_tuples</span><span class="p">([</span><span class="n">chunk</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+            
+            <span class="n">dis_chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disaggregate_chunk</span><span class="p">(</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_period</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sampling_method</span><span class="p">)))</span>
+            <span class="c1">#dis_main = pd.concat([dis_main, dis_chunk])</span>
+            <span class="n">chunk_number</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">chunk_number</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; chunks disaggregated&quot;</span><span class="p">)</span>
+            
+            <span class="c1"># Write appliance data to disag output</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/elec/meter</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">building_path</span><span class="p">,</span> <span class="n">meter_instance</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                    <span class="n">dis_chunk</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">dis_chunk</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+                    <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+            <span class="n">output_datastore</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+
+            <span class="c1"># Copy mains data to disag output</span>
+            <span class="n">output_datastore</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">mains_data_location</span><span class="p">,</span>
+                                    <span class="n">value</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chunk</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">))</span>
+
+        <span class="c1"># Saving output datastore:</span>
+        <span class="c1">#output_datastore.append(key=mains.key, value=dis_main)</span>
+        
+        <span class="c1">##################################</span>
+        <span class="c1"># Add metadata to output_datastore</span>
+
+        <span class="c1"># TODO: `preprocessing_applied` for all meters</span>
+        <span class="c1"># TODO: split this metadata code into a separate function</span>
+        <span class="c1"># TODO: submeter measurement should probably be the mains</span>
+        <span class="c1">#       measurement we used to train on, not the mains measurement.</span>
+        
+        <span class="n">date_now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">output_name</span> <span class="o">=</span> <span class="s1">&#39;NILMTK_MLE_&#39;</span> <span class="o">+</span> <span class="n">date_now</span>
+        <span class="n">resample_seconds</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="n">mains_data_location</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/elec/meter1&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">building_path</span><span class="p">)</span>
+
+        <span class="c1"># DataSet and MeterDevice metadata:</span>
+        <span class="n">meter_devices</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;MLE&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="s1">&#39;MLE&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;sample_period&#39;</span><span class="p">:</span> <span class="n">resample_seconds</span><span class="p">,</span>
+                <span class="s1">&#39;max_sample_period&#39;</span><span class="p">:</span> <span class="n">resample_seconds</span><span class="p">,</span>
+                <span class="s1">&#39;measurements&#39;</span><span class="p">:</span> <span class="p">[{</span>
+                    <span class="s1">&#39;physical_quantity&#39;</span><span class="p">:</span> <span class="n">measurement</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">measurement</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="p">}]</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;mains&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="s1">&#39;mains&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;sample_period&#39;</span><span class="p">:</span> <span class="n">resample_seconds</span><span class="p">,</span>
+                <span class="s1">&#39;max_sample_period&#39;</span><span class="p">:</span> <span class="n">resample_seconds</span><span class="p">,</span>
+                <span class="s1">&#39;measurements&#39;</span><span class="p">:</span> <span class="p">[{</span>
+                    <span class="s1">&#39;physical_quantity&#39;</span><span class="p">:</span> <span class="n">measurement</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">measurement</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="p">}]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">merged_timeframes</span> <span class="o">=</span> <span class="n">merge_timeframes</span><span class="p">(</span><span class="n">timeframes</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="n">resample_seconds</span><span class="p">)</span>
+        <span class="n">total_timeframe</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="n">merged_timeframes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                                    <span class="n">merged_timeframes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>
+
+        <span class="n">dataset_metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">output_name</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">date_now</span><span class="p">,</span>
+                            <span class="s1">&#39;meter_devices&#39;</span><span class="p">:</span> <span class="n">meter_devices</span><span class="p">,</span>
+                            <span class="s1">&#39;timeframe&#39;</span><span class="p">:</span> <span class="n">total_timeframe</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()}</span>
+        <span class="n">output_datastore</span><span class="o">.</span><span class="n">save_metadata</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">dataset_metadata</span><span class="p">)</span>
+
+        <span class="c1"># Building metadata</span>
+
+        <span class="c1"># Mains meter:</span>
+        <span class="n">elec_meters</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="mi">1</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;device_model&#39;</span><span class="p">:</span> <span class="s1">&#39;mains&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;site_meter&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s1">&#39;data_location&#39;</span><span class="p">:</span> <span class="n">mains_data_location</span><span class="p">,</span>
+                <span class="s1">&#39;preprocessing_applied&#39;</span><span class="p">:</span> <span class="p">{},</span>  <span class="c1"># TODO</span>
+                <span class="s1">&#39;statistics&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;timeframe&#39;</span><span class="p">:</span> <span class="n">total_timeframe</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Appliances and submeters:</span>
+        <span class="n">appliances</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">appliance</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;meters&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">meter_instance</span><span class="p">],</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;kettle&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;instance&#39;</span><span class="p">:</span> <span class="mi">1</span>
+            <span class="c1"># TODO this `instance` will only be correct when the</span>
+            <span class="c1"># model is trained on the same house as it is tested on.</span>
+            <span class="c1"># https://github.com/nilmtk/nilmtk/issues/194</span>
+        <span class="p">}</span>
+        <span class="n">appliances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">appliance</span><span class="p">)</span>
+
+        <span class="n">elec_meters</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="n">meter_instance</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;device_model&#39;</span><span class="p">:</span> <span class="s1">&#39;MLE&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;submeter_of&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s1">&#39;data_location&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/elec/meter</span><span class="si">{}</span><span class="s1">&#39;</span>
+                                      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">building_path</span><span class="p">,</span> <span class="n">meter_instance</span><span class="p">)),</span>
+                <span class="s1">&#39;preprocessing_applied&#39;</span><span class="p">:</span> <span class="p">{},</span>  <span class="c1"># TODO</span>
+                <span class="s1">&#39;statistics&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;timeframe&#39;</span><span class="p">:</span> <span class="n">total_timeframe</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+        <span class="n">elec_meters</span><span class="p">[</span><span class="n">meter_instance</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;kettle&#39;</span>
+
+        <span class="n">building_metadata</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;instance&#39;</span><span class="p">:</span> <span class="n">mains</span><span class="o">.</span><span class="n">building</span><span class="p">(),</span>
+            <span class="s1">&#39;elec_meters&#39;</span><span class="p">:</span> <span class="n">elec_meters</span><span class="p">,</span>
+            <span class="s1">&#39;appliances&#39;</span><span class="p">:</span> <span class="n">appliances</span>
+        <span class="p">}</span>
+
+        <span class="n">output_datastore</span><span class="o">.</span><span class="n">save_metadata</span><span class="p">(</span><span class="n">building_path</span><span class="p">,</span> <span class="n">building_metadata</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MLE.disaggregate_chunk"><a class="viewcode-back" href="../../../nilmtk.disaggregate.maximum_likelihood_estimation.html#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.disaggregate_chunk">[docs]</a>    <span class="k">def</span> <span class="nf">disaggregate_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks units.</span>
+<span class="sd">        Disaggregates &quot;chunk&quot; with MaximumLikelihood algorithm.</span>
+
+<span class="sd">        Optimization:</span>
+<span class="sd">        Filters events with powerNoise.</span>
+<span class="sd">        Filters paired-events with powerPair.</span>
+<span class="sd">        Windowing with timeWindow for speeding up.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        chunk : pd.DataFrame (in NILMTK format)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        chunk : pd.DataFrame where each column represents a disaggregated appliance</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        * Disaggregation is not prooved. (TODO: verify the process with the Groundtruth)</span>
+<span class="sd">        * Disaggregates only the selected appliance.(TODO: Disaggregates many)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># An resistive element has active power equal to apparent power.</span>
+        <span class="c1"># Checking power units.</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__physical_quantity</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+
+        <span class="c1"># EVENTS OUT OF THE CHUNK:</span>
+        <span class="c1"># Delta values:</span>
+        <span class="n">column_name</span> <span class="o">=</span> <span class="s1">&#39;diff_&#39;</span> <span class="o">+</span> <span class="n">units</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">chunk</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">units</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+
+        <span class="c1"># Filter the noise.</span>
+        <span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;onpower&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">powerNoise</span><span class="p">)</span>
+        <span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;offpower&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">powerNoise</span><span class="p">)</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[(</span><span class="n">chunk</span><span class="o">.</span><span class="n">onpower</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">offpower</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)]</span>
+
+        <span class="n">detection_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">singleOnevent</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Max Likelihood algorithm (optimized):</span>
+        <span class="k">for</span> <span class="n">onevent</span> <span class="ow">in</span> <span class="n">events</span><span class="p">[</span><span class="n">events</span><span class="o">.</span><span class="n">onpower</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="c1"># onTime = onevent[0]</span>
+            <span class="c1"># deltaOn = onevent[1][1]</span>
+            <span class="c1"># windowning:</span>
+            <span class="n">offevents</span> <span class="o">=</span> <span class="n">events</span><span class="p">[(</span><span class="n">events</span><span class="o">.</span><span class="n">offpower</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;</span> <span class="n">onevent</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span>
+                <span class="n">events</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">onevent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeWindow</span><span class="p">))]</span>
+            <span class="c1"># Filter paired events:</span>
+            <span class="n">offevents</span> <span class="o">=</span> <span class="n">offevents</span><span class="p">[</span>
+                <span class="nb">abs</span><span class="p">(</span><span class="n">onevent</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">offevents</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">())</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">powerPair</span><span class="p">]</span>
+
+            <span class="c1"># Max likelihood computation:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">offevents</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="c1"># pon = self.__pdf(self.onpower, onevent[1][1])</span>
+                <span class="k">for</span> <span class="n">offevent</span> <span class="ow">in</span> <span class="n">offevents</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+                    <span class="c1"># offTime = offevent[0]</span>
+                    <span class="c1"># deltaOff = offevent[1][1]</span>
+                    <span class="c1"># poff = self.__pdf(self.offpower, offevent[1][1])</span>
+                    <span class="c1"># duration = offevent[0] - onTime</span>
+                    <span class="c1"># pduration = self.__pdf(self.duration, (offevent[0] - onTime).total_seconds())</span>
+                    <span class="n">likelihood</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onpower</span><span class="p">,</span> <span class="n">onevent</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> \
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower</span><span class="p">,</span> <span class="n">offevent</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> \
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span> <span class="p">(</span><span class="n">offevent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> \
+                                        <span class="n">onevent</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+                    <span class="n">detection_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="p">{</span><span class="s1">&#39;likelihood&#39;</span><span class="p">:</span> <span class="n">likelihood</span><span class="p">,</span> <span class="s1">&#39;onTime&#39;</span><span class="p">:</span> <span class="n">onevent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
+                        <span class="s1">&#39;offTime&#39;</span><span class="p">:</span> <span class="n">offevent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;deltaOn&#39;</span><span class="p">:</span> <span class="n">onevent</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]})</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">singleOnevent</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Passing detections to a pandas.DataFrame</span>
+        <span class="n">detections</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;onTime&#39;</span><span class="p">,</span> <span class="s1">&#39;offTime&#39;</span><span class="p">,</span> <span class="s1">&#39;likelihood&#39;</span><span class="p">,</span> <span class="s1">&#39;deltaOn&#39;</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">detection_list</span><span class="p">)):</span>
+            <span class="n">detections</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">detection_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;onTime&#39;</span><span class="p">],</span> <span class="n">detection_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span>
+                <span class="s1">&#39;offTime&#39;</span><span class="p">],</span> <span class="n">detection_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;likelihood&#39;</span><span class="p">],</span> <span class="n">detection_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;deltaOn&#39;</span><span class="p">]]</span>
+
+        <span class="n">detections</span> <span class="o">=</span> <span class="n">detections</span><span class="p">[</span><span class="n">detections</span><span class="o">.</span><span class="n">likelihood</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">thLikelihood</span><span class="p">]</span>
+
+        <span class="c1"># Constructing dis_chunk (power of disaggregated appliance)</span>
+        <span class="n">dis_chunk</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">chunk</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">units</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">units</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+        <span class="n">dis_chunk</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Ruling out overlapped detecttions ordering by likelihood value.</span>
+        <span class="n">detections</span> <span class="o">=</span> <span class="n">detections</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;likelihood&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">detections</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="c1"># onTime = row[1][0] offTime = row[1][1] deltaOn = row[1][3]</span>
+            <span class="c1">#import ipdb</span>
+            <span class="c1">#ipdb.set_trace()</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">dis_chunk</span><span class="p">[(</span><span class="n">dis_chunk</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span>
+                    <span class="p">(</span><span class="n">dis_chunk</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="c1"># delta = chunk[chunk.index == onTime][column_name].values[0]</span>
+                <span class="n">dis_chunk</span><span class="p">[(</span><span class="n">dis_chunk</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span>
+                    <span class="n">dis_chunk</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="c1"># Stat information:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; events found.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="n">events</span><span class="o">.</span><span class="n">onpower</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; onEvents found&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">singleOnevent</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; onEvents no paired.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dis_chunk</span></div>
+
+<div class="viewcode-block" id="MLE.no_overfitting"><a class="viewcode-back" href="../../../nilmtk.disaggregate.maximum_likelihood_estimation.html#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.no_overfitting">[docs]</a>    <span class="k">def</span> <span class="nf">no_overfitting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crops feature_train(onpower_train, offpower_train and duration_train)</span>
+<span class="sd">        to get same samples from different appliances(same model-appliance) </span>
+<span class="sd">        and avoids overfittings to a many samples appliance.</span>
+<span class="sd">        Updates stats attribute.</span>
+<span class="sd">        Does the retraining.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Instance with minimun length should be the maximum length</span>
+        <span class="n">train_len</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="p">[</span><span class="n">train_len</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">st</span><span class="p">[</span><span class="s1">&#39;Nevents&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">st</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">]</span>
+        <span class="n">train_len</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_len</span><span class="p">)</span>
+        <span class="n">max_len</span> <span class="o">=</span> <span class="n">train_len</span><span class="p">[</span><span class="n">train_len</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+        <span class="c1"># CROPS FEATURE SAMPLES</span>
+        <span class="n">onpower_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">offpower_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">duration_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">ind</span><span class="p">][</span><span class="s1">&#39;Nevents&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ind</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="n">end</span>
+                <span class="n">end</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">ind</span><span class="p">][</span><span class="s1">&#39;Nevents&#39;</span><span class="p">]</span>
+
+                <span class="n">aux</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+                <span class="n">aux</span> <span class="o">=</span> <span class="n">aux</span><span class="p">[:</span><span class="n">max_len</span><span class="p">]</span>
+                <span class="n">onpower_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">onpower_train</span><span class="p">,</span> <span class="n">aux</span><span class="p">])</span>
+
+                <span class="n">aux</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+                <span class="n">aux</span> <span class="o">=</span> <span class="n">aux</span><span class="p">[:</span><span class="n">max_len</span><span class="p">]</span>
+                <span class="n">offpower_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">offpower_train</span><span class="p">,</span> <span class="n">aux</span><span class="p">])</span>
+
+                <span class="n">aux</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+                <span class="n">aux</span> <span class="o">=</span> <span class="n">aux</span><span class="p">[:</span><span class="n">max_len</span><span class="p">]</span>
+                <span class="n">duration_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">duration_train</span><span class="p">,</span> <span class="n">aux</span><span class="p">])</span>
+
+                <span class="c1"># udating stats:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">ind</span><span class="p">][</span><span class="s1">&#39;Nevents&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_len</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span> <span class="o">=</span> <span class="n">onpower_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span> <span class="o">=</span> <span class="n">offpower_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span> <span class="o">=</span> <span class="n">duration_train</span>
+
+        <span class="c1"># RE-TRAINS FEATURES:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__retrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onpower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__retrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__retrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MLE.check_cdfIntegrity"><a class="viewcode-back" href="../../../nilmtk.disaggregate.maximum_likelihood_estimation.html#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.check_cdfIntegrity">[docs]</a>    <span class="k">def</span> <span class="nf">check_cdfIntegrity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cheks integrity of feature model distributions.</span>
+<span class="sd">        CDF has to be bounded by one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        step: resolution step size on the x-axis for pdf and cdf functions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Selecting bins automatically:</span>
+        <span class="n">x_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x_min</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">x_onpower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">x_max</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">x_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">x_offpower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">x_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x_min</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">x_duration</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Evaluating score for:</span>
+        <span class="c1"># Onpower</span>
+        <span class="n">y_onpower</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onpower</span><span class="p">,</span> <span class="n">x_onpower</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Onpower cdf: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y_onpower</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+
+        <span class="c1"># Offpower</span>
+        <span class="n">y_offpower</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower</span><span class="p">,</span> <span class="n">x_offpower</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Offpower cdf: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y_offpower</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+
+        <span class="c1"># duration</span>
+        <span class="n">y_duration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span> <span class="n">x_duration</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Duration cdf: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y_duration</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span></div>
+
+        <span class="c1"># Plots:</span>
+        <span class="c1"># fig1 = plt.figure()</span>
+        <span class="c1"># ax1 = fig1.add_subplot(311)</span>
+        <span class="c1"># ax2 = fig1.add_subplot(312)</span>
+        <span class="c1"># ax3 = fig1.add_subplot(313)</span>
+
+        <span class="c1"># ax1.plot(x_onpower, y_onpower)</span>
+        <span class="c1"># ax1.set_title(&quot;PDF CDF: Onpower&quot;)</span>
+        <span class="c1"># ax1.set_ylabel(&quot;density&quot;)</span>
+        <span class="c1"># ax1.set_xlabel(&quot;Watts&quot;)</span>
+
+        <span class="c1"># ax2.plot(x_offpower, y_offpower)</span>
+        <span class="c1"># ax2.set_title(&quot; PDF CDF: Offpower&quot;)</span>
+        <span class="c1"># ax2.set_ylabel(&quot;denisty&quot;)</span>
+        <span class="c1"># ax2.set_xlabel(&quot;Watts&quot;)</span>
+
+        <span class="c1"># ax3.plot(x_duration, y_duration)</span>
+        <span class="c1"># ax3.set_title(&quot;PDF CDF: Duration&quot;)</span>
+        <span class="c1"># ax3.set_ylabel(&quot;density&quot;)</span>
+        <span class="c1"># ax3.set_xlabel(&quot;Seconds&quot;)</span>
+
+<div class="viewcode-block" id="MLE.featuresHist"><a class="viewcode-back" href="../../../nilmtk.disaggregate.maximum_likelihood_estimation.html#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.featuresHist">[docs]</a>    <span class="k">def</span> <span class="nf">featuresHist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Visualization tool to check if feature model distributions fit</span>
+<span class="sd">        to samples for feature training (onpower_train, offpower_train</span>
+<span class="sd">         and duration_train)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : keyword arguments list with bins_onpower, bins_offpower and bin_duration.</span>
+<span class="sd">            bins_feature: numpy.arange for plotting the hist with specified bin sizes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Selecting bins automatically:</span>
+        <span class="n">bins_onpower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+
+        <span class="n">bins_offpower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span>
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+
+        <span class="n">bins_duration</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span>
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+
+        <span class="c1"># If a bin has been specified update the bin sizes.</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;bins_onpower&#39;</span><span class="p">:</span>
+                <span class="n">bins_onpower</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;bins_offpower&#39;</span><span class="p">:</span>
+                <span class="n">bins_offpower</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;bins_duration&#39;</span><span class="p">:</span>
+                <span class="n">bins_duration</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Non valid kwarg&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Plot structure:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+        <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>
+        <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">)</span>
+        <span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">)</span>
+
+        <span class="c1"># Evaluating score for:</span>
+        <span class="c1"># Onpower</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">bins_onpower</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">bins_onpower</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">bins_onpower</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">bins_onpower</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onpower</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">onpower</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins_onpower</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="c1"># Plots for Onpower</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">onpower</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins_onpower</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">norm</span><span class="p">)</span>
+        <span class="c1">#ax1.set_title(&quot;Feature: Onpower&quot;)</span>
+        <span class="c1">#ax1.set_ylabel(&quot;Counts&quot;)</span>
+        <span class="c1">#ax1.set_xlabel(&quot;On power (W)&quot;)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;On power counts&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Offpower</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">bins_offpower</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">bins_offpower</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">bins_offpower</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">bins_offpower</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">offpower</span><span class="p">,</span>
+                      <span class="n">bins</span><span class="o">=</span><span class="n">bins_offpower</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="c1"># Plots for Offpower</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">offpower</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">bins</span><span class="o">=</span><span class="n">bins_offpower</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">norm</span><span class="p">)</span>
+        <span class="c1">#ax2.set_title(&quot;Feature: Offpower&quot;)</span>
+        <span class="c1">#ax2.set_ylabel(&quot;Counts&quot;)</span>
+        <span class="c1">#ax2.set_xlabel(&quot;Off power (W)&quot;)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Off power counts&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Duration</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">bins_duration</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">bins_duration</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">bins_duration</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">bins_duration</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span>
+                      <span class="n">bins</span><span class="o">=</span><span class="n">bins_duration</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="c1"># Plots for duration</span>
+        <span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">bins</span><span class="o">=</span><span class="n">bins_duration</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">norm</span><span class="p">)</span>
+        <span class="c1">#ax3.set_title(&quot;Feature: Duration&quot;)</span>
+        <span class="c1">#ax3.set_ylabel(&quot;Counts&quot;)</span>
+        <span class="c1">#ax3.set_xlabel(&quot;Duration (seconds)&quot;)</span>
+        <span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Duration counts&quot;</span><span class="p">)</span></div>
+    
+
+<div class="viewcode-block" id="MLE.featuresHist_colors"><a class="viewcode-back" href="../../../nilmtk.disaggregate.maximum_likelihood_estimation.html#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.featuresHist_colors">[docs]</a>    <span class="k">def</span> <span class="nf">featuresHist_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Visualization tool to check if samples for feature training </span>
+<span class="sd">        (onpower_train, offpower_train and duration_train) are equal </span>
+<span class="sd">        for each appliance (same model appliance).</span>
+<span class="sd">        Each appliance represented by a different color.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : keyword arguments list with bins_onpower, bins_offpower and bin_duration.</span>
+<span class="sd">            bins_feature: numpy.arange for plotting the hist with specified bin sizes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Selecting bins automatically:</span>
+        <span class="n">bins_onpower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+
+        <span class="n">bins_offpower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span>
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+
+        <span class="n">bins_duration</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span>
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+
+        <span class="c1"># If a bin has been specified update the bin sizes.</span>
+        <span class="c1"># Updating bins with specified values.</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;bins_onpower&#39;</span><span class="p">:</span>
+                <span class="n">bins_onpower</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;bins_offpower&#39;</span><span class="p">:</span>
+                <span class="n">bins_offpower</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;bins_duration&#39;</span><span class="p">:</span>
+                <span class="n">bins_duration</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Non valid kwarg&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Plot:</span>
+        <span class="n">fig1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+        <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig1</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>
+        <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig1</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">)</span>
+        <span class="n">ax3</span> <span class="o">=</span> <span class="n">fig1</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">)</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">)):</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">ind</span><span class="p">][</span><span class="s1">&#39;Nevents&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ind</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="n">end</span>
+                <span class="n">end</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">ind</span><span class="p">][</span><span class="s1">&#39;Nevents&#39;</span><span class="p">]</span>
+                <span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">onpower_train</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">.</span><span class="n">onpower</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins_onpower</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+                <span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">offpower_train</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">.</span><span class="n">offpower</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins_offpower</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+                <span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">duration_train</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins_duration</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Feature: Onpower&quot;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Watts&quot;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">)</span>
+
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Feature: Offpower&quot;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Watts&quot;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">)</span>
+
+        <span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Feature: Duration&quot;</span><span class="p">)</span>
+        <span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Seconds&quot;</span><span class="p">)</span>
+        <span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

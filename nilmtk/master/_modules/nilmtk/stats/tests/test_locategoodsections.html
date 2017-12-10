@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nilmtk.stats.tests.test_locategoodsections &mdash; NILMTK 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <title>nilmtk.stats.tests.test_locategoodsections &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
-    
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="NILMTK 0.2 documentation" href="../../../../index.html" />
-    <link rel="up" title="nilmtk" href="../../../nilmtk.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -56,7 +51,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
                 <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
             
@@ -115,53 +109,53 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 content">
       
   <h1>Source code for nilmtk.stats.tests.test_locategoodsections</h1><div class="highlight"><pre>
-<span class="c">#!/usr/bin/python</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span></span><span class="ch">#!/usr/bin/python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">unittest</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">nilmtk.stats</span> <span class="kn">import</span> <span class="n">GoodSections</span>
-<span class="kn">from</span> <span class="nn">nilmtk.stats.goodsectionsresults</span> <span class="kn">import</span> <span class="n">GoodSectionsResults</span>
-<span class="kn">from</span> <span class="nn">nilmtk</span> <span class="kn">import</span> <span class="n">TimeFrame</span><span class="p">,</span> <span class="n">ElecMeter</span><span class="p">,</span> <span class="n">DataSet</span>
-<span class="kn">from</span> <span class="nn">nilmtk.datastore</span> <span class="kn">import</span> <span class="n">HDFDataStore</span>
-<span class="kn">from</span> <span class="nn">nilmtk.elecmeter</span> <span class="kn">import</span> <span class="n">ElecMeterID</span>
-<span class="kn">from</span> <span class="nn">nilmtk.tests.testingtools</span> <span class="kn">import</span> <span class="n">data_dir</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">nilmtk.stats</span> <span class="k">import</span> <span class="n">GoodSections</span>
+<span class="kn">from</span> <span class="nn">nilmtk.stats.goodsectionsresults</span> <span class="k">import</span> <span class="n">GoodSectionsResults</span>
+<span class="kn">from</span> <span class="nn">nilmtk</span> <span class="k">import</span> <span class="n">TimeFrame</span><span class="p">,</span> <span class="n">ElecMeter</span><span class="p">,</span> <span class="n">DataSet</span>
+<span class="kn">from</span> <span class="nn">nilmtk.datastore</span> <span class="k">import</span> <span class="n">HDFDataStore</span>
+<span class="kn">from</span> <span class="nn">nilmtk.elecmeter</span> <span class="k">import</span> <span class="n">ElecMeterID</span>
+<span class="kn">from</span> <span class="nn">nilmtk.tests.testingtools</span> <span class="k">import</span> <span class="n">data_dir</span>
 
-<span class="n">METER_ID</span> <span class="o">=</span> <span class="n">ElecMeterID</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">building</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="s">&#39;REDD&#39;</span><span class="p">)</span>
+<span class="n">METER_ID</span> <span class="o">=</span> <span class="n">ElecMeterID</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">building</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;REDD&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="TestLocateGoodSections"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections">[docs]</a><span class="k">class</span> <span class="nc">TestLocateGoodSections</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="TestLocateGoodSections"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_locategoodsections.html#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections">[docs]</a><span class="k">class</span> <span class="nc">TestLocateGoodSections</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="TestLocateGoodSections.setUpClass"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.setUpClass">[docs]</a>    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s">&#39;energy_complex.h5&#39;</span><span class="p">)</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">datastore</span> <span class="o">=</span> <span class="n">HDFDataStore</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        <span class="n">ElecMeter</span><span class="o">.</span><span class="n">load_meter_devices</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">datastore</span><span class="p">)</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">meter_meta</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">datastore</span><span class="o">.</span><span class="n">load_metadata</span><span class="p">(</span><span class="s">&#39;building1&#39;</span><span class="p">)[</span><span class="s">&#39;elec_meters&#39;</span><span class="p">][</span><span class="n">METER_ID</span><span class="o">.</span><span class="n">instance</span><span class="p">]</span>
-</div>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="TestLocateGoodSections.tearDownClass"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.tearDownClass">[docs]</a>    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">datastore</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TestLocateGoodSections.test_pipeline"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.test_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">test_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TestLocateGoodSections.setUpClass"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_locategoodsections.html#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.setUpClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;energy_complex.h5&#39;</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">datastore</span> <span class="o">=</span> <span class="n">HDFDataStore</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">ElecMeter</span><span class="o">.</span><span class="n">load_meter_devices</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">datastore</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">meter_meta</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">datastore</span><span class="o">.</span><span class="n">load_metadata</span><span class="p">(</span><span class="s1">&#39;building1&#39;</span><span class="p">)[</span><span class="s1">&#39;elec_meters&#39;</span><span class="p">][</span><span class="n">METER_ID</span><span class="o">.</span><span class="n">instance</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TestLocateGoodSections.tearDownClass"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_locategoodsections.html#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.tearDownClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">datastore</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestLocateGoodSections.test_pipeline"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_locategoodsections.html#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.test_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">test_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">meter1</span> <span class="o">=</span> <span class="n">ElecMeter</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datastore</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">meter_meta</span><span class="p">,</span>
                            <span class="n">meter_id</span><span class="o">=</span><span class="n">METER_ID</span><span class="p">)</span>
 
-        <span class="c"># load co_test.h5</span>
-        <span class="n">dataset</span> <span class="o">=</span> <span class="n">DataSet</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s">&#39;co_test.h5&#39;</span><span class="p">))</span>
+        <span class="c1"># load co_test.h5</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">DataSet</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;co_test.h5&#39;</span><span class="p">))</span>
         <span class="n">meter2</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">buildings</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">elec</span><span class="o">.</span><span class="n">mains</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">meter</span> <span class="ow">in</span> <span class="p">[</span><span class="n">meter1</span><span class="p">,</span> <span class="n">meter2</span><span class="p">]:</span>
-            <span class="k">for</span> <span class="n">chunksize</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">29</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">chunksize</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">29</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;chunksize&#39;</span><span class="p">:</span> <span class="n">chunksize</span><span class="p">}</span>
+                    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;chunksize&#39;</span><span class="p">:</span> <span class="n">chunksize</span><span class="p">}</span>
 
                 <span class="n">source_node</span> <span class="o">=</span> <span class="n">meter</span><span class="o">.</span><span class="n">get_source_node</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 <span class="n">good_sections</span> <span class="o">=</span> <span class="n">GoodSections</span><span class="p">(</span><span class="n">source_node</span><span class="p">)</span>
@@ -172,20 +166,20 @@
                 <span class="n">meter</span><span class="o">.</span><span class="n">good_sections</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 <span class="n">meter</span><span class="o">.</span><span class="n">clear_cache</span><span class="p">()</span>
 
-        <span class="n">dataset</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TestLocateGoodSections.test_process_chunk"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.test_process_chunk">[docs]</a>    <span class="k">def</span> <span class="nf">test_process_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dataset</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestLocateGoodSections.test_process_chunk"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_locategoodsections.html#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.test_process_chunk">[docs]</a>    <span class="k">def</span> <span class="nf">test_process_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">MAX_SAMPLE_PERIOD</span> <span class="o">=</span> <span class="mi">10</span>
-        <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;max_sample_period&#39;</span><span class="p">:</span> <span class="n">MAX_SAMPLE_PERIOD</span><span class="p">}}</span>
-        <span class="c">#       0  1  2  3    4  5     6     7</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;max_sample_period&#39;</span><span class="p">:</span> <span class="n">MAX_SAMPLE_PERIOD</span><span class="p">}}</span>
+        <span class="c1">#       0  1  2  3    4  5     6     7</span>
         <span class="n">secs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span>  <span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span>  <span class="mi">100</span><span class="p">,</span>  <span class="mi">200</span><span class="p">,</span>
 
-        <span class="c">#         8   9  10  11  12  13    14  15  16</span>
+        <span class="c1">#         8   9  10  11  12  13    14  15  16</span>
                 <span class="mi">250</span><span class="p">,</span><span class="mi">260</span><span class="p">,</span><span class="mi">270</span><span class="p">,</span><span class="mi">280</span><span class="p">,</span><span class="mi">290</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span>  <span class="mi">350</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">370</span><span class="p">]</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">&#39;2011-01-01 00:00:00&#39;</span><span class="p">)</span> <span class="o">+</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2011-01-01 00:00:00&#39;</span><span class="p">)</span> <span class="o">+</span>
                                   <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">sec</span><span class="p">)</span> <span class="k">for</span> <span class="n">sec</span> <span class="ow">in</span> <span class="n">secs</span><span class="p">])</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
-                          <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">])</span>
+                          <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
         <span class="n">df</span><span class="o">.</span><span class="n">timeframe</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">df</span><span class="o">.</span><span class="n">look_ahead</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 
@@ -194,18 +188,18 @@
         <span class="n">locate</span><span class="o">.</span><span class="n">_process_chunk</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">metadata</span><span class="p">)</span>
         <span class="n">results</span> <span class="o">=</span> <span class="n">locate</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">combined</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">30</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">30</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">50</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">20</span><span class="p">)</span>
 
-        <span class="c"># Now try splitting data into multiple chunks</span>
+        <span class="c1"># Now try splitting data into multiple chunks</span>
         <span class="n">timestamps</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">&quot;2011-01-01 00:00:00&quot;</span><span class="p">),</span>
-            <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">&quot;2011-01-01 00:00:40&quot;</span><span class="p">),</span>
-            <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">&quot;2011-01-01 00:01:20&quot;</span><span class="p">),</span>
-            <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">&quot;2011-01-01 00:04:20&quot;</span><span class="p">),</span>
-            <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">&quot;2011-01-01 00:06:20&quot;</span><span class="p">)</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;2011-01-01 00:00:00&quot;</span><span class="p">),</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;2011-01-01 00:00:40&quot;</span><span class="p">),</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;2011-01-01 00:01:20&quot;</span><span class="p">),</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;2011-01-01 00:04:20&quot;</span><span class="p">),</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;2011-01-01 00:06:20&quot;</span><span class="p">)</span>
         <span class="p">]</span>
         <span class="k">for</span> <span class="n">split_point</span> <span class="ow">in</span> <span class="p">[[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">17</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">17</span><span class="p">]]:</span>
             <span class="n">locate</span> <span class="o">=</span> <span class="n">GoodSections</span><span class="p">()</span>
@@ -225,13 +219,13 @@
 
             <span class="n">results</span> <span class="o">=</span> <span class="n">locate</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">combined</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">30</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">30</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">50</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">20</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">20</span><span class="p">)</span></div></div>
 
-</div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 </pre></div>
 
@@ -247,7 +241,7 @@
     </p>
     <p>
         &copy; Copyright 2014, NILMTK Authors.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nilmtk.stats.tests package &mdash; NILMTK 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <title>nilmtk.stats.tests package &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="NILMTK 0.2 documentation" href="index.html" />
-    <link rel="up" title="nilmtk.stats package" href="nilmtk.stats.html" />
-    <link rel="next" title="nilmtk.tests package" href="nilmtk.tests.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.stats.tests.test_dropoutrate" href="nilmtk.stats.tests.test_dropoutrate.html" />
     <link rel="prev" title="nilmtk.stats package" href="nilmtk.stats.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -58,7 +53,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
                 <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
             
@@ -88,11 +82,6 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">nilmtk.stats.tests package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-nilmtk.stats.tests.test_dropoutrate">nilmtk.stats.tests.test_dropoutrate module</a></li>
-<li><a class="reference internal" href="#module-nilmtk.stats.tests.test_locategoodsections">nilmtk.stats.tests.test_locategoodsections module</a></li>
-<li><a class="reference internal" href="#module-nilmtk.stats.tests.test_totalenergy">nilmtk.stats.tests.test_totalenergy module</a></li>
-<li><a class="reference internal" href="#module-nilmtk.stats.tests.test_totalenergyresults">nilmtk.stats.tests.test_totalenergyresults module</a></li>
-<li><a class="reference internal" href="#module-nilmtk.stats.tests">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -104,11 +93,11 @@
               
                 
   <li>
-    <a href="nilmtk.stats.html" title="Previous Chapter: nilmtk.stats package"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; nilmtk.stats pac...</span>
+    <a href="nilmtk.stats.html" title="Previous Chapter: nilmtk.stats package"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.stats package</span>
     </a>
   </li>
   <li>
-    <a href="nilmtk.tests.html" title="Next Chapter: nilmtk.tests package"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">nilmtk.tests pac... &raquo;</span>
+    <a href="nilmtk.stats.tests.test_dropoutrate.html" title="Next Chapter: nilmtk.stats.tests.test_dropoutrate"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.stats.... &raquo;</span>
     </a>
   </li>
               
@@ -118,7 +107,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="_sources/nilmtk.stats.tests.txt"
+  <a href="_sources/nilmtk.stats.tests.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -140,121 +129,20 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 content">
       
   <div class="section" id="nilmtk-stats-tests-package">
 <h1>nilmtk.stats.tests package<a class="headerlink" href="#nilmtk-stats-tests-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nilmtk.stats.tests.test_dropoutrate.html">nilmtk.stats.tests.test_dropoutrate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nilmtk.stats.tests.test_locategoodsections.html">nilmtk.stats.tests.test_locategoodsections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nilmtk.stats.tests.test_totalenergy.html">nilmtk.stats.tests.test_totalenergy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nilmtk.stats.tests.test_totalenergyresults.html">nilmtk.stats.tests.test_totalenergyresults</a></li>
+</ul>
 </div>
-<div class="section" id="module-nilmtk.stats.tests.test_dropoutrate">
-<span id="nilmtk-stats-tests-test-dropoutrate-module"></span><h2>nilmtk.stats.tests.test_dropoutrate module<a class="headerlink" href="#module-nilmtk.stats.tests.test_dropoutrate" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="nilmtk.stats.tests.test_dropoutrate.TestLocateGoodSections">
-<em class="property">class </em><tt class="descclassname">nilmtk.stats.tests.test_dropoutrate.</tt><tt class="descname">TestLocateGoodSections</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_dropoutrate.html#TestLocateGoodSections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_dropoutrate.TestLocateGoodSections" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
-<dl class="classmethod">
-<dt id="nilmtk.stats.tests.test_dropoutrate.TestLocateGoodSections.setUpClass">
-<em class="property">classmethod </em><tt class="descname">setUpClass</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_dropoutrate.html#TestLocateGoodSections.setUpClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_dropoutrate.TestLocateGoodSections.setUpClass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="nilmtk.stats.tests.test_dropoutrate.TestLocateGoodSections.tearDownClass">
-<em class="property">classmethod </em><tt class="descname">tearDownClass</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_dropoutrate.html#TestLocateGoodSections.tearDownClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_dropoutrate.TestLocateGoodSections.tearDownClass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.stats.tests.test_dropoutrate.TestLocateGoodSections.test_pipeline">
-<tt class="descname">test_pipeline</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_dropoutrate.html#TestLocateGoodSections.test_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_dropoutrate.TestLocateGoodSections.test_pipeline" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-nilmtk.stats.tests.test_locategoodsections">
-<span id="nilmtk-stats-tests-test-locategoodsections-module"></span><h2>nilmtk.stats.tests.test_locategoodsections module<a class="headerlink" href="#module-nilmtk.stats.tests.test_locategoodsections" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections">
-<em class="property">class </em><tt class="descclassname">nilmtk.stats.tests.test_locategoodsections.</tt><tt class="descname">TestLocateGoodSections</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_locategoodsections.html#TestLocateGoodSections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
-<dl class="classmethod">
-<dt id="nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.setUpClass">
-<em class="property">classmethod </em><tt class="descname">setUpClass</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_locategoodsections.html#TestLocateGoodSections.setUpClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.setUpClass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.tearDownClass">
-<em class="property">classmethod </em><tt class="descname">tearDownClass</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_locategoodsections.html#TestLocateGoodSections.tearDownClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.tearDownClass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.test_pipeline">
-<tt class="descname">test_pipeline</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_locategoodsections.html#TestLocateGoodSections.test_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.test_pipeline" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.test_process_chunk">
-<tt class="descname">test_process_chunk</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_locategoodsections.html#TestLocateGoodSections.test_process_chunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_locategoodsections.TestLocateGoodSections.test_process_chunk" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-nilmtk.stats.tests.test_totalenergy">
-<span id="nilmtk-stats-tests-test-totalenergy-module"></span><h2>nilmtk.stats.tests.test_totalenergy module<a class="headerlink" href="#module-nilmtk.stats.tests.test_totalenergy" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="nilmtk.stats.tests.test_totalenergy.TestEnergy">
-<em class="property">class </em><tt class="descclassname">nilmtk.stats.tests.test_totalenergy.</tt><tt class="descname">TestEnergy</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_totalenergy.html#TestEnergy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_totalenergy.TestEnergy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
-<dl class="classmethod">
-<dt id="nilmtk.stats.tests.test_totalenergy.TestEnergy.setUpClass">
-<em class="property">classmethod </em><tt class="descname">setUpClass</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_totalenergy.html#TestEnergy.setUpClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_totalenergy.TestEnergy.setUpClass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="nilmtk.stats.tests.test_totalenergy.TestEnergy.tearDownClass">
-<em class="property">classmethod </em><tt class="descname">tearDownClass</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_totalenergy.html#TestEnergy.tearDownClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_totalenergy.TestEnergy.tearDownClass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.stats.tests.test_totalenergy.TestEnergy.test_energy_per_power_series">
-<tt class="descname">test_energy_per_power_series</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_totalenergy.html#TestEnergy.test_energy_per_power_series"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_totalenergy.TestEnergy.test_energy_per_power_series" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.stats.tests.test_totalenergy.TestEnergy.test_pipeline">
-<tt class="descname">test_pipeline</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_totalenergy.html#TestEnergy.test_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_totalenergy.TestEnergy.test_pipeline" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="nilmtk.stats.tests.test_totalenergy.check_energy_numbers">
-<tt class="descclassname">nilmtk.stats.tests.test_totalenergy.</tt><tt class="descname">check_energy_numbers</tt><big>(</big><em>testcase</em>, <em>energy</em><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_totalenergy.html#check_energy_numbers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_totalenergy.check_energy_numbers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-nilmtk.stats.tests.test_totalenergyresults">
-<span id="nilmtk-stats-tests-test-totalenergyresults-module"></span><h2>nilmtk.stats.tests.test_totalenergyresults module<a class="headerlink" href="#module-nilmtk.stats.tests.test_totalenergyresults" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="nilmtk.stats.tests.test_totalenergyresults.TestEnergyResults">
-<em class="property">class </em><tt class="descclassname">nilmtk.stats.tests.test_totalenergyresults.</tt><tt class="descname">TestEnergyResults</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_totalenergyresults.html#TestEnergyResults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_totalenergyresults.TestEnergyResults" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
-<dl class="method">
-<dt id="nilmtk.stats.tests.test_totalenergyresults.TestEnergyResults.test_append">
-<tt class="descname">test_append</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_totalenergyresults.html#TestEnergyResults.test_append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_totalenergyresults.TestEnergyResults.test_append" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.stats.tests.test_totalenergyresults.TestEnergyResults.test_combined">
-<tt class="descname">test_combined</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/stats/tests/test_totalenergyresults.html#TestEnergyResults.test_combined"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.tests.test_totalenergyresults.TestEnergyResults.test_combined" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-nilmtk.stats.tests">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nilmtk.stats.tests" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -271,7 +159,7 @@
     </p>
     <p>
         &copy; Copyright 2014, NILMTK Authors.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

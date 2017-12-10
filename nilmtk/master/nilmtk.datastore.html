@@ -1,39 +1,34 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nilmtk.datastore package &mdash; NILMTK 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <title>nilmtk.datastore package &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="NILMTK 0.2 documentation" href="index.html" />
-    <link rel="up" title="nilmtk package" href="nilmtk.html" />
-    <link rel="next" title="nilmtk.disaggregate package" href="nilmtk.disaggregate.html" />
-    <link rel="prev" title="nilmtk.dataset_converters.ukdale package" href="nilmtk.dataset_converters.ukdale.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.datastore.csvdatastore module" href="nilmtk.datastore.csvdatastore.html" />
+    <link rel="prev" title="nilmtk.dataset_converters.ukdale.convert_ukdale module" href="nilmtk.dataset_converters.ukdale.convert_ukdale.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -58,7 +53,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
                 <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
             
@@ -88,11 +82,6 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">nilmtk.datastore package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-nilmtk.datastore.csvdatastore">nilmtk.datastore.csvdatastore module</a></li>
-<li><a class="reference internal" href="#module-nilmtk.datastore.datastore">nilmtk.datastore.datastore module</a></li>
-<li><a class="reference internal" href="#module-nilmtk.datastore.hdfdatastore">nilmtk.datastore.hdfdatastore module</a></li>
-<li><a class="reference internal" href="#module-nilmtk.datastore.key">nilmtk.datastore.key module</a></li>
-<li><a class="reference internal" href="#module-nilmtk.datastore">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -104,11 +93,11 @@
               
                 
   <li>
-    <a href="nilmtk.dataset_converters.ukdale.html" title="Previous Chapter: nilmtk.dataset_converters.ukdale package"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; nilmtk.dataset_c...</span>
+    <a href="nilmtk.dataset_converters.ukdale.convert_ukdale.html" title="Previous Chapter: nilmtk.dataset_converters.ukdale.convert_ukdale module"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.datase...</span>
     </a>
   </li>
   <li>
-    <a href="nilmtk.disaggregate.html" title="Next Chapter: nilmtk.disaggregate package"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">nilmtk.disaggreg... &raquo;</span>
+    <a href="nilmtk.datastore.csvdatastore.html" title="Next Chapter: nilmtk.datastore.csvdatastore module"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.datast... &raquo;</span>
     </a>
   </li>
               
@@ -118,7 +107,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="_sources/nilmtk.datastore.txt"
+  <a href="_sources/nilmtk.datastore.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -140,682 +129,20 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 content">
       
   <div class="section" id="nilmtk-datastore-package">
 <h1>nilmtk.datastore package<a class="headerlink" href="#nilmtk-datastore-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-nilmtk.datastore.csvdatastore">
-<span id="nilmtk-datastore-csvdatastore-module"></span><h2>nilmtk.datastore.csvdatastore module<a class="headerlink" href="#module-nilmtk.datastore.csvdatastore" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore">
-<em class="property">class </em><tt class="descclassname">nilmtk.datastore.csvdatastore.</tt><tt class="descname">CSVDataStore</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#nilmtk.datastore.datastore.DataStore" title="nilmtk.datastore.datastore.DataStore"><tt class="xref py py-class docutils literal"><span class="pre">nilmtk.datastore.datastore.DataStore</span></tt></a></p>
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore.append">
-<em class="property">static </em><tt class="descname">append</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore.append" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : str</p>
-<p class="last"><strong>value</strong> : pd.DataFrame</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>To quote the Pandas documentation for pandas.io.pytables.HDFStore.append:
-Append does <em>not</em> check if data being appended overlaps with existing
-data in the table, so be careful.</p>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore.close">
-<em class="property">static </em><tt class="descname">close</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore.close" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore.elements_below_key">
-<em class="property">static </em><tt class="descname">elements_below_key</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore.elements_below_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore.elements_below_key" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of strings</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore.get_timeframe">
-<em class="property">static </em><tt class="descname">get_timeframe</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore.get_timeframe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore.get_timeframe" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">nilmtk.TimeFrame of entire table after intersecting with self.window.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore.load">
-<em class="property">static </em><tt class="descname">load</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore.load" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : string, the location of a table within the DataStore.</p>
-<p><strong>cols</strong> : list of Measurements, optional</p>
-<blockquote>
-<div><p>e.g. [(&#8216;power&#8217;, &#8216;active&#8217;), (&#8216;power&#8217;, &#8216;reactive&#8217;), (&#8216;voltage&#8217;)]
-if not provided then will return all columns from the table.</p>
-</div></blockquote>
-<p><strong>sections</strong> : TimeFrameGroup; or list of nilmtk.TimeFrame objects;</p>
-<blockquote>
-<div><p>or a pd.PeriodIndex, optional.
-Defines the time sections to load.  If <cite>self.window</cite> is enabled
-then each <cite>section</cite> will be intersected with <cite>self.window</cite>.</p>
-</div></blockquote>
-<p><strong>n_look_ahead_rows</strong> : int, optional, defaults to 0</p>
-<blockquote>
-<div><p>If &gt;0 then each returned DataFrame will have a <cite>look_ahead</cite>
-property which will be a DataFrame of length <cite>n_look_ahead_rows</cite>
-of the data immediately in front of the data in the main DataFrame.</p>
-</div></blockquote>
-<p><strong>chunksize</strong> : int, optional</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">generator of DataFrame objects</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>Each DataFrame is has extra attributes:</dt>
-<dd><ul class="first last">
-<li><p class="first">timeframe : TimeFrame of section intersected with self.window</p>
-</li>
-<li><dl class="first docutils">
-<dt>look_ahead <span class="classifier-delimiter">:</span> <span class="classifier">pd.DataFrame:</span></dt>
-<dd><p class="first last">with <cite>n_look_ahead_rows</cite> rows.  The first row will be for
-<cite>section.end</cite>.  <cite>look_ahead</cite> stores data which appears on 
-disk immediately after <cite>section.end</cite>; i.e. it ignores
-the next <cite>section.start</cite>.</p>
-</dd>
-</dl>
-</li>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nilmtk.datastore.csvdatastore.html">nilmtk.datastore.csvdatastore module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nilmtk.datastore.datastore.html">nilmtk.datastore.datastore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nilmtk.datastore.hdfdatastore.html">nilmtk.datastore.hdfdatastore module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nilmtk.datastore.key.html">nilmtk.datastore.key module</a></li>
 </ul>
-</dd>
-</dl>
-<p>Returns an empty DataFrame if no data is available for the
-specified section (or if the section.intersection(self.window)
-is empty).</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>KeyError if `key` is not in store.</strong></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore.load_metadata">
-<em class="property">static </em><tt class="descname">load_metadata</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore.load_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore.load_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : string, optional</p>
-<blockquote>
-<div><p>if &#8216;/&#8217; then load metadata for the whole dataset.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>metadata</strong> : dict</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore.open">
-<em class="property">static </em><tt class="descname">open</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore.open" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore.put">
-<em class="property">static </em><tt class="descname">put</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore.put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore.put" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : str</p>
-<p class="last"><strong>value</strong> : pd.DataFrame</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore.remove">
-<em class="property">static </em><tt class="descname">remove</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore.remove" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : str</p>
-<p class="last"><strong>value</strong> : pd.DataFrame</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.csvdatastore.CSVDataStore.save_metadata">
-<em class="property">static </em><tt class="descname">save_metadata</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore.save_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore.save_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : string</p>
-<p class="last"><strong>metadata</strong> : dict</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
 </div>
-<div class="section" id="module-nilmtk.datastore.datastore">
-<span id="nilmtk-datastore-datastore-module"></span><h2>nilmtk.datastore.datastore module<a class="headerlink" href="#module-nilmtk.datastore.datastore" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="nilmtk.datastore.datastore.DataStore">
-<em class="property">class </em><tt class="descclassname">nilmtk.datastore.datastore.</tt><tt class="descname">DataStore</tt><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>Provides a common interface to all physical data stores.  
-Supports hierarchical stores.</p>
-<p>The DataStore class lives in the bottom layer of NILMTK.  It loads
-a single chunk at a time from physical location and returns a
-DataFrame.</p>
-<ul class="simple">
-<li>Deals with: retrieving data from disk / network / direct from a meter</li>
-<li>Optimised for: handling large amounts of data</li>
-<li>Services it provides: delivering a generator of pd.DataFrames of data given a
-specific time span and columns</li>
-<li>Totally agnostic about what the data &#8216;means&#8217;. It could be voltage,
-current, temperature, PIR readings etc.</li>
-<li>could have subclasses for NILMTK HDF5, NILMTK CSV, Xively,
-Current Cost meters etc.</li>
-<li>One DataStore per HDF5 file or folder or CSV files or Xively
-feed etc.</li>
-</ul>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="9%" />
-<col width="91%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>window</td>
-<td>(nilmtk.TimeFrame) Defines the timeframe we are interested in.</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="nilmtk.datastore.datastore.DataStore.append">
-<tt class="descname">append</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.append" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : str</p>
-<p class="last"><strong>value</strong> : pd.DataFrame</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>To quote the Pandas documentation for pandas.io.pytables.HDFStore.append:
-Append does <em>not</em> check if data being appended overlaps with existing
-data in the table, so be careful.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.datastore.datastore.DataStore.close">
-<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.close" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.datastore.datastore.DataStore.elements_below_key">
-<tt class="descname">elements_below_key</tt><big>(</big><em>key='/'</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.elements_below_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.elements_below_key" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of strings</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.datastore.datastore.DataStore.get_timeframe">
-<tt class="descname">get_timeframe</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.get_timeframe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.get_timeframe" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">nilmtk.TimeFrame of entire table after intersecting with self.window.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.datastore.datastore.DataStore.load">
-<tt class="descname">load</tt><big>(</big><em>key</em>, <em>cols=None</em>, <em>sections=None</em>, <em>n_look_ahead_rows=0</em>, <em>chunksize=268435456</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.load" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : string, the location of a table within the DataStore.</p>
-<p><strong>cols</strong> : list of Measurements, optional</p>
-<blockquote>
-<div><p>e.g. [(&#8216;power&#8217;, &#8216;active&#8217;), (&#8216;power&#8217;, &#8216;reactive&#8217;), (&#8216;voltage&#8217;)]
-if not provided then will return all columns from the table.</p>
-</div></blockquote>
-<p><strong>sections</strong> : TimeFrameGroup; or list of nilmtk.TimeFrame objects;</p>
-<blockquote>
-<div><p>or a pd.PeriodIndex, optional.
-Defines the time sections to load.  If <cite>self.window</cite> is enabled
-then each <cite>section</cite> will be intersected with <cite>self.window</cite>.</p>
-</div></blockquote>
-<p><strong>n_look_ahead_rows</strong> : int, optional, defaults to 0</p>
-<blockquote>
-<div><p>If &gt;0 then each returned DataFrame will have a <cite>look_ahead</cite>
-property which will be a DataFrame of length <cite>n_look_ahead_rows</cite>
-of the data immediately in front of the data in the main DataFrame.</p>
-</div></blockquote>
-<p><strong>chunksize</strong> : int, optional</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">generator of DataFrame objects</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>Each DataFrame is has extra attributes:</dt>
-<dd><ul class="first last">
-<li><p class="first">timeframe : TimeFrame of section intersected with self.window</p>
-</li>
-<li><dl class="first docutils">
-<dt>look_ahead <span class="classifier-delimiter">:</span> <span class="classifier">pd.DataFrame:</span></dt>
-<dd><p class="first last">with <cite>n_look_ahead_rows</cite> rows.  The first row will be for
-<cite>section.end</cite>.  <cite>look_ahead</cite> stores data which appears on 
-disk immediately after <cite>section.end</cite>; i.e. it ignores
-the next <cite>section.start</cite>.</p>
-</dd>
-</dl>
-</li>
-</ul>
-</dd>
-</dl>
-<p>Returns an empty DataFrame if no data is available for the
-specified section (or if the section.intersection(self.window)
-is empty).</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>KeyError if `key` is not in store.</strong></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.datastore.datastore.DataStore.load_metadata">
-<tt class="descname">load_metadata</tt><big>(</big><em>key='/'</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.load_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.load_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : string, optional</p>
-<blockquote>
-<div><p>if &#8216;/&#8217; then load metadata for the whole dataset.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>metadata</strong> : dict</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.datastore.datastore.DataStore.open">
-<tt class="descname">open</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.open" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.datastore.datastore.DataStore.put">
-<tt class="descname">put</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.put" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : str</p>
-<p class="last"><strong>value</strong> : pd.DataFrame</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.datastore.datastore.DataStore.remove">
-<tt class="descname">remove</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.remove" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : str</p>
-<p class="last"><strong>value</strong> : pd.DataFrame</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nilmtk.datastore.datastore.DataStore.save_metadata">
-<tt class="descname">save_metadata</tt><big>(</big><em>key</em>, <em>metadata</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.save_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.save_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : string</p>
-<p class="last"><strong>metadata</strong> : dict</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="nilmtk.datastore.datastore.DataStore.window">
-<tt class="descname">window</tt><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#DataStore.window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.DataStore.window" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="nilmtk.datastore.datastore.convert_datastore">
-<tt class="descclassname">nilmtk.datastore.datastore.</tt><tt class="descname">convert_datastore</tt><big>(</big><em>input_store</em>, <em>output_store</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#convert_datastore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.convert_datastore" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>input_store</strong> : nilmtk.DataStore</p>
-<p class="last"><strong>output_store</strong> : nilmtk.DataStore</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="nilmtk.datastore.datastore.join_key">
-<tt class="descclassname">nilmtk.datastore.datastore.</tt><tt class="descname">join_key</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#join_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.join_key" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">join_key</span><span class="p">(</span><span class="s">&#39;building1&#39;</span><span class="p">,</span> <span class="s">&#39;elec&#39;</span><span class="p">,</span> <span class="s">&#39;meter1&#39;</span><span class="p">)</span>
-<span class="go">&#39;/building1/elec/meter1&#39;</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">join_key</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
-<span class="go">&#39;/&#39;</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">join_key</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
-<span class="go">&#39;/&#39;</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="nilmtk.datastore.datastore.write_yaml_to_file">
-<tt class="descclassname">nilmtk.datastore.datastore.</tt><tt class="descname">write_yaml_to_file</tt><big>(</big><em>metadata_filename</em>, <em>metadata</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/datastore.html#write_yaml_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.datastore.write_yaml_to_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-nilmtk.datastore.hdfdatastore">
-<span id="nilmtk-datastore-hdfdatastore-module"></span><h2>nilmtk.datastore.hdfdatastore module<a class="headerlink" href="#module-nilmtk.datastore.hdfdatastore" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore">
-<em class="property">class </em><tt class="descclassname">nilmtk.datastore.hdfdatastore.</tt><tt class="descname">HDFDataStore</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#nilmtk.datastore.datastore.DataStore" title="nilmtk.datastore.datastore.DataStore"><tt class="xref py py-class docutils literal"><span class="pre">nilmtk.datastore.datastore.DataStore</span></tt></a></p>
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore.append">
-<em class="property">static </em><tt class="descname">append</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore.append" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : str</p>
-<p class="last"><strong>value</strong> : pd.DataFrame</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>To quote the Pandas documentation for pandas.io.pytables.HDFStore.append:
-Append does <em>not</em> check if data being appended overlaps with existing
-data in the table, so be careful.</p>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore.close">
-<em class="property">static </em><tt class="descname">close</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore.close" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore.elements_below_key">
-<em class="property">static </em><tt class="descname">elements_below_key</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore.elements_below_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore.elements_below_key" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of strings</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore.get_timeframe">
-<em class="property">static </em><tt class="descname">get_timeframe</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore.get_timeframe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore.get_timeframe" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">nilmtk.TimeFrame of entire table after intersecting with self.window.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore.load">
-<em class="property">static </em><tt class="descname">load</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore.load" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : string, the location of a table within the DataStore.</p>
-<p><strong>cols</strong> : list of Measurements, optional</p>
-<blockquote>
-<div><p>e.g. [(&#8216;power&#8217;, &#8216;active&#8217;), (&#8216;power&#8217;, &#8216;reactive&#8217;), (&#8216;voltage&#8217;)]
-if not provided then will return all columns from the table.</p>
-</div></blockquote>
-<p><strong>sections</strong> : TimeFrameGroup; or list of nilmtk.TimeFrame objects;</p>
-<blockquote>
-<div><p>or a pd.PeriodIndex, optional.
-Defines the time sections to load.  If <cite>self.window</cite> is enabled
-then each <cite>section</cite> will be intersected with <cite>self.window</cite>.</p>
-</div></blockquote>
-<p><strong>n_look_ahead_rows</strong> : int, optional, defaults to 0</p>
-<blockquote>
-<div><p>If &gt;0 then each returned DataFrame will have a <cite>look_ahead</cite>
-property which will be a DataFrame of length <cite>n_look_ahead_rows</cite>
-of the data immediately in front of the data in the main DataFrame.</p>
-</div></blockquote>
-<p><strong>chunksize</strong> : int, optional</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">generator of DataFrame objects</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>Each DataFrame is has extra attributes:</dt>
-<dd><ul class="first last">
-<li><p class="first">timeframe : TimeFrame of section intersected with self.window</p>
-</li>
-<li><dl class="first docutils">
-<dt>look_ahead <span class="classifier-delimiter">:</span> <span class="classifier">pd.DataFrame:</span></dt>
-<dd><p class="first last">with <cite>n_look_ahead_rows</cite> rows.  The first row will be for
-<cite>section.end</cite>.  <cite>look_ahead</cite> stores data which appears on 
-disk immediately after <cite>section.end</cite>; i.e. it ignores
-the next <cite>section.start</cite>.</p>
-</dd>
-</dl>
-</li>
-</ul>
-</dd>
-</dl>
-<p>Returns an empty DataFrame if no data is available for the
-specified section (or if the section.intersection(self.window)
-is empty).</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>KeyError if `key` is not in store.</strong></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore.load_metadata">
-<em class="property">static </em><tt class="descname">load_metadata</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore.load_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore.load_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : string, optional</p>
-<blockquote>
-<div><p>if &#8216;/&#8217; then load metadata for the whole dataset.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>metadata</strong> : dict</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore.open">
-<em class="property">static </em><tt class="descname">open</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore.open" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore.put">
-<em class="property">static </em><tt class="descname">put</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore.put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore.put" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : str</p>
-<p class="last"><strong>value</strong> : pd.DataFrame</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore.remove">
-<em class="property">static </em><tt class="descname">remove</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore.remove" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : str</p>
-<p class="last"><strong>value</strong> : pd.DataFrame</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="nilmtk.datastore.hdfdatastore.HDFDataStore.save_metadata">
-<em class="property">static </em><tt class="descname">save_metadata</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/hdfdatastore.html#HDFDataStore.save_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.hdfdatastore.HDFDataStore.save_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : string</p>
-<p class="last"><strong>metadata</strong> : dict</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-nilmtk.datastore.key">
-<span id="nilmtk-datastore-key-module"></span><h2>nilmtk.datastore.key module<a class="headerlink" href="#module-nilmtk.datastore.key" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="nilmtk.datastore.key.Key">
-<em class="property">class </em><tt class="descclassname">nilmtk.datastore.key.</tt><tt class="descname">Key</tt><big>(</big><em>string=None</em>, <em>building=None</em>, <em>meter=None</em><big>)</big><a class="reference internal" href="_modules/nilmtk/datastore/key.html#Key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.key.Key" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>A location of data or metadata within NILMTK.</p>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="44%" />
-<col width="56%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>building</td>
-<td>(int)</td>
-</tr>
-<tr class="row-even"><td>meter</td>
-<td>(int)</td>
-</tr>
-<tr class="row-odd"><td>utility</td>
-<td>(str)</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="module-nilmtk.datastore">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nilmtk.datastore" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -832,7 +159,7 @@ is empty).</p>
     </p>
     <p>
         &copy; Copyright 2014, NILMTK Authors.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

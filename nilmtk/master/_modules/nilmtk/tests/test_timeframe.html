@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nilmtk.tests.test_timeframe &mdash; NILMTK 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <title>nilmtk.tests.test_timeframe &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
-    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="NILMTK 0.2 documentation" href="../../../index.html" />
-    <link rel="up" title="nilmtk" href="../../nilmtk.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -56,7 +51,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
                 <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
             
@@ -115,43 +109,44 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 content">
       
   <h1>Source code for nilmtk.tests.test_timeframe</h1><div class="highlight"><pre>
-<span class="c">#!/usr/bin/python</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span></span><span class="ch">#!/usr/bin/python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">unittest</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">nilmtk.timeframe</span> <span class="kn">import</span> <span class="n">TimeFrame</span><span class="p">,</span> <span class="n">merge_timeframes</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">nilmtk.timeframe</span> <span class="k">import</span> <span class="n">TimeFrame</span><span class="p">,</span> <span class="n">merge_timeframes</span>
 
-<div class="viewcode-block" id="TestTimeFrame"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_timeframe.TestTimeFrame">[docs]</a><span class="k">class</span> <span class="nc">TestTimeFrame</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
-<div class="viewcode-block" id="TestTimeFrame.test_date_setting"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_date_setting">[docs]</a>    <span class="k">def</span> <span class="nf">test_date_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestTimeFrame"><a class="viewcode-back" href="../../../nilmtk.tests.test_timeframe.html#nilmtk.tests.test_timeframe.TestTimeFrame">[docs]</a><span class="k">class</span> <span class="nc">TestTimeFrame</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="TestTimeFrame.test_date_setting"><a class="viewcode-back" href="../../../nilmtk.tests.test_timeframe.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_date_setting">[docs]</a>    <span class="k">def</span> <span class="nf">test_date_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">TimeFrame</span><span class="p">()</span>
-        <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="s">&quot;2013-01-01&quot;</span><span class="p">)</span>
+        <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2013-01-01&quot;</span><span class="p">)</span>
 
-        <span class="c"># test identical start and end dates</span>
+        <span class="c1"># test identical start and end dates</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
-            <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="s">&quot;2012-01-01&quot;</span><span class="p">)</span>
+            <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2012-01-01&quot;</span><span class="p">)</span>
 
-        <span class="n">TimeFrame</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s">&quot;2011-01-01&quot;</span><span class="p">)</span>
-        <span class="n">TimeFrame</span><span class="p">(</span><span class="n">end</span><span class="o">=</span><span class="s">&quot;2011-01-01&quot;</span><span class="p">)</span>
+        <span class="n">TimeFrame</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2011-01-01&quot;</span><span class="p">)</span>
+        <span class="n">TimeFrame</span><span class="p">(</span><span class="n">end</span><span class="o">=</span><span class="s2">&quot;2011-01-01&quot;</span><span class="p">)</span>
 
-        <span class="c"># test end date after start date</span>
+        <span class="c1"># test end date after start date</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
-            <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="s">&quot;2011-01-01&quot;</span><span class="p">)</span>
+            <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-01-01&quot;</span><span class="p">)</span>
 
         <span class="n">tf</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">()</span>
-        <span class="n">tf</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="s">&quot;2011-01-01&quot;</span>
-        <span class="n">tf</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="s">&quot;2010-01-01&quot;</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2011-01-01&quot;</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2010-01-01&quot;</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
-            <span class="n">tf</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="s">&quot;2012-01-01&quot;</span>
-</div>
-<div class="viewcode-block" id="TestTimeFrame.test_time_delta"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_time_delta">[docs]</a>    <span class="k">def</span> <span class="nf">test_time_delta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">tf</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2012-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2013-01-01 00:00:00&quot;</span><span class="p">)</span>        
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">366</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="TestTimeFrame.test_intersection"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_intersection">[docs]</a>    <span class="k">def</span> <span class="nf">test_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">tf</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2012-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2013-01-01 00:00:00&quot;</span><span class="p">)</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2012-01-01&quot;</span></div>
+
+<div class="viewcode-block" id="TestTimeFrame.test_time_delta"><a class="viewcode-back" href="../../../nilmtk.tests.test_timeframe.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_time_delta">[docs]</a>    <span class="k">def</span> <span class="nf">test_time_delta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tf</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2012-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2013-01-01 00:00:00&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">366</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestTimeFrame.test_intersection"><a class="viewcode-back" href="../../../nilmtk.tests.test_timeframe.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_intersection">[docs]</a>    <span class="k">def</span> <span class="nf">test_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tf</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2012-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2013-01-01 00:00:00&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>
 
         <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">tf</span><span class="p">)</span>
@@ -162,74 +157,74 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span> <span class="n">new_tf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>
 
-        <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">TimeFrame</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s">&quot;1990-01-01&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span> <span class="n">new_tf</span><span class="p">)</span>        
+        <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">TimeFrame</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;1990-01-01&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span> <span class="n">new_tf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>
 
-        <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">TimeFrame</span><span class="p">(</span><span class="n">end</span><span class="o">=</span><span class="s">&quot;2100-01-01&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span> <span class="n">new_tf</span><span class="p">)</span>        
+        <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">TimeFrame</span><span class="p">(</span><span class="n">end</span><span class="o">=</span><span class="s2">&quot;2100-01-01&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span> <span class="n">new_tf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>
 
-        <span class="n">small_tf</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2012-01-05 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2012-01-06 00:00:00&quot;</span><span class="p">)</span>
+        <span class="n">small_tf</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2012-01-05 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2012-01-06 00:00:00&quot;</span><span class="p">)</span>
         <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">small_tf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">small_tf</span><span class="p">,</span> <span class="n">new_tf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>
 
-        <span class="n">large_tf</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2010-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2014-01-01 00:00:00&quot;</span><span class="p">)</span>
+        <span class="n">large_tf</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2010-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2014-01-01 00:00:00&quot;</span><span class="p">)</span>
         <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">large_tf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span> <span class="n">new_tf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>
 
-        <span class="n">disjoint</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2015-01-01&quot;</span><span class="p">,</span> <span class="s">&quot;2016-01-01&quot;</span><span class="p">)</span>
+        <span class="n">disjoint</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2015-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2016-01-01&quot;</span><span class="p">)</span>
         <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">disjoint</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>
 
-        <span class="c"># try intersecting with emtpy TF</span>
+        <span class="c1"># try intersecting with emtpy TF</span>
         <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">new_tf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>
 
-        <span class="n">disjoint</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2015-01-01&quot;</span><span class="p">,</span> <span class="s">&quot;2016-01-01&quot;</span><span class="p">)</span>
-        <span class="n">tf</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">disjoint</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2015-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2016-01-01&quot;</span><span class="p">)</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">disjoint</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_tf</span><span class="p">,</span> <span class="n">disjoint</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>
-        <span class="n">tf</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
 
-        <span class="c"># crop into the start of tf</span>
-        <span class="n">new_start</span> <span class="o">=</span> <span class="s">&quot;2012-01-05 04:05:06&quot;</span>
-        <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">TimeFrame</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">new_start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot;2014-01-01&quot;</span><span class="p">))</span>
+        <span class="c1"># crop into the start of tf</span>
+        <span class="n">new_start</span> <span class="o">=</span> <span class="s2">&quot;2012-01-05 04:05:06&quot;</span>
+        <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">TimeFrame</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">new_start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2014-01-01&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_tf</span><span class="p">,</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">new_start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">end</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>
 
-        <span class="c"># crop into the end of tf</span>
-        <span class="n">new_end</span> <span class="o">=</span> <span class="s">&quot;2012-01-07 04:05:06&quot;</span>
-        <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">TimeFrame</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s">&quot;2011-01-01&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">new_end</span><span class="p">))</span>
+        <span class="c1"># crop into the end of tf</span>
+        <span class="n">new_end</span> <span class="o">=</span> <span class="s2">&quot;2012-01-07 04:05:06&quot;</span>
+        <span class="n">new_tf</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">TimeFrame</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2011-01-01&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">new_end</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_tf</span><span class="p">,</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">new_end</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span>        
-</div>
-<div class="viewcode-block" id="TestTimeFrame.test_adjacent"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_adjacent">[docs]</a>    <span class="k">def</span> <span class="nf">test_adjacent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c"># overlap </span>
-        <span class="n">tf1</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2011-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2011-02-01 00:00:00&quot;</span><span class="p">)</span>
-        <span class="n">tf2</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2011-02-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2011-03-01 00:00:00&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">new_tf</span><span class="o">.</span><span class="n">empty</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestTimeFrame.test_adjacent"><a class="viewcode-back" href="../../../nilmtk.tests.test_timeframe.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_adjacent">[docs]</a>    <span class="k">def</span> <span class="nf">test_adjacent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># overlap</span>
+        <span class="n">tf1</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2011-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-02-01 00:00:00&quot;</span><span class="p">)</span>
+        <span class="n">tf2</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2011-02-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-03-01 00:00:00&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">tf1</span><span class="o">.</span><span class="n">adjacent</span><span class="p">(</span><span class="n">tf2</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">tf2</span><span class="o">.</span><span class="n">adjacent</span><span class="p">(</span><span class="n">tf1</span><span class="p">))</span>
 
-        <span class="c"># no overlap</span>
-        <span class="n">tf1</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2011-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2011-02-01 00:00:00&quot;</span><span class="p">)</span>
-        <span class="n">tf2</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2011-02-01 00:00:01&quot;</span><span class="p">,</span> <span class="s">&quot;2011-03-01 00:00:00&quot;</span><span class="p">)</span>
+        <span class="c1"># no overlap</span>
+        <span class="n">tf1</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2011-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-02-01 00:00:00&quot;</span><span class="p">)</span>
+        <span class="n">tf2</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2011-02-01 00:00:01&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-03-01 00:00:00&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">tf1</span><span class="o">.</span><span class="n">adjacent</span><span class="p">(</span><span class="n">tf2</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">tf2</span><span class="o">.</span><span class="n">adjacent</span><span class="p">(</span><span class="n">tf1</span><span class="p">))</span>
 
-        <span class="c"># no overlap but gap specified</span>
-        <span class="n">tf1</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2011-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2011-02-01 00:00:00&quot;</span><span class="p">)</span>
-        <span class="n">tf2</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2011-02-01 00:00:01&quot;</span><span class="p">,</span> <span class="s">&quot;2011-03-01 00:00:00&quot;</span><span class="p">)</span>
+        <span class="c1"># no overlap but gap specified</span>
+        <span class="n">tf1</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2011-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-02-01 00:00:00&quot;</span><span class="p">)</span>
+        <span class="n">tf2</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2011-02-01 00:00:01&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-03-01 00:00:00&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">tf1</span><span class="o">.</span><span class="n">adjacent</span><span class="p">(</span><span class="n">tf2</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">tf2</span><span class="o">.</span><span class="n">adjacent</span><span class="p">(</span><span class="n">tf1</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">tf1</span><span class="o">.</span><span class="n">adjacent</span><span class="p">(</span><span class="n">tf2</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">tf2</span><span class="o">.</span><span class="n">adjacent</span><span class="p">(</span><span class="n">tf1</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
-</div>
-<div class="viewcode-block" id="TestTimeFrame.test_union"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_union">[docs]</a>    <span class="k">def</span> <span class="nf">test_union</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c"># overlap </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">tf2</span><span class="o">.</span><span class="n">adjacent</span><span class="p">(</span><span class="n">tf1</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestTimeFrame.test_union"><a class="viewcode-back" href="../../../nilmtk.tests.test_timeframe.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_union">[docs]</a>    <span class="k">def</span> <span class="nf">test_union</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># overlap</span>
         <span class="k">def</span> <span class="nf">test_u</span><span class="p">(</span><span class="n">ts1</span><span class="p">,</span> <span class="n">ts2</span><span class="p">,</span> <span class="n">ts3</span><span class="p">,</span> <span class="n">ts4</span><span class="p">):</span>
             <span class="n">ts1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">ts1</span><span class="p">)</span>
             <span class="n">ts2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">ts2</span><span class="p">)</span>
@@ -241,23 +236,23 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">union</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">ts1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">union</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">ts4</span><span class="p">)</span>
 
-        <span class="n">test_u</span><span class="p">(</span><span class="s">&quot;2011-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2011-02-01 00:00:00&quot;</span><span class="p">,</span> 
-               <span class="s">&quot;2011-02-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2011-03-01 00:00:00&quot;</span><span class="p">)</span>
-        <span class="n">test_u</span><span class="p">(</span><span class="s">&quot;2011-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2011-01-15 00:00:00&quot;</span><span class="p">,</span> 
-               <span class="s">&quot;2011-02-01 00:00:00&quot;</span><span class="p">,</span> <span class="s">&quot;2011-03-01 00:00:00&quot;</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="TestTimeFrame.test_merge_timeframes"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_merge_timeframes">[docs]</a>    <span class="k">def</span> <span class="nf">test_merge_timeframes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">tfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2010-01-01&quot;</span><span class="p">,</span> <span class="s">&quot;2011-01-01&quot;</span><span class="p">),</span> 
-               <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2011-01-01&quot;</span><span class="p">,</span> <span class="s">&quot;2011-06-01&quot;</span><span class="p">),</span> 
-               <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="s">&quot;2013-01-01&quot;</span><span class="p">)]</span>
+        <span class="n">test_u</span><span class="p">(</span><span class="s2">&quot;2011-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-02-01 00:00:00&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;2011-02-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-03-01 00:00:00&quot;</span><span class="p">)</span>
+        <span class="n">test_u</span><span class="p">(</span><span class="s2">&quot;2011-01-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-01-15 00:00:00&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;2011-02-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-03-01 00:00:00&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestTimeFrame.test_merge_timeframes"><a class="viewcode-back" href="../../../nilmtk.tests.test_timeframe.html#nilmtk.tests.test_timeframe.TestTimeFrame.test_merge_timeframes">[docs]</a>    <span class="k">def</span> <span class="nf">test_merge_timeframes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2010-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-01-01&quot;</span><span class="p">),</span>
+               <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2011-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-06-01&quot;</span><span class="p">),</span>
+               <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2013-01-01&quot;</span><span class="p">)]</span>
 
         <span class="n">merged</span> <span class="o">=</span> <span class="n">merge_timeframes</span><span class="p">(</span><span class="n">tfs</span><span class="p">)</span>
-        <span class="n">correct_answer</span> <span class="o">=</span> <span class="p">[</span><span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2010-01-01&quot;</span><span class="p">,</span> <span class="s">&quot;2011-06-01&quot;</span><span class="p">),</span>
-                          <span class="n">TimeFrame</span><span class="p">(</span><span class="s">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="s">&quot;2013-01-01&quot;</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">correct_answer</span><span class="p">)</span>
-        
-        </div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+        <span class="n">correct_answer</span> <span class="o">=</span> <span class="p">[</span><span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2010-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-06-01&quot;</span><span class="p">),</span>
+                          <span class="n">TimeFrame</span><span class="p">(</span><span class="s2">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2013-01-01&quot;</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">correct_answer</span><span class="p">)</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 </pre></div>
 
@@ -273,7 +268,7 @@
     </p>
     <p>
         &copy; Copyright 2014, NILMTK Authors.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.utils &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.version module" href="nilmtk.version.html" />
+    <link rel="prev" title="nilmtk.timeframegroup" href="nilmtk.timeframegroup.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.utils</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.timeframegroup.html" title="Previous Chapter: nilmtk.timeframegroup"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.timeframegroup</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.version.html" title="Next Chapter: nilmtk.version module"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.version module &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.utils.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-utils">
+<h1>nilmtk.utils<a class="headerlink" href="#nilmtk-utils" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.utils"></span><p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.append_or_extend_list" title="nilmtk.utils.append_or_extend_list"><code class="xref py py-obj docutils literal"><span class="pre">append_or_extend_list</span></code></a>(lst,&nbsp;value)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.capitalise_first_letter" title="nilmtk.utils.capitalise_first_letter"><code class="xref py py-obj docutils literal"><span class="pre">capitalise_first_letter</span></code></a>(string)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.capitalise_index" title="nilmtk.utils.capitalise_index"><code class="xref py py-obj docutils literal"><span class="pre">capitalise_index</span></code></a>(index)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.capitalise_legend" title="nilmtk.utils.capitalise_legend"><code class="xref py py-obj docutils literal"><span class="pre">capitalise_legend</span></code></a>(ax)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.check_directory_exists" title="nilmtk.utils.check_directory_exists"><code class="xref py py-obj docutils literal"><span class="pre">check_directory_exists</span></code></a>(d)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.container_to_string" title="nilmtk.utils.container_to_string"><code class="xref py py-obj docutils literal"><span class="pre">container_to_string</span></code></a>(container[,&nbsp;sep])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.convert_to_list" title="nilmtk.utils.convert_to_list"><code class="xref py py-obj docutils literal"><span class="pre">convert_to_list</span></code></a>(list_like)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.convert_to_timestamp" title="nilmtk.utils.convert_to_timestamp"><code class="xref py py-obj docutils literal"><span class="pre">convert_to_timestamp</span></code></a>(t)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.dict_to_html" title="nilmtk.utils.dict_to_html"><code class="xref py py-obj docutils literal"><span class="pre">dict_to_html</span></code></a>(dictionary)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.find_nearest" title="nilmtk.utils.find_nearest"><code class="xref py py-obj docutils literal"><span class="pre">find_nearest</span></code></a>(known_array,&nbsp;test_array)</td>
+<td>Find closest value in <cite>known_array</cite> for each element in <cite>test_array</cite>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.flatten_2d_list" title="nilmtk.utils.flatten_2d_list"><code class="xref py py-obj docutils literal"><span class="pre">flatten_2d_list</span></code></a>(list2d)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.get_datastore" title="nilmtk.utils.get_datastore"><code class="xref py py-obj docutils literal"><span class="pre">get_datastore</span></code></a>(filename,&nbsp;format[,&nbsp;mode])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.get_index" title="nilmtk.utils.get_index"><code class="xref py py-obj docutils literal"><span class="pre">get_index</span></code></a>(data)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.get_module_directory" title="nilmtk.utils.get_module_directory"><code class="xref py py-obj docutils literal"><span class="pre">get_module_directory</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.get_tz" title="nilmtk.utils.get_tz"><code class="xref py py-obj docutils literal"><span class="pre">get_tz</span></code></a>(df)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.index_of_column_name" title="nilmtk.utils.index_of_column_name"><code class="xref py py-obj docutils literal"><span class="pre">index_of_column_name</span></code></a>(df,&nbsp;name)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.most_common" title="nilmtk.utils.most_common"><code class="xref py py-obj docutils literal"><span class="pre">most_common</span></code></a>(lst)</td>
+<td>Returns the most common entry in lst.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.nodes_adjacent_to_root" title="nilmtk.utils.nodes_adjacent_to_root"><code class="xref py py-obj docutils literal"><span class="pre">nodes_adjacent_to_root</span></code></a>(graph)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.normalise_timestamp" title="nilmtk.utils.normalise_timestamp"><code class="xref py py-obj docutils literal"><span class="pre">normalise_timestamp</span></code></a>(timestamp,&nbsp;freq)</td>
+<td>Returns the nearest Timestamp to <cite>timestamp</cite> which would be</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.offset_alias_to_seconds" title="nilmtk.utils.offset_alias_to_seconds"><code class="xref py py-obj docutils literal"><span class="pre">offset_alias_to_seconds</span></code></a>(alias)</td>
+<td>Seconds for each period length.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.print_dict" title="nilmtk.utils.print_dict"><code class="xref py py-obj docutils literal"><span class="pre">print_dict</span></code></a>(dictionary)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.print_on_line" title="nilmtk.utils.print_on_line"><code class="xref py py-obj docutils literal"><span class="pre">print_on_line</span></code></a>(*strings)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.safe_resample" title="nilmtk.utils.safe_resample"><code class="xref py py-obj docutils literal"><span class="pre">safe_resample</span></code></a>(data,&nbsp;**resample_kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.show_versions" title="nilmtk.utils.show_versions"><code class="xref py py-obj docutils literal"><span class="pre">show_versions</span></code></a>()</td>
+<td>Prints versions of various dependencies</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.simplest_type_for" title="nilmtk.utils.simplest_type_for"><code class="xref py py-obj docutils literal"><span class="pre">simplest_type_for</span></code></a>(values)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.timedelta64_to_secs" title="nilmtk.utils.timedelta64_to_secs"><code class="xref py py-obj docutils literal"><span class="pre">timedelta64_to_secs</span></code></a>(timedelta)</td>
+<td>Convert <cite>timedelta</cite> to seconds.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.timestamp_is_naive" title="nilmtk.utils.timestamp_is_naive"><code class="xref py py-obj docutils literal"><span class="pre">timestamp_is_naive</span></code></a>(timestamp)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.utils.tree_root" title="nilmtk.utils.tree_root"><code class="xref py py-obj docutils literal"><span class="pre">tree_root</span></code></a>(graph)</td>
+<td>Returns the object that is the root of the tree.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.utils.tz_localize_naive" title="nilmtk.utils.tz_localize_naive"><code class="xref py py-obj docutils literal"><span class="pre">tz_localize_naive</span></code></a>(timestamp,&nbsp;tz)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.utils"></span><dl class="function">
+<dt id="nilmtk.utils.append_or_extend_list">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">append_or_extend_list</code><span class="sig-paren">(</span><em>lst</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#append_or_extend_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.append_or_extend_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.capitalise_first_letter">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">capitalise_first_letter</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#capitalise_first_letter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.capitalise_first_letter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.capitalise_index">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">capitalise_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#capitalise_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.capitalise_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.capitalise_legend">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">capitalise_legend</code><span class="sig-paren">(</span><em>ax</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#capitalise_legend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.capitalise_legend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.check_directory_exists">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">check_directory_exists</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#check_directory_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.check_directory_exists" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.container_to_string">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">container_to_string</code><span class="sig-paren">(</span><em>container</em>, <em>sep='_'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#container_to_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.container_to_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.convert_to_list">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">convert_to_list</code><span class="sig-paren">(</span><em>list_like</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#convert_to_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.convert_to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.convert_to_timestamp">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">convert_to_timestamp</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#convert_to_timestamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.convert_to_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> : str or pd.Timestamp or datetime or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">pd.Timestamp or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.dict_to_html">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">dict_to_html</code><span class="sig-paren">(</span><em>dictionary</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#dict_to_html"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.dict_to_html" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.find_nearest">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">find_nearest</code><span class="sig-paren">(</span><em>known_array</em>, <em>test_array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#find_nearest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.find_nearest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find closest value in <cite>known_array</cite> for each element in <cite>test_array</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>known_array</strong> : numpy array</p>
+<blockquote>
+<div><p>consisting of scalar values only; shape: (m, 1)</p>
+</div></blockquote>
+<p><strong>test_array</strong> : numpy array</p>
+<blockquote>
+<div><p>consisting of scalar values only; shape: (n, 1)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>indices</strong> : numpy array; shape: (n, 1)</p>
+<blockquote>
+<div><p>For each value in <cite>test_array</cite> finds the index of the closest value
+in <cite>known_array</cite>.</p>
+</div></blockquote>
+<p><strong>residuals</strong> : numpy array; shape: (n, 1)</p>
+<blockquote class="last">
+<div><p>For each value in <cite>test_array</cite> finds the difference from the closest
+value in <cite>known_array</cite>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.flatten_2d_list">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">flatten_2d_list</code><span class="sig-paren">(</span><em>list2d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#flatten_2d_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.flatten_2d_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.get_datastore">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">get_datastore</code><span class="sig-paren">(</span><em>filename</em>, <em>format</em>, <em>mode='a'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#get_datastore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.get_datastore" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : string</p>
+<p><strong>format</strong> : ‘CSV’ or ‘HDF’</p>
+<p><strong>mode</strong> : ‘a’ (append) or ‘w’ (write), optional</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>metadata</strong> : dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.get_index">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">get_index</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#get_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.get_index" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> : pandas.DataFrame or Series or DatetimeIndex</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>index</strong> : the index for the DataFrame or Series</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.get_module_directory">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">get_module_directory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#get_module_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.get_module_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.get_tz">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">get_tz</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#get_tz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.get_tz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.index_of_column_name">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">index_of_column_name</code><span class="sig-paren">(</span><em>df</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#index_of_column_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.index_of_column_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.most_common">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">most_common</code><span class="sig-paren">(</span><em>lst</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#most_common"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.most_common" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the most common entry in lst.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.nodes_adjacent_to_root">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">nodes_adjacent_to_root</code><span class="sig-paren">(</span><em>graph</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#nodes_adjacent_to_root"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.nodes_adjacent_to_root" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.normalise_timestamp">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">normalise_timestamp</code><span class="sig-paren">(</span><em>timestamp</em>, <em>freq</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#normalise_timestamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.normalise_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the nearest Timestamp to <cite>timestamp</cite> which would be
+in the set of timestamps returned by pd.DataFrame.resample(freq=freq)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.offset_alias_to_seconds">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">offset_alias_to_seconds</code><span class="sig-paren">(</span><em>alias</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#offset_alias_to_seconds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.offset_alias_to_seconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Seconds for each period length.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.print_dict">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">print_dict</code><span class="sig-paren">(</span><em>dictionary</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#print_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.print_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.print_on_line">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">print_on_line</code><span class="sig-paren">(</span><em>*strings</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#print_on_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.print_on_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.safe_resample">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">safe_resample</code><span class="sig-paren">(</span><em>data</em>, <em>**resample_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#safe_resample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.safe_resample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.show_versions">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">show_versions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#show_versions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.show_versions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints versions of various dependencies</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.simplest_type_for">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">simplest_type_for</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#simplest_type_for"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.simplest_type_for" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.timedelta64_to_secs">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">timedelta64_to_secs</code><span class="sig-paren">(</span><em>timedelta</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#timedelta64_to_secs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.timedelta64_to_secs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert <cite>timedelta</cite> to seconds.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timedelta</strong> : np.timedelta64</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>float</strong> : seconds</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.timestamp_is_naive">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">timestamp_is_naive</code><span class="sig-paren">(</span><em>timestamp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#timestamp_is_naive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.timestamp_is_naive" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>timestamp</strong> : pd.Timestamp or datetime.datetime</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if <cite>timestamp</cite> is naive (i.e. if it does not have a</p>
+<p>timezone associated with it).  See:</p>
+<p class="last"><a class="reference external" href="https://docs.python.org/2/library/datetime.html#available-types">https://docs.python.org/2/library/datetime.html#available-types</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.tree_root">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">tree_root</code><span class="sig-paren">(</span><em>graph</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#tree_root"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.tree_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the object that is the root of the tree.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>graph</strong> : networkx.Graph</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.utils.tz_localize_naive">
+<code class="descclassname">nilmtk.utils.</code><code class="descname">tz_localize_naive</code><span class="sig-paren">(</span><em>timestamp</em>, <em>tz</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/utils.html#tz_localize_naive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.utils.tz_localize_naive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

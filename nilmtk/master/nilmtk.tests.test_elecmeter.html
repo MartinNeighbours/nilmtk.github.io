@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.tests.test_elecmeter &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.tests.test_fhmm" href="nilmtk.tests.test_fhmm.html" />
+    <link rel="prev" title="nilmtk.tests.test_datastore_converter module" href="nilmtk.tests.test_datastore_converter.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.tests.test_elecmeter</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.tests.test_datastore_converter.html" title="Previous Chapter: nilmtk.tests.test_datastore_converter module"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.tests....</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.tests.test_fhmm.html" title="Next Chapter: nilmtk.tests.test_fhmm"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.tests.... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.tests.test_elecmeter.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-tests-test-elecmeter">
+<h1>nilmtk.tests.test_elecmeter<a class="headerlink" href="#nilmtk-tests-test-elecmeter" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.tests.test_elecmeter"></span><p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.tests.test_elecmeter.TestElecMeter" title="nilmtk.tests.test_elecmeter.TestElecMeter"><code class="xref py py-obj docutils literal"><span class="pre">TestElecMeter</span></code></a>([methodName])</td>
+<td>Create an instance of the class that will use the named test method when executed.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: TestElecMeter</p>
+<dl class="class">
+<dt id="nilmtk.tests.test_elecmeter.TestElecMeter">
+<em class="property">class </em><code class="descclassname">nilmtk.tests.test_elecmeter.</code><code class="descname">TestElecMeter</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/tests/test_elecmeter.html#TestElecMeter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.tests.test_elecmeter.TestElecMeter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.tests.testingtools.html#nilmtk.tests.testingtools.WarningTestMixin" title="nilmtk.tests.testingtools.WarningTestMixin"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.tests.testingtools.WarningTestMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This class has inherited methods, see the base class(es) for additional methods</p>
+</div>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.tests.test_elecmeter.TestElecMeter.correlation" title="nilmtk.tests.test_elecmeter.TestElecMeter.correlation"><code class="xref py py-obj docutils literal"><span class="pre">correlation</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.tests.test_elecmeter.TestElecMeter.test_load" title="nilmtk.tests.test_elecmeter.TestElecMeter.test_load"><code class="xref py py-obj docutils literal"><span class="pre">test_load</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.tests.test_elecmeter.TestElecMeter.test_proportion_of_energy" title="nilmtk.tests.test_elecmeter.TestElecMeter.test_proportion_of_energy"><code class="xref py py-obj docutils literal"><span class="pre">test_proportion_of_energy</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.tests.test_elecmeter.TestElecMeter.test_total_energy" title="nilmtk.tests.test_elecmeter.TestElecMeter.test_total_energy"><code class="xref py py-obj docutils literal"><span class="pre">test_total_energy</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.tests.test_elecmeter.TestElecMeter.test_upstream_meter" title="nilmtk.tests.test_elecmeter.TestElecMeter.test_upstream_meter"><code class="xref py py-obj docutils literal"><span class="pre">test_upstream_meter</span></code></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">longMessage</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">maxDiff</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.tests.test_elecmeter"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.tests.test_elecmeter.</code><code class="descname">TestElecMeter</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/tests/test_elecmeter.html#TestElecMeter"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.tests.testingtools.html#nilmtk.tests.testingtools.WarningTestMixin" title="nilmtk.tests.testingtools.WarningTestMixin"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.tests.testingtools.WarningTestMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="nilmtk.tests.test_elecmeter.TestElecMeter.correlation">
+<code class="descname">correlation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/tests/test_elecmeter.html#TestElecMeter.correlation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.tests.test_elecmeter.TestElecMeter.correlation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="nilmtk.tests.test_elecmeter.TestElecMeter.setUpClass">
+<em class="property">classmethod </em><code class="descname">setUpClass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/tests/test_elecmeter.html#TestElecMeter.setUpClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.tests.test_elecmeter.TestElecMeter.setUpClass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="nilmtk.tests.test_elecmeter.TestElecMeter.tearDownClass">
+<em class="property">classmethod </em><code class="descname">tearDownClass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/tests/test_elecmeter.html#TestElecMeter.tearDownClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.tests.test_elecmeter.TestElecMeter.tearDownClass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.tests.test_elecmeter.TestElecMeter.test_load">
+<code class="descname">test_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/tests/test_elecmeter.html#TestElecMeter.test_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.tests.test_elecmeter.TestElecMeter.test_load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.tests.test_elecmeter.TestElecMeter.test_proportion_of_energy">
+<code class="descname">test_proportion_of_energy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/tests/test_elecmeter.html#TestElecMeter.test_proportion_of_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.tests.test_elecmeter.TestElecMeter.test_proportion_of_energy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.tests.test_elecmeter.TestElecMeter.test_total_energy">
+<code class="descname">test_total_energy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/tests/test_elecmeter.html#TestElecMeter.test_total_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.tests.test_elecmeter.TestElecMeter.test_total_energy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.tests.test_elecmeter.TestElecMeter.test_upstream_meter">
+<code class="descname">test_upstream_meter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/tests/test_elecmeter.html#TestElecMeter.test_upstream_meter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.tests.test_elecmeter.TestElecMeter.test_upstream_meter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

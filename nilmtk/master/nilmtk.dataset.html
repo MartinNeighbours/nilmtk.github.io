@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.dataset &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.docinherit" href="nilmtk.docinherit.html" />
+    <link rel="prev" title="nilmtk.consts module" href="nilmtk.consts.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.dataset</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.consts.html" title="Previous Chapter: nilmtk.consts module"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.consts module</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.docinherit.html" title="Next Chapter: nilmtk.docinherit"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.docinherit &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.dataset.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-dataset">
+<h1>nilmtk.dataset<a class="headerlink" href="#nilmtk-dataset" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.dataset"></span><p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.dataset.DataSet" title="nilmtk.dataset.DataSet"><code class="xref py py-obj docutils literal"><span class="pre">DataSet</span></code></a>([filename,&nbsp;format])</td>
+<td><p class="rubric">Attributes</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: DataSet</p>
+<dl class="class">
+<dt id="nilmtk.dataset.DataSet">
+<em class="property">class </em><code class="descclassname">nilmtk.dataset.</code><code class="descname">DataSet</code><span class="sig-paren">(</span><em>filename=None</em>, <em>format='HDF'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.dataset.DataSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="94%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>buildings</strong></td>
+<td>(OrderedDict) Each key is an integer, starting from 1. Each value is a nilmtk.Building object.</td>
+</tr>
+<tr class="row-even"><td><strong>store</strong></td>
+<td>(nilmtk.DataStore)</td>
+</tr>
+<tr class="row-odd"><td><strong>metadata</strong></td>
+<td>(dict) Metadata describing the dataset name, authors etc. (Metadata about specific buildings, meters, appliances etc. is stored elsewhere.) See nilm-metadata.readthedocs.org/en/latest/dataset_metadata.html#dataset</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote>
+<div><p>path to data set</p>
+</div></blockquote>
+<p><strong>format</strong> : str</p>
+<blockquote class="last">
+<div><p>format of output. Either ‘HDF’ or ‘CSV’. Defaults to ‘HDF’</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.dataset.DataSet.clear_cache" title="nilmtk.dataset.DataSet.clear_cache"><code class="xref py py-obj docutils literal"><span class="pre">clear_cache</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.dataset.DataSet.describe" title="nilmtk.dataset.DataSet.describe"><code class="xref py py-obj docutils literal"><span class="pre">describe</span></code></a>(**kwargs)</td>
+<td>Returns a DataFrame describing this dataset.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.dataset.DataSet.elecs" title="nilmtk.dataset.DataSet.elecs"><code class="xref py py-obj docutils literal"><span class="pre">elecs</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.dataset.DataSet.get_activity_script" title="nilmtk.dataset.DataSet.get_activity_script"><code class="xref py py-obj docutils literal"><span class="pre">get_activity_script</span></code></a>(filename)</td>
+<td>Extracts an activity script from this dataset.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.dataset.DataSet.import_metadata" title="nilmtk.dataset.DataSet.import_metadata"><code class="xref py py-obj docutils literal"><span class="pre">import_metadata</span></code></a>(store)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.dataset.DataSet.plot_good_sections" title="nilmtk.dataset.DataSet.plot_good_sections"><code class="xref py py-obj docutils literal"><span class="pre">plot_good_sections</span></code></a>([axes,&nbsp;label_func,&nbsp;gap])</td>
+<td>Plots all good sections for all buildings.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.dataset.DataSet.plot_mains_power_histograms" title="nilmtk.dataset.DataSet.plot_mains_power_histograms"><code class="xref py py-obj docutils literal"><span class="pre">plot_mains_power_histograms</span></code></a>([axes])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.dataset.DataSet.save" title="nilmtk.dataset.DataSet.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>(destination)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.dataset.DataSet.set_window" title="nilmtk.dataset.DataSet.set_window"><code class="xref py py-obj docutils literal"><span class="pre">set_window</span></code></a>([start,&nbsp;end])</td>
+<td>Set the timeframe window on self.store.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.dataset"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.dataset.</code><code class="descname">DataSet</code><span class="sig-paren">(</span><em>filename=None</em>, <em>format='HDF'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="94%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>buildings</strong></td>
+<td>(OrderedDict) Each key is an integer, starting from 1. Each value is a nilmtk.Building object.</td>
+</tr>
+<tr class="row-even"><td><strong>store</strong></td>
+<td>(nilmtk.DataStore)</td>
+</tr>
+<tr class="row-odd"><td><strong>metadata</strong></td>
+<td>(dict) Metadata describing the dataset name, authors etc. (Metadata about specific buildings, meters, appliances etc. is stored elsewhere.) See nilm-metadata.readthedocs.org/en/latest/dataset_metadata.html#dataset</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote>
+<div><p>path to data set</p>
+</div></blockquote>
+<p><strong>format</strong> : str</p>
+<blockquote class="last">
+<div><p>format of output. Either ‘HDF’ or ‘CSV’. Defaults to ‘HDF’</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nilmtk.dataset.DataSet.clear_cache">
+<code class="descname">clear_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet.clear_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.dataset.DataSet.clear_cache" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.dataset.DataSet.describe">
+<code class="descname">describe</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet.describe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.dataset.DataSet.describe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame describing this dataset.
+Each column is a building.  Each row is a feature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.dataset.DataSet.elecs">
+<code class="descname">elecs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet.elecs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.dataset.DataSet.elecs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.dataset.DataSet.get_activity_script">
+<code class="descname">get_activity_script</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet.get_activity_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.dataset.DataSet.get_activity_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts an activity script from this dataset.</p>
+<p>Saves the activity script to an HDF5 file.
+Keys in the HDF5 file take the form:
+‘/building&lt;building_i&gt;/&lt;appliance type&gt;__&lt;appliance instance&gt;’
+e.g. ‘/building1/electric_oven__1’
+Spaces in the appliance type are replaced by underscores.</p>
+<p>Each table is of fixed format and stores a pd.Series.
+The index is the datetime of the start time or end time of
+each appliance activation.  The values are booleans.  True means
+the start time of an appliance activation; false means the
+end time of an appliance activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote class="last">
+<div><p>The full filename, including path and suffix, for the HDF5 file
+for storing the activity script.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.dataset.DataSet.import_metadata">
+<code class="descname">import_metadata</code><span class="sig-paren">(</span><em>store</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet.import_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.dataset.DataSet.import_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>store</strong> : nilmtk.DataStore</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.dataset.DataSet.plot_good_sections">
+<code class="descname">plot_good_sections</code><span class="sig-paren">(</span><em>axes=None</em>, <em>label_func=None</em>, <em>gap=0</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet.plot_good_sections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.dataset.DataSet.plot_good_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots all good sections for all buildings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>axes</strong> : list of axes or None.</p>
+<blockquote>
+<div><p>If None then they will be generated.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>axes</strong> : list of axes</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.dataset.DataSet.plot_mains_power_histograms">
+<code class="descname">plot_mains_power_histograms</code><span class="sig-paren">(</span><em>axes=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet.plot_mains_power_histograms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.dataset.DataSet.plot_mains_power_histograms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.dataset.DataSet.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>destination</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.dataset.DataSet.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.dataset.DataSet.set_window">
+<code class="descname">set_window</code><span class="sig-paren">(</span><em>start=None</em>, <em>end=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/dataset.html#DataSet.set_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.dataset.DataSet.set_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the timeframe window on self.store. Used for setting the
+‘region of interest’ non-destructively for all processing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>start, end</strong> : str or pd.Timestamp or datetime or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.timeframe &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.timeframegroup" href="nilmtk.timeframegroup.html" />
+    <link rel="prev" title="nilmtk.results" href="nilmtk.results.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.timeframe</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.results.html" title="Previous Chapter: nilmtk.results"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.results</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.timeframegroup.html" title="Next Chapter: nilmtk.timeframegroup"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.timeframegroup &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.timeframe.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-timeframe">
+<h1>nilmtk.timeframe<a class="headerlink" href="#nilmtk-timeframe" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.timeframe"></span><p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.convert_nat_to_none" title="nilmtk.timeframe.convert_nat_to_none"><code class="xref py py-obj docutils literal"><span class="pre">convert_nat_to_none</span></code></a>(timestamp)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.timeframe.convert_none_to_nat" title="nilmtk.timeframe.convert_none_to_nat"><code class="xref py py-obj docutils literal"><span class="pre">convert_none_to_nat</span></code></a>(timestamp)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.list_of_timeframe_dicts" title="nilmtk.timeframe.list_of_timeframe_dicts"><code class="xref py py-obj docutils literal"><span class="pre">list_of_timeframe_dicts</span></code></a>(timeframes)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.timeframe.list_of_timeframes_from_list_of_dicts" title="nilmtk.timeframe.list_of_timeframes_from_list_of_dicts"><code class="xref py py-obj docutils literal"><span class="pre">list_of_timeframes_from_list_of_dicts</span></code></a>(dicts)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.merge_timeframes" title="nilmtk.timeframe.merge_timeframes"><code class="xref py py-obj docutils literal"><span class="pre">merge_timeframes</span></code></a>(timeframes[,&nbsp;gap])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.timeframe.split_timeframes" title="nilmtk.timeframe.split_timeframes"><code class="xref py py-obj docutils literal"><span class="pre">split_timeframes</span></code></a>(timeframes,&nbsp;duration_threshold)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.timeframe_from_dict" title="nilmtk.timeframe.timeframe_from_dict"><code class="xref py py-obj docutils literal"><span class="pre">timeframe_from_dict</span></code></a>(d)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame" title="nilmtk.timeframe.TimeFrame"><code class="xref py py-obj docutils literal"><span class="pre">TimeFrame</span></code></a>([start,&nbsp;end,&nbsp;tz])</td>
+<td>A TimeFrame is a single time span or period, e.g.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: TimeFrame</p>
+<dl class="class">
+<dt id="nilmtk.timeframe.TimeFrame">
+<em class="property">class </em><code class="descclassname">nilmtk.timeframe.</code><code class="descname">TimeFrame</code><span class="sig-paren">(</span><em>start=None</em>, <em>end=None</em>, <em>tz=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A TimeFrame is a single time span or period,
+e.g. from “2013” to “2014”.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>_start</strong></td>
+<td>(pd.Timestamp or None) if None and empty if False then behave as if start is infinitely far into the past</td>
+</tr>
+<tr class="row-even"><td><strong>_end</strong></td>
+<td>(pd.Timestamp or None) if None and empty is False then behave as if end is infinitely far into the future</td>
+</tr>
+<tr class="row-odd"><td><strong>enabled</strong></td>
+<td>(boolean) If False then behave as if both _end and _start are None</td>
+</tr>
+<tr class="row-even"><td><strong>_empty</strong></td>
+<td>(boolean) If True then represents an empty time frame</td>
+</tr>
+<tr class="row-odd"><td><strong>include_end</strong></td>
+<td>(boolean)</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.adjacent" title="nilmtk.timeframe.TimeFrame.adjacent"><code class="xref py py-obj docutils literal"><span class="pre">adjacent</span></code></a>(other[,&nbsp;gap])</td>
+<td>Returns True if self.start == other.end or visa versa.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.check_for_overlap" title="nilmtk.timeframe.TimeFrame.check_for_overlap"><code class="xref py py-obj docutils literal"><span class="pre">check_for_overlap</span></code></a>(other)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.check_tz" title="nilmtk.timeframe.TimeFrame.check_tz"><code class="xref py py-obj docutils literal"><span class="pre">check_tz</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.clear" title="nilmtk.timeframe.TimeFrame.clear"><code class="xref py py-obj docutils literal"><span class="pre">clear</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.copy_constructor" title="nilmtk.timeframe.TimeFrame.copy_constructor"><code class="xref py py-obj docutils literal"><span class="pre">copy_constructor</span></code></a>(other)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.intersection" title="nilmtk.timeframe.TimeFrame.intersection"><code class="xref py py-obj docutils literal"><span class="pre">intersection</span></code></a>(other)</td>
+<td>Returns a new TimeFrame of the intersection between this TimeFrame and <cite>other</cite> TimeFrame.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.query_terms" title="nilmtk.timeframe.TimeFrame.query_terms"><code class="xref py py-obj docutils literal"><span class="pre">query_terms</span></code></a>([variable_name])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.slice" title="nilmtk.timeframe.TimeFrame.slice"><code class="xref py py-obj docutils literal"><span class="pre">slice</span></code></a>(frame)</td>
+<td>Slices <cite>frame</cite> using self.start and self.end.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.split" title="nilmtk.timeframe.TimeFrame.split"><code class="xref py py-obj docutils literal"><span class="pre">split</span></code></a>(duration_threshold)</td>
+<td>Splits this TimeFrame into smaller adjacent TimeFrames no longer in duration than duration_threshold.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.to_dict" title="nilmtk.timeframe.TimeFrame.to_dict"><code class="xref py py-obj docutils literal"><span class="pre">to_dict</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.union" title="nilmtk.timeframe.TimeFrame.union"><code class="xref py py-obj docutils literal"><span class="pre">union</span></code></a>(other)</td>
+<td>Return a single TimeFrame combining self and other.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.empty" title="nilmtk.timeframe.TimeFrame.empty"><code class="xref py py-obj docutils literal"><span class="pre">empty</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.end" title="nilmtk.timeframe.TimeFrame.end"><code class="xref py py-obj docutils literal"><span class="pre">end</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.start" title="nilmtk.timeframe.TimeFrame.start"><code class="xref py py-obj docutils literal"><span class="pre">start</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.timeframe.TimeFrame.timedelta" title="nilmtk.timeframe.TimeFrame.timedelta"><code class="xref py py-obj docutils literal"><span class="pre">timedelta</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.timeframe"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.timeframe.</code><code class="descname">TimeFrame</code><span class="sig-paren">(</span><em>start=None</em>, <em>end=None</em>, <em>tz=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A TimeFrame is a single time span or period,
+e.g. from “2013” to “2014”.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>_start</strong></td>
+<td>(pd.Timestamp or None) if None and empty if False then behave as if start is infinitely far into the past</td>
+</tr>
+<tr class="row-even"><td><strong>_end</strong></td>
+<td>(pd.Timestamp or None) if None and empty is False then behave as if end is infinitely far into the future</td>
+</tr>
+<tr class="row-odd"><td><strong>enabled</strong></td>
+<td>(boolean) If False then behave as if both _end and _start are None</td>
+</tr>
+<tr class="row-even"><td><strong>_empty</strong></td>
+<td>(boolean) If True then represents an empty time frame</td>
+</tr>
+<tr class="row-odd"><td><strong>include_end</strong></td>
+<td>(boolean)</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.adjacent">
+<code class="descname">adjacent</code><span class="sig-paren">(</span><em>other</em>, <em>gap=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.adjacent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.adjacent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if self.start == other.end or visa versa.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>gap</strong> : float or int</p>
+<blockquote class="last">
+<div><p>Number of seconds gap allowed.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Does not yet handle case where self or other is open-ended.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.check_for_overlap">
+<code class="descname">check_for_overlap</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.check_for_overlap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.check_for_overlap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.check_tz">
+<code class="descname">check_tz</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.check_tz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.check_tz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.copy_constructor">
+<code class="descname">copy_constructor</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.copy_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.copy_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.timeframe.TimeFrame.empty">
+<code class="descname">empty</code><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.timeframe.TimeFrame.end">
+<code class="descname">end</code><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="nilmtk.timeframe.TimeFrame.from_dict">
+<em class="property">classmethod </em><code class="descname">from_dict</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.from_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.intersection">
+<code class="descname">intersection</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.intersection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new TimeFrame of the intersection between
+this TimeFrame and <cite>other</cite> TimeFrame.
+If the intersect is empty then the returned TimeFrame
+will have empty == True.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.query_terms">
+<code class="descname">query_terms</code><span class="sig-paren">(</span><em>variable_name='timeframe'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.query_terms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.query_terms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.slice">
+<code class="descname">slice</code><span class="sig-paren">(</span><em>frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slices <cite>frame</cite> using self.start and self.end.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> : pd.DataFrame or pd.Series to slice</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>frame</strong> : sliced frame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.split">
+<code class="descname">split</code><span class="sig-paren">(</span><em>duration_threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits this TimeFrame into smaller adjacent TimeFrames no
+longer in duration than duration_threshold.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>duration_threshold</strong> : int, seconds</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">generator of new TimeFrame objects</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.timeframe.TimeFrame.start">
+<code class="descname">start</code><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.timeframe.TimeFrame.timedelta">
+<code class="descname">timedelta</code><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.timedelta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.timeframe.TimeFrame.union">
+<code class="descname">union</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#TimeFrame.union"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.TimeFrame.union" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a single TimeFrame combining self and other.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.timeframe.convert_nat_to_none">
+<code class="descclassname">nilmtk.timeframe.</code><code class="descname">convert_nat_to_none</code><span class="sig-paren">(</span><em>timestamp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#convert_nat_to_none"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.convert_nat_to_none" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.timeframe.convert_none_to_nat">
+<code class="descclassname">nilmtk.timeframe.</code><code class="descname">convert_none_to_nat</code><span class="sig-paren">(</span><em>timestamp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#convert_none_to_nat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.convert_none_to_nat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.timeframe.list_of_timeframe_dicts">
+<code class="descclassname">nilmtk.timeframe.</code><code class="descname">list_of_timeframe_dicts</code><span class="sig-paren">(</span><em>timeframes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#list_of_timeframe_dicts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.list_of_timeframe_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timeframes</strong> : list of TimeFrame objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of dicts</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.timeframe.list_of_timeframes_from_list_of_dicts">
+<code class="descclassname">nilmtk.timeframe.</code><code class="descname">list_of_timeframes_from_list_of_dicts</code><span class="sig-paren">(</span><em>dicts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#list_of_timeframes_from_list_of_dicts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.list_of_timeframes_from_list_of_dicts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.timeframe.merge_timeframes">
+<code class="descclassname">nilmtk.timeframe.</code><code class="descname">merge_timeframes</code><span class="sig-paren">(</span><em>timeframes</em>, <em>gap=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#merge_timeframes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.merge_timeframes" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>timeframes</strong> : list of TimeFrame objects (must be sorted)</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>merged</strong> : list of TimeFrame objects</p>
+<blockquote class="last">
+<div><p>Where adjacent timeframes have been merged.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.timeframe.split_timeframes">
+<code class="descclassname">nilmtk.timeframe.</code><code class="descname">split_timeframes</code><span class="sig-paren">(</span><em>timeframes</em>, <em>duration_threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#split_timeframes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.split_timeframes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.timeframe.timeframe_from_dict">
+<code class="descclassname">nilmtk.timeframe.</code><code class="descname">timeframe_from_dict</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/timeframe.html#timeframe_from_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.timeframe.timeframe_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

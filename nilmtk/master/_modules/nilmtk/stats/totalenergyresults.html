@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nilmtk.stats.totalenergyresults &mdash; NILMTK 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <title>nilmtk.stats.totalenergyresults &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
-    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="NILMTK 0.2 documentation" href="../../../index.html" />
-    <link rel="up" title="nilmtk" href="../../nilmtk.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -56,7 +51,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
                 <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
             
@@ -115,13 +109,13 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 content">
       
   <h1>Source code for nilmtk.stats.totalenergyresults</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">..results</span> <span class="kn">import</span> <span class="n">Results</span>
-<span class="kn">from</span> <span class="nn">..measurement</span> <span class="kn">import</span> <span class="n">AC_TYPES</span>
+<span></span><span class="kn">from</span> <span class="nn">..results</span> <span class="k">import</span> <span class="n">Results</span>
+<span class="kn">from</span> <span class="nn">..measurement</span> <span class="k">import</span> <span class="n">AC_TYPES</span>
 
-<div class="viewcode-block" id="TotalEnergyResults"><a class="viewcode-back" href="../../../nilmtk.stats.html#nilmtk.stats.totalenergyresults.TotalEnergyResults">[docs]</a><span class="k">class</span> <span class="nc">TotalEnergyResults</span><span class="p">(</span><span class="n">Results</span><span class="p">):</span>
+<div class="viewcode-block" id="TotalEnergyResults"><a class="viewcode-back" href="../../../nilmtk.stats.totalenergyresults.html#nilmtk.stats.totalenergy.TotalEnergyResults">[docs]</a><span class="k">class</span> <span class="nc">TotalEnergyResults</span><span class="p">(</span><span class="n">Results</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -133,31 +127,31 @@
 <span class="sd">        `apparent` is (optional) energy in kVAh</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;total_energy&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;total_energy&quot;</span>
 
-<div class="viewcode-block" id="TotalEnergyResults.append"><a class="viewcode-back" href="../../../nilmtk.stats.html#nilmtk.stats.totalenergyresults.TotalEnergyResults.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeframe</span><span class="p">,</span> <span class="n">new_results</span><span class="p">):</span>
+<div class="viewcode-block" id="TotalEnergyResults.append"><a class="viewcode-back" href="../../../nilmtk.stats.totalenergyresults.html#nilmtk.stats.totalenergy.TotalEnergyResults.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeframe</span><span class="p">,</span> <span class="n">new_results</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Append a single result.</span>
 <span class="sd">        e.g. append(TimeFrame(start, end), {&#39;apparent&#39;: 34, &#39;active&#39;: 43})</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">new_results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">AC_TYPES</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&#39;new_results must be a combination of &#39;</span> <span class="o">+</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;new_results must be a combination of &#39;</span> <span class="o">+</span>
                            <span class="nb">str</span><span class="p">(</span><span class="n">AC_TYPES</span><span class="p">))</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">TotalEnergyResults</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timeframe</span><span class="p">,</span> <span class="n">new_results</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="TotalEnergyResults.unify"><a class="viewcode-back" href="../../../nilmtk.stats.html#nilmtk.stats.totalenergyresults.TotalEnergyResults.unify">[docs]</a>    <span class="k">def</span> <span class="nf">unify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TotalEnergyResults</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timeframe</span><span class="p">,</span> <span class="n">new_results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TotalEnergyResults.unify"><a class="viewcode-back" href="../../../nilmtk.stats.totalenergyresults.html#nilmtk.stats.totalenergy.TotalEnergyResults.unify">[docs]</a>    <span class="k">def</span> <span class="nf">unify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">TotalEnergyResults</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">unify</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-        <span class="n">ac_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;end&#39;</span><span class="p">])</span>
+        <span class="n">ac_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">ac_type</span> <span class="ow">in</span> <span class="n">ac_types</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">ac_type</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">ac_type</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</div>
-<div class="viewcode-block" id="TotalEnergyResults.to_dict"><a class="viewcode-back" href="../../../nilmtk.stats.html#nilmtk.stats.totalenergyresults.TotalEnergyResults.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s">&#39;total_energy&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">combined</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()}</span>
-</div>
-<div class="viewcode-block" id="TotalEnergyResults.simple"><a class="viewcode-back" href="../../../nilmtk.stats.html#nilmtk.stats.totalenergyresults.TotalEnergyResults.simple">[docs]</a>    <span class="k">def</span> <span class="nf">simple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">combined</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TotalEnergyResults.export_to_cache"><a class="viewcode-back" href="../../../nilmtk.stats.html#nilmtk.stats.totalenergyresults.TotalEnergyResults.export_to_cache">[docs]</a>    <span class="k">def</span> <span class="nf">export_to_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">ac_type</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">ac_type</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TotalEnergyResults.to_dict"><a class="viewcode-back" href="../../../nilmtk.stats.totalenergyresults.html#nilmtk.stats.totalenergy.TotalEnergyResults.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;total_energy&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">combined</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()}</span></div>
+
+<div class="viewcode-block" id="TotalEnergyResults.simple"><a class="viewcode-back" href="../../../nilmtk.stats.totalenergyresults.html#nilmtk.stats.totalenergy.TotalEnergyResults.simple">[docs]</a>    <span class="k">def</span> <span class="nf">simple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">combined</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TotalEnergyResults.export_to_cache"><a class="viewcode-back" href="../../../nilmtk.stats.totalenergyresults.html#nilmtk.stats.totalenergy.TotalEnergyResults.export_to_cache">[docs]</a>    <span class="k">def</span> <span class="nf">export_to_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">convert_objects</span><span class="p">()</span></div></div>
 </pre></div>
 
@@ -173,7 +167,7 @@
     </p>
     <p>
         &copy; Copyright 2014, NILMTK Authors.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

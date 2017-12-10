@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nilmtk.tests.test_metrics &mdash; NILMTK 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <title>nilmtk.tests.test_metrics &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
-    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="NILMTK 0.2 documentation" href="../../../index.html" />
-    <link rel="up" title="nilmtk" href="../../nilmtk.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -56,7 +51,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
                 <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
             
@@ -115,36 +109,36 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 content">
       
   <h1>Source code for nilmtk.tests.test_metrics</h1><div class="highlight"><pre>
-<span class="c">#!/usr/bin/python</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span></span><span class="ch">#!/usr/bin/python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">unittest</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
-<span class="kn">from</span> <span class="nn">nilmtk.tests.testingtools</span> <span class="kn">import</span> <span class="n">data_dir</span>
-<span class="kn">from</span> <span class="nn">nilmtk</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Appliance</span><span class="p">,</span> <span class="n">MeterGroup</span><span class="p">,</span> <span class="n">ElecMeter</span><span class="p">,</span> <span class="n">HDFDataStore</span><span class="p">,</span> 
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
+<span class="kn">from</span> <span class="nn">nilmtk.tests.testingtools</span> <span class="k">import</span> <span class="n">data_dir</span>
+<span class="kn">from</span> <span class="nn">nilmtk</span> <span class="k">import</span> <span class="p">(</span><span class="n">Appliance</span><span class="p">,</span> <span class="n">MeterGroup</span><span class="p">,</span> <span class="n">ElecMeter</span><span class="p">,</span> <span class="n">HDFDataStore</span><span class="p">,</span> 
                     <span class="n">global_meter_group</span><span class="p">,</span> <span class="n">TimeFrame</span><span class="p">,</span> <span class="n">DataSet</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">nilmtk.utils</span> <span class="kn">import</span> <span class="n">tree_root</span><span class="p">,</span> <span class="n">nodes_adjacent_to_root</span>
-<span class="kn">from</span> <span class="nn">nilmtk.elecmeter</span> <span class="kn">import</span> <span class="n">ElecMeterID</span>
-<span class="kn">from</span> <span class="nn">nilmtk.building</span> <span class="kn">import</span> <span class="n">BuildingID</span>
-<span class="kn">from</span> <span class="nn">nilmtk.disaggregate</span> <span class="kn">import</span> <span class="n">CombinatorialOptimisation</span>
-<span class="kn">from</span> <span class="nn">nilmtk.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
+<span class="kn">from</span> <span class="nn">nilmtk.utils</span> <span class="k">import</span> <span class="n">tree_root</span><span class="p">,</span> <span class="n">nodes_adjacent_to_root</span>
+<span class="kn">from</span> <span class="nn">nilmtk.elecmeter</span> <span class="k">import</span> <span class="n">ElecMeterID</span>
+<span class="kn">from</span> <span class="nn">nilmtk.building</span> <span class="k">import</span> <span class="n">BuildingID</span>
+<span class="kn">from</span> <span class="nn">nilmtk.disaggregate</span> <span class="k">import</span> <span class="n">CombinatorialOptimisation</span>
+<span class="kn">from</span> <span class="nn">nilmtk.metrics</span> <span class="k">import</span> <span class="n">f1_score</span>
 
-<div class="viewcode-block" id="TestMetrics"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_metrics.TestMetrics">[docs]</a><span class="k">class</span> <span class="nc">TestMetrics</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="TestMetrics.setUpClass"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_metrics.TestMetrics.setUpClass">[docs]</a>    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s">&#39;co_test.h5&#39;</span><span class="p">)</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">DataSet</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        </div>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="TestMetrics.tearDownClass"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_metrics.TestMetrics.tearDownClass">[docs]</a>    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TestMetrics.test_f1"><a class="viewcode-back" href="../../../nilmtk.tests.html#nilmtk.tests.test_metrics.TestMetrics.test_f1">[docs]</a>    <span class="k">def</span> <span class="nf">test_f1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TestMetrics"><a class="viewcode-back" href="../../../nilmtk.tests.test_metrics.html#nilmtk.tests.test_metrics.TestMetrics">[docs]</a><span class="k">class</span> <span class="nc">TestMetrics</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="TestMetrics.setUpClass"><a class="viewcode-back" href="../../../nilmtk.tests.test_metrics.html#nilmtk.tests.test_metrics.TestMetrics.setUpClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;co_test.h5&#39;</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">DataSet</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="TestMetrics.tearDownClass"><a class="viewcode-back" href="../../../nilmtk.tests.test_metrics.html#nilmtk.tests.test_metrics.TestMetrics.tearDownClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestMetrics.test_f1"><a class="viewcode-back" href="../../../nilmtk.tests.test_metrics.html#nilmtk.tests.test_metrics.TestMetrics.test_f1">[docs]</a>    <span class="k">def</span> <span class="nf">test_f1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
-        <span class="c"># The code below doesn&#39;t work yet because it complains that</span>
-        <span class="c"># AttributeError: Attribute &#39;metadata&#39; does not exist in node: &#39;/&#39;</span>
+        <span class="c1"># The code below doesn&#39;t work yet because it complains that</span>
+        <span class="c1"># AttributeError: Attribute &#39;metadata&#39; does not exist in node: &#39;/&#39;</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        co = CombinatorialOptimisation()</span>
 <span class="sd">        co.train(self.dataset.buildings[1].elec)</span>
@@ -155,9 +149,9 @@
 <span class="sd">        disag = DataSet(disag_filename)</span>
 <span class="sd">        disag_elec = disag.buildings[1].elec</span>
 <span class="sd">        f1 = f1_score(disag_elec, self.dataset.buildings[1].elec)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-</div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 </pre></div>
 
@@ -173,7 +167,7 @@
     </p>
     <p>
         &copy; Copyright 2014, NILMTK Authors.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nilmtk.metrics &mdash; NILMTK 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <title>nilmtk.metrics &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
-    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="NILMTK 0.2 documentation" href="../../index.html" />
-    <link rel="up" title="nilmtk" href="../nilmtk.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -56,7 +51,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
                 <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
             
@@ -115,10 +109,10 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 content">
       
   <h1>Source code for nilmtk.metrics</h1><div class="highlight"><pre>
-<span class="sd">&#39;&#39;&#39;Metrics to compare disaggregation performance against ground truth</span>
+<span></span><span class="sd">&#39;&#39;&#39;Metrics to compare disaggregation performance against ground truth</span>
 <span class="sd">data.</span>
 
 <span class="sd">All metrics functions have the same interface.  Each function takes</span>
@@ -154,16 +148,19 @@
 
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">.metergroup</span> <span class="kn">import</span> <span class="n">MeterGroup</span><span class="p">,</span> <span class="n">iterate_through_submeters_of_two_metergroups</span>
-<span class="kn">from</span> <span class="nn">.electric</span> <span class="kn">import</span> <span class="n">align_two_meters</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">.metergroup</span> <span class="k">import</span> <span class="n">MeterGroup</span>
+<span class="kn">from</span> <span class="nn">.metergroup</span> <span class="k">import</span> <span class="n">iterate_through_submeters_of_two_metergroups</span>
+<span class="kn">from</span> <span class="nn">.electric</span> <span class="k">import</span> <span class="n">align_two_meters</span>
 
-<div class="viewcode-block" id="error_in_assigned_energy"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.metrics.error_in_assigned_energy">[docs]</a><span class="k">def</span> <span class="nf">error_in_assigned_energy</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
+
+<div class="viewcode-block" id="error_in_assigned_energy"><a class="viewcode-back" href="../../nilmtk.metrics.html#nilmtk.metrics.error_in_assigned_energy">[docs]</a><span class="k">def</span> <span class="nf">error_in_assigned_energy</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute error in assigned energy.</span>
-<span class="sd">    </span>
+
 <span class="sd">    .. math::</span>
 <span class="sd">        error^{(n)} = </span>
 <span class="sd">        \\left | \\sum_t y^{(n)}_t - \\sum_t \\hat{y}^{(n)}_t \\right |</span>
@@ -187,10 +184,10 @@
         <span class="n">ground_truth_energy</span> <span class="o">=</span> <span class="n">ground_truth_meter</span><span class="o">.</span><span class="n">total_energy</span><span class="p">(</span><span class="n">sections</span><span class="o">=</span><span class="n">sections</span><span class="p">)</span>
         <span class="n">predicted_energy</span> <span class="o">=</span> <span class="n">pred_meter</span><span class="o">.</span><span class="n">total_energy</span><span class="p">(</span><span class="n">sections</span><span class="o">=</span><span class="n">sections</span><span class="p">)</span>
         <span class="n">errors</span><span class="p">[</span><span class="n">pred_meter</span><span class="o">.</span><span class="n">instance</span><span class="p">()]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ground_truth_energy</span> <span class="o">-</span> <span class="n">predicted_energy</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="fraction_energy_assigned_correctly"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.metrics.fraction_energy_assigned_correctly">[docs]</a><span class="k">def</span> <span class="nf">fraction_energy_assigned_correctly</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
+
+<div class="viewcode-block" id="fraction_energy_assigned_correctly"><a class="viewcode-back" href="../../nilmtk.metrics.html#nilmtk.metrics.fraction_energy_assigned_correctly">[docs]</a><span class="k">def</span> <span class="nf">fraction_energy_assigned_correctly</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Compute fraction of energy assigned correctly</span>
 <span class="sd">    </span>
 <span class="sd">    .. math::</span>
@@ -229,10 +226,10 @@
     <span class="k">for</span> <span class="n">meter_instance</span> <span class="ow">in</span> <span class="n">predictions_submeters</span><span class="o">.</span><span class="n">instance</span><span class="p">():</span>
         <span class="n">fraction</span> <span class="o">+=</span> <span class="nb">min</span><span class="p">(</span><span class="n">fraction_per_meter_ground_truth</span><span class="p">[</span><span class="n">meter_instance</span><span class="p">],</span>
                         <span class="n">fraction_per_meter_predictions</span><span class="p">[</span><span class="n">meter_instance</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">fraction</span>
+    <span class="k">return</span> <span class="n">fraction</span></div>
 
-</div>
-<div class="viewcode-block" id="mean_normalized_error_power"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.metrics.mean_normalized_error_power">[docs]</a><span class="k">def</span> <span class="nf">mean_normalized_error_power</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
+
+<div class="viewcode-block" id="mean_normalized_error_power"><a class="viewcode-back" href="../../nilmtk.metrics.html#nilmtk.metrics.mean_normalized_error_power">[docs]</a><span class="k">def</span> <span class="nf">mean_normalized_error_power</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Compute mean normalized error in assigned power</span>
 <span class="sd">        </span>
 <span class="sd">    .. math::</span>
@@ -266,10 +263,10 @@
 
         <span class="n">mne</span><span class="p">[</span><span class="n">pred_meter</span><span class="o">.</span><span class="n">instance</span><span class="p">()]</span> <span class="o">=</span> <span class="n">total_abs_diff</span> <span class="o">/</span> <span class="n">sum_of_ground_truth_power</span>
 
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mne</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mne</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="rms_error_power"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.metrics.rms_error_power">[docs]</a><span class="k">def</span> <span class="nf">rms_error_power</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
+
+<div class="viewcode-block" id="rms_error_power"><a class="viewcode-back" href="../../nilmtk.metrics.html#nilmtk.metrics.rms_error_power">[docs]</a><span class="k">def</span> <span class="nf">rms_error_power</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Compute RMS error in assigned power</span>
 <span class="sd">    </span>
 <span class="sd">    .. math::</span>
@@ -296,18 +293,18 @@
         <span class="k">for</span> <span class="n">aligned_meters_chunk</span> <span class="ow">in</span> <span class="n">align_two_meters</span><span class="p">(</span><span class="n">pred_meter</span><span class="p">,</span> 
                                                      <span class="n">ground_truth_meter</span><span class="p">):</span>
             <span class="n">diff</span> <span class="o">=</span> <span class="n">aligned_meters_chunk</span><span class="o">.</span><span class="n">icol</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">aligned_meters_chunk</span><span class="o">.</span><span class="n">icol</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">diff</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">diff</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">sum_of_squared_diff</span> <span class="o">+=</span> <span class="p">(</span><span class="n">diff</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
             <span class="n">n_samples</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
 
         <span class="n">error</span><span class="p">[</span><span class="n">pred_meter</span><span class="o">.</span><span class="n">instance</span><span class="p">()]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sum_of_squared_diff</span> <span class="o">/</span> <span class="n">n_samples</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="f1_score"><a class="viewcode-back" href="../../nilmtk.html#nilmtk.metrics.f1_score">[docs]</a><span class="k">def</span> <span class="nf">f1_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
+
+<div class="viewcode-block" id="f1_score"><a class="viewcode-back" href="../../nilmtk.metrics.html#nilmtk.metrics.f1_score">[docs]</a><span class="k">def</span> <span class="nf">f1_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Compute F1 scores.</span>
-<span class="sd">    </span>
+
 <span class="sd">    .. math::</span>
 <span class="sd">        F_{score}^{(n)} = \\frac</span>
 <span class="sd">            {2 * Precision * Recall}</span>
@@ -322,46 +319,53 @@
 <span class="sd">    f1_scores : pd.Series</span>
 <span class="sd">        Each index is an meter instance int (or tuple for MeterGroups).</span>
 <span class="sd">        Each value is the F1 score for that appliance.  If there are multiple</span>
-<span class="sd">        chunks then the value is the weighted mean of the F1 score for </span>
+<span class="sd">        chunks then the value is the weighted mean of the F1 score for</span>
 <span class="sd">        each chunk.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="c"># If we import sklearn at top of file then sphinx breaks.</span>
-    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span> <span class="k">as</span> <span class="n">sklearn_f1_score</span>
+    <span class="c1"># If we import sklearn at top of file then sphinx breaks.</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">f1_score</span> <span class="k">as</span> <span class="n">sklearn_f1_score</span>
 
-    <span class="c"># sklearn produces lots of DepreciationWarnings with PyTables</span>
+    <span class="c1"># sklearn produces lots of DepreciationWarnings with PyTables</span>
     <span class="kn">import</span> <span class="nn">warnings</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span> 
+    <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
     <span class="n">f1_scores</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">both_sets_of_meters</span> <span class="o">=</span> <span class="n">iterate_through_submeters_of_two_metergroups</span><span class="p">(</span>
         <span class="n">predictions</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">pred_meter</span><span class="p">,</span> <span class="n">ground_truth_meter</span> <span class="ow">in</span> <span class="n">both_sets_of_meters</span><span class="p">:</span>
-        <span class="n">scores_for_meter</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;score&#39;</span><span class="p">,</span> <span class="s">&#39;n_samples&#39;</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">aligned_states_chunk</span> <span class="ow">in</span> <span class="n">align_two_meters</span><span class="p">(</span><span class="n">pred_meter</span><span class="p">,</span> 
-                                                     <span class="n">ground_truth_meter</span><span class="p">,</span>
-                                                     <span class="s">&#39;when_on&#39;</span><span class="p">):</span>
-            <span class="n">aligned_states_chunk</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">scores_for_meter</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;num_samples&#39;</span><span class="p">])</span>
+        <span class="n">aligned_meters</span> <span class="o">=</span> <span class="n">align_two_meters</span><span class="p">(</span>
+            <span class="n">pred_meter</span><span class="p">,</span> <span class="n">ground_truth_meter</span><span class="p">,</span> <span class="s1">&#39;when_on&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">aligned_states_chunk</span> <span class="ow">in</span> <span class="n">aligned_meters</span><span class="p">:</span>
+            <span class="n">aligned_states_chunk</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">aligned_states_chunk</span> <span class="o">=</span> <span class="n">aligned_states_chunk</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
             <span class="n">score</span> <span class="o">=</span> <span class="n">sklearn_f1_score</span><span class="p">(</span><span class="n">aligned_states_chunk</span><span class="o">.</span><span class="n">icol</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
                                      <span class="n">aligned_states_chunk</span><span class="o">.</span><span class="n">icol</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
             <span class="n">scores_for_meter</span> <span class="o">=</span> <span class="n">scores_for_meter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="p">{</span><span class="s">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span> <span class="s">&#39;n_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">aligned_states_chunk</span><span class="p">)},</span>
-                <span class="n">ignore_index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="p">{</span><span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span> <span class="s1">&#39;num_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">aligned_states_chunk</span><span class="p">)},</span>
+                <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="c"># Calculate weighted mean</span>
-        <span class="n">tot_samples</span> <span class="o">=</span> <span class="n">scores_for_meter</span><span class="p">[</span><span class="s">&#39;n_samples&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-        <span class="n">scores_for_meter</span><span class="p">[</span><span class="s">&#39;proportion&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">scores_for_meter</span><span class="p">[</span><span class="s">&#39;n_samples&#39;</span><span class="p">]</span> <span class="o">/</span> 
-                                          <span class="n">tot_samples</span><span class="p">)</span>
-        <span class="n">avg_score</span> <span class="o">=</span> <span class="p">(</span><span class="n">scores_for_meter</span><span class="p">[</span><span class="s">&#39;score&#39;</span><span class="p">]</span> <span class="o">*</span> 
-                     <span class="n">scores_for_meter</span><span class="p">[</span><span class="s">&#39;proportion&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="c1"># Calculate weighted mean</span>
+        <span class="n">num_samples</span> <span class="o">=</span> <span class="n">scores_for_meter</span><span class="p">[</span><span class="s1">&#39;num_samples&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">num_samples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">scores_for_meter</span><span class="p">[</span><span class="s1">&#39;proportion&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">scores_for_meter</span><span class="p">[</span><span class="s1">&#39;num_samples&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">num_samples</span><span class="p">)</span>
+            <span class="n">avg_score</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">scores_for_meter</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">scores_for_meter</span><span class="p">[</span><span class="s1">&#39;proportion&#39;</span><span class="p">]</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No aligned samples when calculating F1-score for prediction&quot;</span>
+                 <span class="s2">&quot; meter </span><span class="si">{}</span><span class="s2"> and ground truth meter </span><span class="si">{}</span><span class="s2">.&quot;</span>
+                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pred_meter</span><span class="p">,</span> <span class="n">ground_truth_meter</span><span class="p">))</span>
+            <span class="n">avg_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
         <span class="n">f1_scores</span><span class="p">[</span><span class="n">pred_meter</span><span class="o">.</span><span class="n">instance</span><span class="p">()]</span> <span class="o">=</span> <span class="n">avg_score</span>
 
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">f1_scores</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">f1_scores</span><span class="p">)</span></div>
 
 
-<span class="c">##### FUNCTIONS BELOW THIS LINE HAVE NOT YET BEEN CONVERTED TO NILMTK v0.2 #####</span>
+<span class="c1">##### FUNCTIONS BELOW THIS LINE HAVE NOT YET BEEN CONVERTED TO NILMTK v0.2 #####</span>
 
-</div>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">def confusion_matrices(predicted_states, ground_truth_states):</span>
 <span class="sd">    &#39;&#39;&#39;Compute confusion matrix between appliance states for each appliance</span>
@@ -547,7 +551,7 @@
     </p>
     <p>
         &copy; Copyright 2014, NILMTK Authors.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

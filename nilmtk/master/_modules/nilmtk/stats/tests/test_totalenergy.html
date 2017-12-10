@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nilmtk.stats.tests.test_totalenergy &mdash; NILMTK 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <title>nilmtk.stats.tests.test_totalenergy &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
-    
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="NILMTK 0.2 documentation" href="../../../../index.html" />
-    <link rel="up" title="nilmtk" href="../../../nilmtk.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -56,7 +51,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
                 <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
             
@@ -115,56 +109,56 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 content">
       
   <h1>Source code for nilmtk.stats.tests.test_totalenergy</h1><div class="highlight"><pre>
-<span class="c">#!/usr/bin/python</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span></span><span class="ch">#!/usr/bin/python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">unittest</span>
-<span class="kn">from</span> <span class="nn">..totalenergy</span> <span class="kn">import</span> <span class="n">TotalEnergy</span><span class="p">,</span> <span class="n">_energy_for_power_series</span>
-<span class="kn">from</span> <span class="nn">...preprocessing</span> <span class="kn">import</span> <span class="n">Clip</span>
-<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">TimeFrame</span><span class="p">,</span> <span class="n">ElecMeter</span><span class="p">,</span> <span class="n">HDFDataStore</span>
-<span class="kn">from</span> <span class="nn">...elecmeter</span> <span class="kn">import</span> <span class="n">ElecMeterID</span>
-<span class="kn">from</span> <span class="nn">...consts</span> <span class="kn">import</span> <span class="n">JOULES_PER_KWH</span>
-<span class="kn">from</span> <span class="nn">...tests.testingtools</span> <span class="kn">import</span> <span class="n">data_dir</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">..totalenergy</span> <span class="k">import</span> <span class="n">TotalEnergy</span><span class="p">,</span> <span class="n">_energy_for_power_series</span>
+<span class="kn">from</span> <span class="nn">...preprocessing</span> <span class="k">import</span> <span class="n">Clip</span>
+<span class="kn">from</span> <span class="nn">...</span> <span class="k">import</span> <span class="n">TimeFrame</span><span class="p">,</span> <span class="n">ElecMeter</span><span class="p">,</span> <span class="n">HDFDataStore</span>
+<span class="kn">from</span> <span class="nn">...elecmeter</span> <span class="k">import</span> <span class="n">ElecMeterID</span>
+<span class="kn">from</span> <span class="nn">...consts</span> <span class="k">import</span> <span class="n">JOULES_PER_KWH</span>
+<span class="kn">from</span> <span class="nn">...tests.testingtools</span> <span class="k">import</span> <span class="n">data_dir</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
 
-<span class="n">METER_ID</span> <span class="o">=</span> <span class="n">ElecMeterID</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">building</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="s">&#39;REDD&#39;</span><span class="p">)</span>
+<span class="n">METER_ID</span> <span class="o">=</span> <span class="n">ElecMeterID</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">building</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;REDD&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="check_energy_numbers"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_totalenergy.check_energy_numbers">[docs]</a><span class="k">def</span> <span class="nf">check_energy_numbers</span><span class="p">(</span><span class="n">testcase</span><span class="p">,</span> <span class="n">energy</span><span class="p">):</span>
+<div class="viewcode-block" id="check_energy_numbers"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_totalenergy.html#nilmtk.stats.tests.test_totalenergy.check_energy_numbers">[docs]</a><span class="k">def</span> <span class="nf">check_energy_numbers</span><span class="p">(</span><span class="n">testcase</span><span class="p">,</span> <span class="n">energy</span><span class="p">):</span>
     <span class="n">true_active_kwh</span> <span class="o">=</span>  <span class="mf">0.0163888888889</span>
-    <span class="n">testcase</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">energy</span><span class="p">[</span><span class="s">&#39;active&#39;</span><span class="p">],</span> <span class="n">true_active_kwh</span><span class="p">)</span>
-    <span class="n">testcase</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">energy</span><span class="p">[</span><span class="s">&#39;reactive&#39;</span><span class="p">],</span> <span class="n">true_active_kwh</span><span class="o">*</span><span class="mf">0.9</span><span class="p">)</span>
-    <span class="n">testcase</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">energy</span><span class="p">[</span><span class="s">&#39;apparent&#39;</span><span class="p">],</span> <span class="n">true_active_kwh</span><span class="o">*</span><span class="mf">1.1</span><span class="p">)</span>
+    <span class="n">testcase</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">energy</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">],</span> <span class="n">true_active_kwh</span><span class="p">)</span>
+    <span class="n">testcase</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">energy</span><span class="p">[</span><span class="s1">&#39;reactive&#39;</span><span class="p">],</span> <span class="n">true_active_kwh</span><span class="o">*</span><span class="mf">0.9</span><span class="p">)</span>
+    <span class="n">testcase</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">energy</span><span class="p">[</span><span class="s1">&#39;apparent&#39;</span><span class="p">],</span> <span class="n">true_active_kwh</span><span class="o">*</span><span class="mf">1.1</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="TestEnergy"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_totalenergy.TestEnergy">[docs]</a><span class="k">class</span> <span class="nc">TestEnergy</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="TestEnergy.setUpClass"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_totalenergy.TestEnergy.setUpClass">[docs]</a>    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s">&#39;energy.h5&#39;</span><span class="p">)</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">datastore</span> <span class="o">=</span> <span class="n">HDFDataStore</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        <span class="n">ElecMeter</span><span class="o">.</span><span class="n">load_meter_devices</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">datastore</span><span class="p">)</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">meter_meta</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">datastore</span><span class="o">.</span><span class="n">load_metadata</span><span class="p">(</span><span class="s">&#39;building1&#39;</span><span class="p">)[</span><span class="s">&#39;elec_meters&#39;</span><span class="p">][</span><span class="n">METER_ID</span><span class="o">.</span><span class="n">instance</span><span class="p">]</span>
-        </div>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="TestEnergy.tearDownClass"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_totalenergy.TestEnergy.tearDownClass">[docs]</a>    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">datastore</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TestEnergy.test_energy_per_power_series"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_totalenergy.TestEnergy.test_energy_per_power_series">[docs]</a>    <span class="k">def</span> <span class="nf">test_energy_per_power_series</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TestEnergy"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_totalenergy.html#nilmtk.stats.tests.test_totalenergy.TestEnergy">[docs]</a><span class="k">class</span> <span class="nc">TestEnergy</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestEnergy.setUpClass"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_totalenergy.html#nilmtk.stats.tests.test_totalenergy.TestEnergy.setUpClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;energy.h5&#39;</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">datastore</span> <span class="o">=</span> <span class="n">HDFDataStore</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">ElecMeter</span><span class="o">.</span><span class="n">load_meter_devices</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">datastore</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">meter_meta</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">datastore</span><span class="o">.</span><span class="n">load_metadata</span><span class="p">(</span><span class="s1">&#39;building1&#39;</span><span class="p">)[</span><span class="s1">&#39;elec_meters&#39;</span><span class="p">][</span><span class="n">METER_ID</span><span class="o">.</span><span class="n">instance</span><span class="p">]</span></div>
+        
+<div class="viewcode-block" id="TestEnergy.tearDownClass"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_totalenergy.html#nilmtk.stats.tests.test_totalenergy.TestEnergy.tearDownClass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">datastore</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestEnergy.test_energy_per_power_series"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_totalenergy.html#nilmtk.stats.tests.test_totalenergy.TestEnergy.test_energy_per_power_series">[docs]</a>    <span class="k">def</span> <span class="nf">test_energy_per_power_series</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span>    <span class="mi">0</span><span class="p">])</span>
         <span class="n">secs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
         <span class="n">true_kwh</span> <span class="o">=</span> <span class="p">((</span><span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">secs</span><span class="p">))</span> <span class="o">/</span> <span class="n">JOULES_PER_KWH</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">&#39;2010-01-01&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">sec</span><span class="p">)</span> <span class="k">for</span> <span class="n">sec</span> <span class="ow">in</span> <span class="n">secs</span><span class="p">]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">sec</span><span class="p">))</span> <span class="k">for</span> <span class="n">sec</span> <span class="ow">in</span> <span class="n">secs</span><span class="p">]</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
         <span class="n">kwh</span> <span class="o">=</span> <span class="n">_energy_for_power_series</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">max_sample_period</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">true_kwh</span><span class="p">,</span> <span class="n">kwh</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="TestEnergy.test_pipeline"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.html#nilmtk.stats.tests.test_totalenergy.TestEnergy.test_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">test_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">true_kwh</span><span class="p">,</span> <span class="n">kwh</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestEnergy.test_pipeline"><a class="viewcode-back" href="../../../../nilmtk.stats.tests.test_totalenergy.html#nilmtk.stats.tests.test_totalenergy.TestEnergy.test_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">test_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">meter</span> <span class="o">=</span> <span class="n">ElecMeter</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datastore</span><span class="p">,</span> 
                           <span class="n">metadata</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">meter_meta</span><span class="p">,</span> 
                           <span class="n">meter_id</span><span class="o">=</span><span class="n">METER_ID</span><span class="p">)</span>
@@ -173,10 +167,13 @@
         <span class="n">energy</span> <span class="o">=</span> <span class="n">TotalEnergy</span><span class="p">(</span><span class="n">clipped</span><span class="p">)</span>
         <span class="n">energy</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
         <span class="n">energy_results</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">energy</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
-        <span class="n">check_energy_numbers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">energy_results</span><span class="o">.</span><span class="n">combined</span><span class="p">())</span>
-</div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+        <span class="n">check_energy_numbers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">energy_results</span><span class="o">.</span><span class="n">combined</span><span class="p">())</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+
+
+
 </pre></div>
 
     </div>
@@ -191,7 +188,7 @@
     </p>
     <p>
         &copy; Copyright 2014, NILMTK Authors.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

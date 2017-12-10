@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.disaggregate.maximum_likelihood_estimation &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.feature_detectors package" href="nilmtk.feature_detectors.html" />
+    <link rel="prev" title="nilmtk.disaggregate.hart_85" href="nilmtk.disaggregate.hart_85.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.disaggregate.maximum_likelihood_estimation</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.disaggregate.hart_85.html" title="Previous Chapter: nilmtk.disaggregate.hart_85"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.disagg...</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.feature_detectors.html" title="Next Chapter: nilmtk.feature_detectors package"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.featur... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.disaggregate.maximum_likelihood_estimation.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-disaggregate-maximum-likelihood-estimation">
+<h1>nilmtk.disaggregate.maximum_likelihood_estimation<a class="headerlink" href="#nilmtk-disaggregate-maximum-likelihood-estimation" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.disaggregate.maximum_likelihood_estimation"></span><p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE" title="nilmtk.disaggregate.maximum_likelihood_estimation.MLE"><code class="xref py py-obj docutils literal"><span class="pre">MLE</span></code></a>()</td>
+<td>Disaggregation of a single appliance based on its features and using the maximum likelihood of all features.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: MLE</p>
+<dl class="class">
+<dt id="nilmtk.disaggregate.maximum_likelihood_estimation.MLE">
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.maximum_likelihood_estimation.</code><code class="descname">MLE</code><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.disaggregate.disaggregator.html#nilmtk.disaggregate.disaggregator.Disaggregator" title="nilmtk.disaggregate.disaggregator.Disaggregator"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.disaggregate.disaggregator.Disaggregator</span></code></a></p>
+<p>Disaggregation of a single appliance based on its features and
+using the maximum likelihood of all features.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>appliance: str</strong></td>
+<td>Name of the appliance</td>
+</tr>
+<tr class="row-even"><td><strong>stats: list of dicts</strong></td>
+<td>One dict for feature with:</td>
+</tr>
+<tr class="row-odd"><td><strong>units: tuple</strong></td>
+<td>For instance: (‘power’,’active’)</td>
+</tr>
+<tr class="row-even"><td><strong>resistive: boolean</strong></td>
+<td>To decide if ‘apparent’ == ‘active’</td>
+</tr>
+<tr class="row-odd"><td><strong>thDelta: int</strong></td>
+<td>Treshold for delta values on the power. Used on train_on_chunk method</td>
+</tr>
+<tr class="row-even"><td><strong>thLikelihood: int</strong></td>
+<td>Treshold for the maximum likelihood</td>
+</tr>
+<tr class="row-odd"><td><strong>sample_period: str</strong></td>
+<td>For resampling in training and disaggregate methods</td>
+</tr>
+<tr class="row-even"><td><strong>sample_method: str</strong></td>
+<td>Pandas method for resampling</td>
+</tr>
+<tr class="row-odd"><td><strong>onpower: dict</strong></td>
+<td>{‘name’:str, ‘gmm’: str, ‘model’: sklearn model}</td>
+</tr>
+<tr class="row-even"><td><strong>offpower: dict</strong></td>
+<td>{‘name’:str, ‘gmm’: str, ‘model’: sklearn model}</td>
+</tr>
+<tr class="row-odd"><td><strong>duration: dict</strong></td>
+<td>{‘name’:str, ‘gmm’: str, ‘model’: sklearn model}</td>
+</tr>
+<tr class="row-even"><td><strong>onpower_train: pandas.Dataframe()</strong></td>
+<td>Training samples of onpower</td>
+</tr>
+<tr class="row-odd"><td><strong>offpower_train: pandas.Dataframe()</strong></td>
+<td>Training samples of offpower</td>
+</tr>
+<tr class="row-even"><td><strong>duaration_train: pandas.Dataframe()</strong></td>
+<td>Training samples of duration</td>
+</tr>
+<tr class="row-odd"><td><strong>powerNoise: int</strong></td>
+<td>For the disaggregate_chunk method, minimum delta value of a event to be considered, otherwise is noise.</td>
+</tr>
+<tr class="row-even"><td><strong>powerPair: int</strong></td>
+<td>For the disaggregate_chunk method, max delta value difference between onpower and offpower</td>
+</tr>
+<tr class="row-odd"><td><strong>timeWindow: int</strong></td>
+<td>For the disaggregate_chunk method, a time frame to speed up disaggregate_chunk method.</td>
+</tr>
+</tbody>
+</table>
+<p>Inizialise of the model by default</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This class has inherited methods, see the base class(es) for additional methods</p>
+</div>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.check_cdfIntegrity" title="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.check_cdfIntegrity"><code class="xref py py-obj docutils literal"><span class="pre">check_cdfIntegrity</span></code></a>(step)</td>
+<td>Cheks integrity of feature model distributions.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.disaggregate" title="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.disaggregate"><code class="xref py py-obj docutils literal"><span class="pre">disaggregate</span></code></a>(mains,&nbsp;output_datastore)</td>
+<td>Passes each chunk from mains generator to disaggregate_chunk() and passes the output to _write_disaggregated_chunk_to_datastore() Will have a default implementation in super class.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.disaggregate_chunk" title="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.disaggregate_chunk"><code class="xref py py-obj docutils literal"><span class="pre">disaggregate_chunk</span></code></a>(chunk)</td>
+<td>Checks units.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.featuresHist" title="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.featuresHist"><code class="xref py py-obj docutils literal"><span class="pre">featuresHist</span></code></a>(**kwargs)</td>
+<td>Visualization tool to check if feature model distributions fit</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.featuresHist_colors" title="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.featuresHist_colors"><code class="xref py py-obj docutils literal"><span class="pre">featuresHist_colors</span></code></a>(**kwargs)</td>
+<td>Visualization tool to check if samples for feature training  (onpower_train, offpower_train and duration_train) are equal  for each appliance (same model appliance).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.no_overfitting" title="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.no_overfitting"><code class="xref py py-obj docutils literal"><span class="pre">no_overfitting</span></code></a>()</td>
+<td>Crops feature_train(onpower_train, offpower_train and duration_train) to get same samples from different appliances(same model-appliance)  and avoids overfittings to a many samples appliance.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.train" title="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.train"><code class="xref py py-obj docutils literal"><span class="pre">train</span></code></a>(metergroup)</td>
+<td>Train using ML.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.train_on_chunk" title="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.train_on_chunk"><code class="xref py py-obj docutils literal"><span class="pre">train_on_chunk</span></code></a>(chunk,&nbsp;meter)</td>
+<td>Extracts features  from chunk, concatenates feature_train (onpower_train, offpower_train and duration_train) with new features and retrains feature models.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.update" title="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.update"><code class="xref py py-obj docutils literal"><span class="pre">update</span></code></a>(**kwargs)</td>
+<td>This method will update attributes of the model passed by kwargs.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.disaggregate.maximum_likelihood_estimation"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.maximum_likelihood_estimation.</code><code class="descname">MLE</code><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.disaggregate.disaggregator.html#nilmtk.disaggregate.disaggregator.Disaggregator" title="nilmtk.disaggregate.disaggregator.Disaggregator"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.disaggregate.disaggregator.Disaggregator</span></code></a></p>
+<p>Disaggregation of a single appliance based on its features and
+using the maximum likelihood of all features.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>appliance: str</strong></td>
+<td>Name of the appliance</td>
+</tr>
+<tr class="row-even"><td><strong>stats: list of dicts</strong></td>
+<td>One dict for feature with:</td>
+</tr>
+<tr class="row-odd"><td><strong>units: tuple</strong></td>
+<td>For instance: (‘power’,’active’)</td>
+</tr>
+<tr class="row-even"><td><strong>resistive: boolean</strong></td>
+<td>To decide if ‘apparent’ == ‘active’</td>
+</tr>
+<tr class="row-odd"><td><strong>thDelta: int</strong></td>
+<td>Treshold for delta values on the power. Used on train_on_chunk method</td>
+</tr>
+<tr class="row-even"><td><strong>thLikelihood: int</strong></td>
+<td>Treshold for the maximum likelihood</td>
+</tr>
+<tr class="row-odd"><td><strong>sample_period: str</strong></td>
+<td>For resampling in training and disaggregate methods</td>
+</tr>
+<tr class="row-even"><td><strong>sample_method: str</strong></td>
+<td>Pandas method for resampling</td>
+</tr>
+<tr class="row-odd"><td><strong>onpower: dict</strong></td>
+<td>{‘name’:str, ‘gmm’: str, ‘model’: sklearn model}</td>
+</tr>
+<tr class="row-even"><td><strong>offpower: dict</strong></td>
+<td>{‘name’:str, ‘gmm’: str, ‘model’: sklearn model}</td>
+</tr>
+<tr class="row-odd"><td><strong>duration: dict</strong></td>
+<td>{‘name’:str, ‘gmm’: str, ‘model’: sklearn model}</td>
+</tr>
+<tr class="row-even"><td><strong>onpower_train: pandas.Dataframe()</strong></td>
+<td>Training samples of onpower</td>
+</tr>
+<tr class="row-odd"><td><strong>offpower_train: pandas.Dataframe()</strong></td>
+<td>Training samples of offpower</td>
+</tr>
+<tr class="row-even"><td><strong>duaration_train: pandas.Dataframe()</strong></td>
+<td>Training samples of duration</td>
+</tr>
+<tr class="row-odd"><td><strong>powerNoise: int</strong></td>
+<td>For the disaggregate_chunk method, minimum delta value of a event to be considered, otherwise is noise.</td>
+</tr>
+<tr class="row-even"><td><strong>powerPair: int</strong></td>
+<td>For the disaggregate_chunk method, max delta value difference between onpower and offpower</td>
+</tr>
+<tr class="row-odd"><td><strong>timeWindow: int</strong></td>
+<td>For the disaggregate_chunk method, a time frame to speed up disaggregate_chunk method.</td>
+</tr>
+</tbody>
+</table>
+<p>Inizialise of the model by default</p>
+<dl class="method">
+<dt id="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.check_cdfIntegrity">
+<code class="descname">check_cdfIntegrity</code><span class="sig-paren">(</span><em>step</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE.check_cdfIntegrity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.check_cdfIntegrity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cheks integrity of feature model distributions.
+CDF has to be bounded by one.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>step: resolution step size on the x-axis for pdf and cdf functions.</strong></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.disaggregate">
+<code class="descname">disaggregate</code><span class="sig-paren">(</span><em>mains</em>, <em>output_datastore</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE.disaggregate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.disaggregate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Passes each chunk from mains generator to disaggregate_chunk()
+and passes the output to _write_disaggregated_chunk_to_datastore()
+Will have a default implementation in super class.
+Can be overridden for more simple in-memory disaggregation,
+or more complex out-of-core disaggregation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mains</strong> : nilmtk.ElecMeter (single-phase) or nilmtk.MeterGroup (multi-phase)</p>
+<p class="last"><strong>output_datastore</strong> : instance of nilmtk.DataStore or str of datastore location</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.disaggregate_chunk">
+<code class="descname">disaggregate_chunk</code><span class="sig-paren">(</span><em>chunk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE.disaggregate_chunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.disaggregate_chunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks units.
+Disaggregates “chunk” with MaximumLikelihood algorithm.</p>
+<p>Optimization:
+Filters events with powerNoise.
+Filters paired-events with powerPair.
+Windowing with timeWindow for speeding up.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>chunk</strong> : pd.DataFrame (in NILMTK format)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>chunk</strong> : pd.DataFrame where each column represents a disaggregated appliance</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>Disaggregation is not prooved. (TODO: verify the process with the Groundtruth)</li>
+<li>Disaggregates only the selected appliance.(TODO: Disaggregates many)</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.featuresHist">
+<code class="descname">featuresHist</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE.featuresHist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.featuresHist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualization tool to check if feature model distributions fit
+to samples for feature training (onpower_train, offpower_train</p>
+<blockquote>
+<div>and duration_train)</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>kwargs</strong> : keyword arguments list with bins_onpower, bins_offpower and bin_duration.</p>
+<blockquote class="last">
+<div><p>bins_feature: numpy.arange for plotting the hist with specified bin sizes.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.featuresHist_colors">
+<code class="descname">featuresHist_colors</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE.featuresHist_colors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.featuresHist_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualization tool to check if samples for feature training 
+(onpower_train, offpower_train and duration_train) are equal 
+for each appliance (same model appliance).
+Each appliance represented by a different color.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>kwargs</strong> : keyword arguments list with bins_onpower, bins_offpower and bin_duration.</p>
+<blockquote class="last">
+<div><p>bins_feature: numpy.arange for plotting the hist with specified bin sizes.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.no_overfitting">
+<code class="descname">no_overfitting</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE.no_overfitting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.no_overfitting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crops feature_train(onpower_train, offpower_train and duration_train)
+to get same samples from different appliances(same model-appliance) 
+and avoids overfittings to a many samples appliance.
+Updates stats attribute.
+Does the retraining.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>metergroup</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train using ML.
+Call disaggregate_chunk method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>metergroup</strong> : a nilmtk.MeterGroup object</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>Inizialise “stats” and “feature_train” on the model.</li>
+<li>Instance is initialised to 1. Use meter.instance to provide more</li>
+</ul>
+<blockquote>
+<div>information (TODO)</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.train_on_chunk">
+<code class="descname">train_on_chunk</code><span class="sig-paren">(</span><em>chunk</em>, <em>meter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE.train_on_chunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.train_on_chunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts features  from chunk, concatenates feature_train
+(onpower_train, offpower_train and duration_train) with new features
+and retrains feature
+models.
+Updates stats attribute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>chunk</strong> : pd.DataFrame where each column represents a disaggregated</p>
+<p class="last"><strong>meter</strong> : ElecMeter for this chunk</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>Disaggregates only the selected appliance.(TODO: Disaggregates many)</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.maximum_likelihood_estimation.MLE.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/maximum_likelihood_estimation.html#MLE.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.maximum_likelihood_estimation.MLE.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method will update attributes of the model passed by kwargs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> : key word arguments</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

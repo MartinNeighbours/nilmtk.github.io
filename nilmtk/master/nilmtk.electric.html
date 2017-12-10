@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.electric &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.exceptions module" href="nilmtk.exceptions.html" />
+    <link rel="prev" title="nilmtk.elecmeter" href="nilmtk.elecmeter.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.electric</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.elecmeter.html" title="Previous Chapter: nilmtk.elecmeter"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.elecmeter</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.exceptions.html" title="Next Chapter: nilmtk.exceptions module"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.except... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.electric.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-electric">
+<h1>nilmtk.electric<a class="headerlink" href="#nilmtk-electric" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.electric"></span><p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.activation_series_for_chunk" title="nilmtk.electric.activation_series_for_chunk"><code class="xref py py-obj docutils literal"><span class="pre">activation_series_for_chunk</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>Returns runs of an appliance.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.align_two_meters" title="nilmtk.electric.align_two_meters"><code class="xref py py-obj docutils literal"><span class="pre">align_two_meters</span></code></a>(master,&nbsp;slave[,&nbsp;func])</td>
+<td>Returns a generator of 2-column pd.DataFrames.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.get_activations" title="nilmtk.electric.get_activations"><code class="xref py py-obj docutils literal"><span class="pre">get_activations</span></code></a>(chunk[,&nbsp;min_off_duration,&nbsp;…])</td>
+<td>Returns runs of an appliance.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.get_vampire_power" title="nilmtk.electric.get_vampire_power"><code class="xref py py-obj docutils literal"><span class="pre">get_vampire_power</span></code></a>(power_series)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric" title="nilmtk.electric.Electric"><code class="xref py py-obj docutils literal"><span class="pre">Electric</span></code></a></td>
+<td>Common implementations of methods shared by ElecMeter and MeterGroup.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: Electric</p>
+<dl class="class">
+<dt id="nilmtk.electric.Electric">
+<em class="property">class </em><code class="descclassname">nilmtk.electric.</code><code class="descname">Electric</code><a class="reference internal" href="_modules/nilmtk/electric.html#Electric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Common implementations of methods shared by ElecMeter and MeterGroup.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.activation_series" title="nilmtk.electric.Electric.activation_series"><code class="xref py py-obj docutils literal"><span class="pre">activation_series</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>Returns runs of an appliance.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.activity_histogram" title="nilmtk.electric.Electric.activity_histogram"><code class="xref py py-obj docutils literal"><span class="pre">activity_histogram</span></code></a>([period,&nbsp;bin_duration])</td>
+<td>Return a histogram vector showing when activity occurs.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.available_power_ac_types" title="nilmtk.electric.Electric.available_power_ac_types"><code class="xref py py-obj docutils literal"><span class="pre">available_power_ac_types</span></code></a>()</td>
+<td>Finds available alternating current types from power measurements.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.average_energy_per_period" title="nilmtk.electric.Electric.average_energy_per_period"><code class="xref py py-obj docutils literal"><span class="pre">average_energy_per_period</span></code></a>([offset_alias,&nbsp;…])</td>
+<td>Calculate the average energy per period.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.correlation" title="nilmtk.electric.Electric.correlation"><code class="xref py py-obj docutils literal"><span class="pre">correlation</span></code></a>(other,&nbsp;**load_kwargs)</td>
+<td>Finds the correlation between the two ElecMeters.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.entropy" title="nilmtk.electric.Electric.entropy"><code class="xref py py-obj docutils literal"><span class="pre">entropy</span></code></a>([k,&nbsp;base])</td>
+<td>This implementation is provided courtesy NPEET toolbox, the authors kindly allowed us to directly use their code.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.get_activations" title="nilmtk.electric.Electric.get_activations"><code class="xref py py-obj docutils literal"><span class="pre">get_activations</span></code></a>([min_off_duration,&nbsp;…])</td>
+<td>Returns runs of an appliance.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.load_series" title="nilmtk.electric.Electric.load_series"><code class="xref py py-obj docutils literal"><span class="pre">load_series</span></code></a>(**kwargs)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.matches_appliances" title="nilmtk.electric.Electric.matches_appliances"><code class="xref py py-obj docutils literal"><span class="pre">matches_appliances</span></code></a>(key)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.min_off_duration" title="nilmtk.electric.Electric.min_off_duration"><code class="xref py py-obj docutils literal"><span class="pre">min_off_duration</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.min_on_duration" title="nilmtk.electric.Electric.min_on_duration"><code class="xref py py-obj docutils literal"><span class="pre">min_on_duration</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.mutual_information" title="nilmtk.electric.Electric.mutual_information"><code class="xref py py-obj docutils literal"><span class="pre">mutual_information</span></code></a>(other[,&nbsp;k,&nbsp;base])</td>
+<td>Mutual information of two ElecMeters x,y should be a list of vectors, e.g.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.on_power_threshold" title="nilmtk.electric.Electric.on_power_threshold"><code class="xref py py-obj docutils literal"><span class="pre">on_power_threshold</span></code></a>()</td>
+<td>Returns the minimum <cite>on_power_threshold</cite> across all appliances immediately downstream of this meter.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.plot" title="nilmtk.electric.Electric.plot"><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code></a>([ax,&nbsp;timeframe,&nbsp;plot_legend,&nbsp;unit,&nbsp;…])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.plot_activity_histogram" title="nilmtk.electric.Electric.plot_activity_histogram"><code class="xref py py-obj docutils literal"><span class="pre">plot_activity_histogram</span></code></a>([ax,&nbsp;period,&nbsp;…])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.plot_autocorrelation" title="nilmtk.electric.Electric.plot_autocorrelation"><code class="xref py py-obj docutils literal"><span class="pre">plot_autocorrelation</span></code></a>([ax])</td>
+<td>Plots autocorrelation of power data</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.plot_lag" title="nilmtk.electric.Electric.plot_lag"><code class="xref py py-obj docutils literal"><span class="pre">plot_lag</span></code></a>([lag,&nbsp;ax])</td>
+<td>Plots a lag plot of power data</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.plot_power_histogram" title="nilmtk.electric.Electric.plot_power_histogram"><code class="xref py py-obj docutils literal"><span class="pre">plot_power_histogram</span></code></a>([ax,&nbsp;load_kwargs,&nbsp;…])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.plot_spectrum" title="nilmtk.electric.Electric.plot_spectrum"><code class="xref py py-obj docutils literal"><span class="pre">plot_spectrum</span></code></a>([ax])</td>
+<td>Plots spectral plot of power data</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.power_series" title="nilmtk.electric.Electric.power_series"><code class="xref py py-obj docutils literal"><span class="pre">power_series</span></code></a>(**kwargs)</td>
+<td>Get power Series.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.power_series_all_data" title="nilmtk.electric.Electric.power_series_all_data"><code class="xref py py-obj docutils literal"><span class="pre">power_series_all_data</span></code></a>(**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.proportion_of_energy" title="nilmtk.electric.Electric.proportion_of_energy"><code class="xref py py-obj docutils literal"><span class="pre">proportion_of_energy</span></code></a>(other,&nbsp;**loader_kwargs)</td>
+<td>Compute the proportion of energy of self compared to <cite>other</cite>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.proportion_of_upstream" title="nilmtk.electric.Electric.proportion_of_upstream"><code class="xref py py-obj docutils literal"><span class="pre">proportion_of_upstream</span></code></a>(**load_kwargs)</td>
+<td>Returns a value in the range [0,1] specifying the proportion of the upstream meter’s total energy used by this meter.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.switch_times" title="nilmtk.electric.Electric.switch_times"><code class="xref py py-obj docutils literal"><span class="pre">switch_times</span></code></a>([threshold])</td>
+<td>Returns an array of pd.DateTime when a switch occurs as defined by threshold</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.uptime" title="nilmtk.electric.Electric.uptime"><code class="xref py py-obj docutils literal"><span class="pre">uptime</span></code></a>(**load_kwargs)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.electric.Electric.vampire_power" title="nilmtk.electric.Electric.vampire_power"><code class="xref py py-obj docutils literal"><span class="pre">vampire_power</span></code></a>(**load_kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.electric.Electric.when_on" title="nilmtk.electric.Electric.when_on"><code class="xref py py-obj docutils literal"><span class="pre">when_on</span></code></a>([on_power_threshold])</td>
+<td>Are the connected appliances appliance is on (True) or off (False)?</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.electric"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.electric.</code><code class="descname">Electric</code><a class="reference internal" href="_modules/nilmtk/electric.html#Electric"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Common implementations of methods shared by ElecMeter and MeterGroup.</p>
+<dl class="method">
+<dt id="nilmtk.electric.Electric.activation_series">
+<code class="descname">activation_series</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.activation_series"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.activation_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns runs of an appliance.</p>
+<p>Most appliances spend a lot of their time off.  This function finds
+periods when the appliance is on.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>min_off_duration</strong> : int</p>
+<blockquote>
+<div><p>If min_off_duration &gt; 0 then ignore ‘off’ periods less than
+min_off_duration seconds of sub-threshold power consumption
+(e.g. a washing machine might draw no power for a short
+period while the clothes soak.)  Defaults value from metadata or,
+if metadata absent, defaults to 0.</p>
+</div></blockquote>
+<p><strong>min_on_duration</strong> : int</p>
+<blockquote>
+<div><p>Any activation lasting less seconds than min_on_duration will be
+ignored.  Defaults value from metadata or, if metadata absent,
+defaults to 0.</p>
+</div></blockquote>
+<p><strong>border</strong> : int</p>
+<blockquote>
+<div><p>Number of rows to include before and after the detected activation</p>
+</div></blockquote>
+<p><strong>on_power_threshold</strong> : int or float</p>
+<blockquote>
+<div><p>Defaults to self.on_power_threshold()</p>
+</div></blockquote>
+<p><strong>**kwargs</strong> : kwargs for self.power_series()</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of pd.Series.  Each series contains one activation.</p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p>Deprecated</p>
+<p class="last"><cite>activation_series</cite> will be removed in NILMTK v0.3.
+Please use <cite>get_activations</cite> instead.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.activity_histogram">
+<code class="descname">activity_histogram</code><span class="sig-paren">(</span><em>period='D'</em>, <em>bin_duration='H'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.activity_histogram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.activity_histogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a histogram vector showing when activity occurs.</p>
+<p>e.g. to see when, over the course of an average day, activity occurs
+then use <cite>bin_duration=’H’</cite> and <cite>period=’D’</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>period</strong> : str. Pandas period alias.</p>
+<p><strong>bin_duration</strong> : str. Pandas period alias e.g. ‘H’ = hourly; ‘D’ = daily.</p>
+<blockquote>
+<div><p>Width of each bin of the histogram.  <cite>bin_duration</cite> must exactly
+divide the chosen <cite>period</cite>.</p>
+</div></blockquote>
+<p><strong>Returns</strong></p>
+<p><strong>——-</strong></p>
+<p><strong>hist</strong> : np.ndarray</p>
+<blockquote class="last">
+<div><p>length will be <cite>period / bin_duration</cite></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.available_power_ac_types">
+<code class="descname">available_power_ac_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.available_power_ac_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.available_power_ac_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds available alternating current types from power measurements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of strings e.g. [‘apparent’, ‘active’]</p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p>Deprecated in NILMTK v0.3</p>
+<p class="last"><cite>available_power_ac_types</cite> should not be used.  Instead please
+use <cite>available_ac_types(‘power’).</cite></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.average_energy_per_period">
+<code class="descname">average_energy_per_period</code><span class="sig-paren">(</span><em>offset_alias='D'</em>, <em>use_uptime=True</em>, <em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.average_energy_per_period"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.average_energy_per_period" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the average energy per period.  e.g. the average 
+energy per day.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>offset_alias</strong> : str</p>
+<blockquote>
+<div><p>A Pandas <cite>offset alias</cite>.  See:
+pandas.pydata.org/pandas-docs/stable/timeseries.html#offset-aliases</p>
+</div></blockquote>
+<p><strong>use_uptime</strong> : bool</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">pd.Series</p>
+<blockquote class="last">
+<div><p>Keys are AC types.
+Values are energy in kWh per period.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.correlation">
+<code class="descname">correlation</code><span class="sig-paren">(</span><em>other</em>, <em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.correlation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.correlation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the correlation between the two ElecMeters. Both the ElecMeters 
+should be perfectly aligned
+Adapted from: 
+<a class="reference external" href="http://www.johndcook.com/blog/2008/11/05/how-to-calculate-pearson-correlation-accurately/">http://www.johndcook.com/blog/2008/11/05/how-to-calculate-pearson-correlation-accurately/</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> : an ElecMeter or MeterGroup object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>float</strong> : [-1, 1]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.entropy">
+<code class="descname">entropy</code><span class="sig-paren">(</span><em>k=3</em>, <em>base=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This implementation is provided courtesy NPEET toolbox,
+the authors kindly allowed us to directly use their code.
+As a courtesy procedure, you may wish to cite their paper, 
+in case you use this function.
+This fails if there is a large number of records. Need to
+ask the authors what to do about the same! 
+The classic K-L k-nearest neighbor continuous entropy estimator
+x should be a list of vectors, e.g. x = [[1.3],[3.7],[5.1],[2.4]]
+if x is a one-dimensional scalar and we have four samples</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.get_activations">
+<code class="descname">get_activations</code><span class="sig-paren">(</span><em>min_off_duration=None</em>, <em>min_on_duration=None</em>, <em>border=1</em>, <em>on_power_threshold=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.get_activations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.get_activations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns runs of an appliance.</p>
+<p>Most appliances spend a lot of their time off.  This function finds
+periods when the appliance is on.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>min_off_duration</strong> : int</p>
+<blockquote>
+<div><p>If min_off_duration &gt; 0 then ignore ‘off’ periods less than
+min_off_duration seconds of sub-threshold power consumption
+(e.g. a washing machine might draw no power for a short
+period while the clothes soak.)  Defaults value from metadata or,
+if metadata absent, defaults to 0.</p>
+</div></blockquote>
+<p><strong>min_on_duration</strong> : int</p>
+<blockquote>
+<div><p>Any activation lasting less seconds than min_on_duration will be
+ignored.  Defaults value from metadata or, if metadata absent,
+defaults to 0.</p>
+</div></blockquote>
+<p><strong>border</strong> : int</p>
+<blockquote>
+<div><p>Number of rows to include before and after the detected activation</p>
+</div></blockquote>
+<p><strong>on_power_threshold</strong> : int or float</p>
+<blockquote>
+<div><p>Defaults to self.on_power_threshold()</p>
+</div></blockquote>
+<p><strong>**kwargs</strong> : kwargs for self.power_series()</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">list of pd.Series.  Each series contains one activation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.load_series">
+<code class="descname">load_series</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.load_series"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.load_series" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>ac_type</strong> : str</p>
+<p><strong>physical_quantity</strong> : str</p>
+<blockquote>
+<div><p>We sum across ac_types of this physical quantity.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong> : passed through to load().</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">generator of pd.Series.  If a single ac_type is found for the</p>
+<p>physical_quantity then the series.name will be a normal tuple.</p>
+<p>If more than 1 ac_type is found then the ac_type will be a string</p>
+<p class="last">of the ac_types with ‘+’ in between.  e.g. ‘active+apparent’.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.matches_appliances">
+<code class="descname">matches_appliances</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.matches_appliances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.matches_appliances" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : dict</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if all key:value pairs in <cite>key</cite> match any appliance</p>
+<p class="last">in <cite>self.appliances</cite>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.min_off_duration">
+<code class="descname">min_off_duration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.min_off_duration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.min_off_duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.min_on_duration">
+<code class="descname">min_on_duration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.min_on_duration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.min_on_duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.mutual_information">
+<code class="descname">mutual_information</code><span class="sig-paren">(</span><em>other</em>, <em>k=3</em>, <em>base=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.mutual_information"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.mutual_information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mutual information of two ElecMeters
+x,y should be a list of vectors, e.g. x = [[1.3],[3.7],[5.1],[2.4]]
+if x is a one-dimensional scalar and we have four samples</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> : ElecMeter or MeterGroup</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.on_power_threshold">
+<code class="descname">on_power_threshold</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.on_power_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.on_power_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the minimum <cite>on_power_threshold</cite> across all appliances
+immediately downstream of this meter.  If any appliance
+does not have an <cite>on_power_threshold</cite> then default to 10 watts.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.plot">
+<code class="descname">plot</code><span class="sig-paren">(</span><em>ax=None</em>, <em>timeframe=None</em>, <em>plot_legend=True</em>, <em>unit='W'</em>, <em>plot_kwargs=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.plot" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>width</strong> : int, optional</p>
+<blockquote>
+<div><p>Number of points on the x axis required</p>
+</div></blockquote>
+<p><strong>ax</strong> : matplotlib.axes, optional</p>
+<p><strong>plot_legend</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Defaults to True.  Set to False to not plot legend.</p>
+</div></blockquote>
+<p><strong>unit</strong> : {‘W’, ‘kW’}</p>
+<p class="last"><strong>**kwargs</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.plot_activity_histogram">
+<code class="descname">plot_activity_histogram</code><span class="sig-paren">(</span><em>ax=None</em>, <em>period='D'</em>, <em>bin_duration='H'</em>, <em>plot_kwargs=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.plot_activity_histogram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.plot_activity_histogram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.plot_autocorrelation">
+<code class="descname">plot_autocorrelation</code><span class="sig-paren">(</span><em>ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.plot_autocorrelation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.plot_autocorrelation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots autocorrelation of power data 
+Reference: 
+<a class="reference external" href="http://www.itl.nist.gov/div898/handbook/eda/section3/autocopl.htm">http://www.itl.nist.gov/div898/handbook/eda/section3/autocopl.htm</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">matplotlib.axis</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.plot_lag">
+<code class="descname">plot_lag</code><span class="sig-paren">(</span><em>lag=1</em>, <em>ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.plot_lag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.plot_lag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a lag plot of power data
+<a class="reference external" href="http://www.itl.nist.gov/div898/handbook/eda/section3/lagplot.htm">http://www.itl.nist.gov/div898/handbook/eda/section3/lagplot.htm</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">matplotlib.axis</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.plot_power_histogram">
+<code class="descname">plot_power_histogram</code><span class="sig-paren">(</span><em>ax=None</em>, <em>load_kwargs=None</em>, <em>plot_kwargs=None</em>, <em>range=None</em>, <em>**hist_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.plot_power_histogram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.plot_power_histogram" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>ax</strong> : axes</p>
+<p><strong>load_kwargs</strong> : dict</p>
+<p><strong>plot_kwargs</strong> : dict</p>
+<p><strong>range</strong> : None or tuple</p>
+<blockquote>
+<div><p>if range=(None, x) then on_power_threshold will be used as minimum.</p>
+</div></blockquote>
+<p><strong>**hist_kwargs</strong></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ax</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.plot_spectrum">
+<code class="descname">plot_spectrum</code><span class="sig-paren">(</span><em>ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.plot_spectrum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.plot_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots spectral plot of power data
+<a class="reference external" href="http://www.itl.nist.gov/div898/handbook/eda/section3/spectrum.htm">http://www.itl.nist.gov/div898/handbook/eda/section3/spectrum.htm</a></p>
+<p>Code borrowed from:
+<a class="reference external" href="http://glowingpython.blogspot.com/2011/08/how-to-plot-frequency-spectrum-with.html">http://glowingpython.blogspot.com/2011/08/how-to-plot-frequency-spectrum-with.html</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">matplotlib.axis</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.power_series">
+<code class="descname">power_series</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.power_series"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.power_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get power Series.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>ac_type</strong> : str, defaults to ‘best’</p>
+<p><strong>**kwargs :</strong></p>
+<blockquote>
+<div><p>Any other key word arguments are passed to self.load()</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">generator of pd.Series of power measurements.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.power_series_all_data">
+<code class="descname">power_series_all_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.power_series_all_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.power_series_all_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.proportion_of_energy">
+<code class="descname">proportion_of_energy</code><span class="sig-paren">(</span><em>other</em>, <em>**loader_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.proportion_of_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.proportion_of_energy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the proportion of energy of self compared to <cite>other</cite>.</p>
+<p>By default, only uses other.good_sections().  You may want to set 
+<cite>sections=self.good_sections().intersection(other.good_sections())</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>other</strong> : nilmtk.MeteGroup or ElecMeter</p>
+<blockquote>
+<div><p>Typically this will be mains.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">float [0,1] or NaN if other.total_energy == 0</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.proportion_of_upstream">
+<code class="descname">proportion_of_upstream</code><span class="sig-paren">(</span><em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.proportion_of_upstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.proportion_of_upstream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a value in the range [0,1] specifying the proportion of
+the upstream meter’s total energy used by this meter.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.switch_times">
+<code class="descname">switch_times</code><span class="sig-paren">(</span><em>threshold=40</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.switch_times"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.switch_times" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an array of pd.DateTime when a switch occurs as defined by threshold</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>threshold: int, threshold in Watts between succcessive readings</strong></p>
+<p class="last"><strong>to amount for an appliance state change</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.uptime">
+<code class="descname">uptime</code><span class="sig-paren">(</span><em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.uptime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.uptime" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">timedelta: total duration of all good sections.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.vampire_power">
+<code class="descname">vampire_power</code><span class="sig-paren">(</span><em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.vampire_power"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.vampire_power" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.electric.Electric.when_on">
+<code class="descname">when_on</code><span class="sig-paren">(</span><em>on_power_threshold=None</em>, <em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#Electric.when_on"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.Electric.when_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>Are the connected appliances appliance is on (True) or off (False)?</p>
+<p>Uses <cite>self.on_power_threshold()</cite> if <cite>on_power_threshold</cite> not provided.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>on_power_threshold</strong> : number, optional</p>
+<blockquote>
+<div><p>Defaults to self.on_power_threshold()</p>
+</div></blockquote>
+<p><strong>**load_kwargs</strong> : key word arguments</p>
+<blockquote>
+<div><p>Passed to self.power_series()</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">generator of pd.Series</p>
+<blockquote class="last">
+<div><p>index is the same as for chunk returned by <cite>self.power_series()</cite>
+values are booleans</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.electric.activation_series_for_chunk">
+<code class="descclassname">nilmtk.electric.</code><code class="descname">activation_series_for_chunk</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#activation_series_for_chunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.activation_series_for_chunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns runs of an appliance.</p>
+<p>Most appliances spend a lot of their time off.  This function finds
+periods when the appliance is on.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>chunk</strong> : pd.Series</p>
+<p><strong>min_off_duration</strong> : int</p>
+<blockquote>
+<div><p>If min_off_duration &gt; 0 then ignore ‘off’ periods less than
+min_off_duration seconds of sub-threshold power consumption
+(e.g. a washing machine might draw no power for a short
+period while the clothes soak.)  Defaults to 0.</p>
+</div></blockquote>
+<p><strong>min_on_duration</strong> : int</p>
+<blockquote>
+<div><p>Any activation lasting less seconds than min_on_duration will be
+ignored.  Defaults to 0.</p>
+</div></blockquote>
+<p><strong>border</strong> : int</p>
+<blockquote>
+<div><p>Number of rows to include before and after the detected activation</p>
+</div></blockquote>
+<p><strong>on_power_threshold</strong> : int or float</p>
+<blockquote>
+<div><p>Watts</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of pd.Series.  Each series contains one activation.</p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p>Deprecated</p>
+<p class="last"><cite>activation_series</cite> will be removed in NILMTK v0.3.
+Please use <cite>get_activations</cite> instead.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.electric.align_two_meters">
+<code class="descclassname">nilmtk.electric.</code><code class="descname">align_two_meters</code><span class="sig-paren">(</span><em>master</em>, <em>slave</em>, <em>func='power_series'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#align_two_meters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.align_two_meters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a generator of 2-column pd.DataFrames.  The first column is from
+<cite>master</cite>, the second from <cite>slave</cite>.</p>
+<p>Takes the sample rate and good_periods of <cite>master</cite> and applies to <cite>slave</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>master, slave</strong> : ElecMeter or MeterGroup instances</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.electric.get_activations">
+<code class="descclassname">nilmtk.electric.</code><code class="descname">get_activations</code><span class="sig-paren">(</span><em>chunk</em>, <em>min_off_duration=0</em>, <em>min_on_duration=0</em>, <em>border=1</em>, <em>on_power_threshold=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#get_activations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.get_activations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns runs of an appliance.</p>
+<p>Most appliances spend a lot of their time off.  This function finds
+periods when the appliance is on.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>chunk</strong> : pd.Series</p>
+<p><strong>min_off_duration</strong> : int</p>
+<blockquote>
+<div><p>If min_off_duration &gt; 0 then ignore ‘off’ periods less than
+min_off_duration seconds of sub-threshold power consumption
+(e.g. a washing machine might draw no power for a short
+period while the clothes soak.)  Defaults to 0.</p>
+</div></blockquote>
+<p><strong>min_on_duration</strong> : int</p>
+<blockquote>
+<div><p>Any activation lasting less seconds than min_on_duration will be
+ignored.  Defaults to 0.</p>
+</div></blockquote>
+<p><strong>border</strong> : int</p>
+<blockquote>
+<div><p>Number of rows to include before and after the detected activation</p>
+</div></blockquote>
+<p><strong>on_power_threshold</strong> : int or float</p>
+<blockquote>
+<div><p>Watts</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">list of pd.Series.  Each series contains one activation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.electric.get_vampire_power">
+<code class="descclassname">nilmtk.electric.</code><code class="descname">get_vampire_power</code><span class="sig-paren">(</span><em>power_series</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/electric.html#get_vampire_power"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.electric.get_vampire_power" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
