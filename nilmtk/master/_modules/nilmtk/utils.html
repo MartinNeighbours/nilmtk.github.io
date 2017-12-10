@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.utils &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for nilmtk.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">isdir</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">abspath</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">getcwd</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">currentframe</span><span class="p">,</span> <span class="n">getfile</span><span class="p">,</span> <span class="n">getsourcefile</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">getfilesystemencoding</span><span class="p">,</span> <span class="n">stdout</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+<span class="kn">from</span> <span class="nn">nilmtk.datastore</span> <span class="k">import</span> <span class="n">HDFDataStore</span><span class="p">,</span> <span class="n">CSVDataStore</span>
+
+<span class="c1"># Python 2/3 compatibility</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="k">import</span> <span class="n">iteritems</span>
+<span class="kn">from</span> <span class="nn">past.builtins</span> <span class="k">import</span> <span class="n">basestring</span>
+
+
+<div class="viewcode-block" id="show_versions"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.show_versions">[docs]</a><span class="k">def</span> <span class="nf">show_versions</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Prints versions of various dependencies&quot;&quot;&quot;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="kn">import</span> <span class="nn">platform</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;Platform&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">())</span>
+    <span class="n">system_information</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;System version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">system_information</span><span class="o">.</span><span class="n">major</span><span class="p">,</span>
+                                              <span class="n">system_information</span><span class="o">.</span><span class="n">minor</span><span class="p">)</span>
+
+    <span class="n">PACKAGES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;nilmtk&quot;</span><span class="p">,</span> <span class="s2">&quot;nilm_metadata&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;matplotlib&quot;</span><span class="p">,</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;sklearn&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hmmlearn&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">package_name</span> <span class="ow">in</span> <span class="n">PACKAGES</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">package_name</span> <span class="o">+</span> <span class="s2">&quot; version&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">exec</span><span class="p">(</span><span class="s2">&quot;import &quot;</span> <span class="o">+</span> <span class="n">package_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Not found&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">package_name</span> <span class="o">+</span> <span class="s2">&quot;.__version__&quot;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">show_versions</span><span class="p">())</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="timedelta64_to_secs"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.timedelta64_to_secs">[docs]</a><span class="k">def</span> <span class="nf">timedelta64_to_secs</span><span class="p">(</span><span class="n">timedelta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert `timedelta` to seconds.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    timedelta : np.timedelta64</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float : seconds</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timedelta</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">timedelta</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tree_root"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.tree_root">[docs]</a><span class="k">def</span> <span class="nf">tree_root</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the object that is the root of the tree.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    graph : networkx.Graph</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># from http://stackoverflow.com/a/4123177/732596</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span>
+    <span class="n">roots</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">in_degree</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">in_degree_iter</span><span class="p">()</span>
+             <span class="k">if</span> <span class="n">in_degree</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">n_roots</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_roots</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Tree has more than one root!&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_roots</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Tree has no root!&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="nodes_adjacent_to_root"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.nodes_adjacent_to_root">[docs]</a><span class="k">def</span> <span class="nf">nodes_adjacent_to_root</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tree_root</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">graph</span><span class="o">.</span><span class="n">successors</span><span class="p">(</span><span class="n">root</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="index_of_column_name"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.index_of_column_name">[docs]</a><span class="k">def</span> <span class="nf">index_of_column_name</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">col_name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">i</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="find_nearest"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.find_nearest">[docs]</a><span class="k">def</span> <span class="nf">find_nearest</span><span class="p">(</span><span class="n">known_array</span><span class="p">,</span> <span class="n">test_array</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find closest value in `known_array` for each element in `test_array`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    known_array : numpy array</span>
+<span class="sd">        consisting of scalar values only; shape: (m, 1)</span>
+<span class="sd">    test_array : numpy array</span>
+<span class="sd">        consisting of scalar values only; shape: (n, 1)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    indices : numpy array; shape: (n, 1)</span>
+<span class="sd">        For each value in `test_array` finds the index of the closest value</span>
+<span class="sd">        in `known_array`.</span>
+<span class="sd">    residuals : numpy array; shape: (n, 1)</span>
+<span class="sd">        For each value in `test_array` finds the difference from the closest</span>
+<span class="sd">        value in `known_array`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># from http://stackoverflow.com/a/20785149/732596</span>
+
+    <span class="n">index_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">known_array</span><span class="p">)</span>
+    <span class="n">known_array_sorted</span> <span class="o">=</span> <span class="n">known_array</span><span class="p">[</span><span class="n">index_sorted</span><span class="p">]</span>
+
+    <span class="n">idx1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">known_array_sorted</span><span class="p">,</span> <span class="n">test_array</span><span class="p">)</span>
+    <span class="n">idx2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">idx1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">known_array_sorted</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">idx3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">idx1</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">known_array_sorted</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">diff1</span> <span class="o">=</span> <span class="n">known_array_sorted</span><span class="p">[</span><span class="n">idx3</span><span class="p">]</span> <span class="o">-</span> <span class="n">test_array</span>
+    <span class="n">diff2</span> <span class="o">=</span> <span class="n">test_array</span> <span class="o">-</span> <span class="n">known_array_sorted</span><span class="p">[</span><span class="n">idx2</span><span class="p">]</span>
+
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">index_sorted</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">diff1</span> <span class="o">&lt;=</span> <span class="n">diff2</span><span class="p">,</span> <span class="n">idx3</span><span class="p">,</span> <span class="n">idx2</span><span class="p">)]</span>
+    <span class="n">residuals</span> <span class="o">=</span> <span class="n">test_array</span> <span class="o">-</span> <span class="n">known_array</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">indices</span><span class="p">,</span> <span class="n">residuals</span></div>
+
+
+<div class="viewcode-block" id="container_to_string"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.container_to_string">[docs]</a><span class="k">def</span> <span class="nf">container_to_string</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;_&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">container</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">container</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">string</span></div>
+
+
+<div class="viewcode-block" id="simplest_type_for"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.simplest_type_for">[docs]</a><span class="k">def</span> <span class="nf">simplest_type_for</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">n_values</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_values</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">n_values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="flatten_2d_list"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.flatten_2d_list">[docs]</a><span class="k">def</span> <span class="nf">flatten_2d_list</span><span class="p">(</span><span class="n">list2d</span><span class="p">):</span>
+    <span class="n">list1d</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list2d</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+            <span class="n">list1d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="n">list1d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">list1d</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">list1d</span></div>
+
+
+<div class="viewcode-block" id="get_index"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.get_index">[docs]</a><span class="k">def</span> <span class="nf">get_index</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : pandas.DataFrame or Series or DatetimeIndex</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    index : the index for the DataFrame or Series</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)):</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">):</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;wrong type for `data`.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">index</span></div>
+
+
+<div class="viewcode-block" id="convert_to_timestamp"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.convert_to_timestamp">[docs]</a><span class="k">def</span> <span class="nf">convert_to_timestamp</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : str or pd.Timestamp or datetime or None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.Timestamp or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_module_directory"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.get_module_directory">[docs]</a><span class="k">def</span> <span class="nf">get_module_directory</span><span class="p">():</span>
+    <span class="c1"># Taken from http://stackoverflow.com/a/6098238/732596</span>
+    <span class="n">path_to_this_file</span> <span class="o">=</span> <span class="n">dirname</span><span class="p">(</span><span class="n">getfile</span><span class="p">(</span><span class="n">currentframe</span><span class="p">()))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isdir</span><span class="p">(</span><span class="n">path_to_this_file</span><span class="p">):</span>
+        <span class="n">encoding</span> <span class="o">=</span> <span class="n">getfilesystemencoding</span><span class="p">()</span>
+        <span class="n">path_to_this_file</span> <span class="o">=</span> <span class="n">dirname</span><span class="p">(</span><span class="n">unicode</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">encoding</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isdir</span><span class="p">(</span><span class="n">path_to_this_file</span><span class="p">):</span>
+        <span class="n">abspath</span><span class="p">(</span><span class="n">getsourcefile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="kc">None</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isdir</span><span class="p">(</span><span class="n">path_to_this_file</span><span class="p">):</span>
+        <span class="n">path_to_this_file</span> <span class="o">=</span> <span class="n">getcwd</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">isdir</span><span class="p">(</span><span class="n">path_to_this_file</span><span class="p">),</span> <span class="n">path_to_this_file</span> <span class="o">+</span> <span class="s1">&#39; is not a directory&#39;</span>
+    <span class="k">return</span> <span class="n">path_to_this_file</span></div>
+
+
+<div class="viewcode-block" id="dict_to_html"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.dict_to_html">[docs]</a><span class="k">def</span> <span class="nf">dict_to_html</span><span class="p">(</span><span class="n">dictionary</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">format_string</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;http&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;a href=&quot;</span><span class="si">{url}</span><span class="s1">&quot;&gt;</span><span class="si">{url}</span><span class="s1">&lt;/a&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">html</span>
+
+    <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;ul&gt;&#39;</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">dictionary</span><span class="p">):</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;li&gt;&lt;strong&gt;</span><span class="si">{}</span><span class="s1">&lt;/strong&gt;: &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;ul&gt;&#39;</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;li&gt;</span><span class="si">{}</span><span class="s1">&lt;/li&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">format_string</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/ul&gt;&#39;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="n">dict_to_html</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="n">format_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/li&gt;&#39;</span>
+    <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/ul&gt;&#39;</span>
+    <span class="k">return</span> <span class="n">html</span></div>
+
+
+<div class="viewcode-block" id="print_dict"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.print_dict">[docs]</a><span class="k">def</span> <span class="nf">print_dict</span><span class="p">(</span><span class="n">dictionary</span><span class="p">):</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">dict_to_html</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="offset_alias_to_seconds"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.offset_alias_to_seconds">[docs]</a><span class="k">def</span> <span class="nf">offset_alias_to_seconds</span><span class="p">(</span><span class="n">alias</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Seconds for each period length.&quot;&quot;&quot;</span>
+    <span class="n">dr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;00:00&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">alias</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">dr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="check_directory_exists"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.check_directory_exists">[docs]</a><span class="k">def</span> <span class="nf">check_directory_exists</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isdir</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Directory &#39;</span><span class="si">{}</span><span class="s2">&#39; does not exist.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="tz_localize_naive"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.tz_localize_naive">[docs]</a><span class="k">def</span> <span class="nf">tz_localize_naive</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">tz</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">timestamp</span>
+    <span class="k">if</span> <span class="n">timestamp</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">timestamp</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span>
+
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">timestamp_is_naive</span><span class="p">(</span><span class="n">timestamp</span><span class="p">):</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_tz"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.get_tz">[docs]</a><span class="k">def</span> <span class="nf">get_tz</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tz</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">tz</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">tz</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">tz</span></div>
+
+
+<div class="viewcode-block" id="timestamp_is_naive"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.timestamp_is_naive">[docs]</a><span class="k">def</span> <span class="nf">timestamp_is_naive</span><span class="p">(</span><span class="n">timestamp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    timestamp : pd.Timestamp or datetime.datetime</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    True if `timestamp` is naive (i.e. if it does not have a</span>
+<span class="sd">    timezone associated with it).  See:</span>
+<span class="sd">    https://docs.python.org/2/library/datetime.html#available-types</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">tzinfo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">tzinfo</span><span class="o">.</span><span class="n">utcoffset</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="get_datastore"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.get_datastore">[docs]</a><span class="k">def</span> <span class="nf">get_datastore</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : string</span>
+<span class="sd">    format : &#39;CSV&#39; or &#39;HDF&#39;</span>
+<span class="sd">    mode : &#39;a&#39; (append) or &#39;w&#39; (write), optional</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    metadata : dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;HDF&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">HDFDataStore</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;CSV&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CSVDataStore</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;format not recognised&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;filename is None&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="normalise_timestamp"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.normalise_timestamp">[docs]</a><span class="k">def</span> <span class="nf">normalise_timestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the nearest Timestamp to `timestamp` which would be</span>
+<span class="sd">    in the set of timestamps returned by pd.DataFrame.resample(freq=freq)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+    <span class="n">series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">timestamp</span><span class="p">])</span>
+    <span class="n">resampled</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">resampled</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="print_on_line"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.print_on_line">[docs]</a><span class="k">def</span> <span class="nf">print_on_line</span><span class="p">(</span><span class="o">*</span><span class="n">strings</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">strings</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="append_or_extend_list"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.append_or_extend_list">[docs]</a><span class="k">def</span> <span class="nf">append_or_extend_list</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">lst</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="convert_to_list"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.convert_to_list">[docs]</a><span class="k">def</span> <span class="nf">convert_to_list</span><span class="p">(</span><span class="n">list_like</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">list_like</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">list_like</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="most_common"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.most_common">[docs]</a><span class="k">def</span> <span class="nf">most_common</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the most common entry in lst.&quot;&quot;&quot;</span>
+    <span class="n">lst</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">{</span><span class="n">item</span><span class="p">:</span> <span class="n">lst</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">lst</span><span class="p">)}</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+    <span class="n">counts</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">most_common</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">most_common</span></div>
+
+
+<div class="viewcode-block" id="capitalise_first_letter"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.capitalise_first_letter">[docs]</a><span class="k">def</span> <span class="nf">capitalise_first_letter</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="n">string</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></div>
+
+
+<div class="viewcode-block" id="capitalise_index"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.capitalise_index">[docs]</a><span class="k">def</span> <span class="nf">capitalise_index</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">capitalise_first_letter</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">labels</span></div>
+
+
+<div class="viewcode-block" id="capitalise_legend"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.capitalise_legend">[docs]</a><span class="k">def</span> <span class="nf">capitalise_legend</span><span class="p">(</span><span class="n">ax</span><span class="p">):</span>
+    <span class="n">legend_handles</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">capitalise_index</span><span class="p">(</span><span class="n">legend_handles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend_handles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">labels</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax</span></div>
+
+
+<div class="viewcode-block" id="safe_resample"><a class="viewcode-back" href="../../nilmtk.utils.html#nilmtk.utils.safe_resample">[docs]</a><span class="k">def</span> <span class="nf">safe_resample</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">resample_kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">data</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="o">**</span><span class="n">resample_kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">pytz</span><span class="o">.</span><span class="n">AmbiguousTimeError</span><span class="p">:</span>
+        <span class="c1"># Work-around for</span>
+        <span class="c1"># https://github.com/pydata/pandas/issues/10117</span>
+        <span class="n">tz</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz</span><span class="o">.</span><span class="n">zone</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="o">**</span><span class="n">resample_kwargs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

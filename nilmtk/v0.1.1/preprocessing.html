@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dataset Preprocessing &mdash; nilmtk 0.1.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="nilmtk 0.1.1 documentation" href="index.html" />
+    <link rel="up" title="User Guide" href="userguide.html" />
+    <link rel="next" title="Demo IPython notebook" href="redd_1d_clustering.html" />
+    <link rel="prev" title="Statistics and dataset diagnostics" href="stats.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          nilmtk</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Dataset Preprocessing</a><ul>
+<li><a class="reference internal" href="#finding-the-range-of-voltage-for-air-conditioner-1">Finding the range of voltage for air conditioner 1</a></li>
+<li><a class="reference internal" href="#removing-readings-in-the-dataset-where-voltage-260-or-voltage-160">Removing readings in the dataset where <cite>voltage</cite> &gt;260 or <cite>voltage</cite> &lt;160</a></li>
+<li><a class="reference internal" href="#filtering-data-from-13-july-to-4-august">Filtering data from 13 July to 4 August</a></li>
+<li><a class="reference internal" href="#downsampling-the-dataset-to-1-minute">Downsampling the dataset to 1 minute</a></li>
+<li><a class="reference internal" href="#fill-large-gaps-in-appliances-with-zeros-and-forward-fill-small-gaps">Fill large gaps in appliances with zeros and forward-fill small gaps</a></li>
+<li><a class="reference internal" href="#prepend-and-append-zeros">Prepend and append zeros</a></li>
+<li><a class="reference internal" href="#drop-missing-samples-from-mains">Drop missing samples from mains</a></li>
+<li><a class="reference internal" href="#find-intersection-of-mains-and-appliance-datetime-indicies">Find intersection of mains and appliance datetime indicies</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="stats.html" title="Previous Chapter: Statistics and dataset diagnostics"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Statistics and d...</span>
+    </a>
+  </li>
+  <li>
+    <a href="redd_1d_clustering.html" title="Next Chapter: Demo IPython notebook"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Demo IPython not... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/preprocessing.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="dataset-preprocessing">
+<h1>Dataset Preprocessing<a class="headerlink" href="#dataset-preprocessing" title="Permalink to this headline">¶</a></h1>
+<p>As a demonstration, let us first load the iAWE dataset (which has
+already been converted to HDF5 format):</p>
+<div class="section" id="finding-the-range-of-voltage-for-air-conditioner-1">
+<h2>Finding the range of voltage for air conditioner 1<a class="headerlink" href="#finding-the-range-of-voltage-for-air-conditioner-1" title="Permalink to this headline">¶</a></h2>
+<p>We observe minimum voltage of 0 and maximum of 5140. Clearly, these are due to some fault in data collection. These readings should be removed</p>
+</div>
+<div class="section" id="removing-readings-in-the-dataset-where-voltage-260-or-voltage-160">
+<h2>Removing readings in the dataset where <cite>voltage</cite> &gt;260 or <cite>voltage</cite> &lt;160<a class="headerlink" href="#removing-readings-in-the-dataset-where-voltage-260-or-voltage-160" title="Permalink to this headline">¶</a></h2>
+<p>Now, observing the voltage variation in the same air conditioner as before.</p>
+</div>
+<div class="section" id="filtering-data-from-13-july-to-4-august">
+<h2>Filtering data from 13 July to 4 August<a class="headerlink" href="#filtering-data-from-13-july-to-4-august" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="downsampling-the-dataset-to-1-minute">
+<h2>Downsampling the dataset to 1 minute<a class="headerlink" href="#downsampling-the-dataset-to-1-minute" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="fill-large-gaps-in-appliances-with-zeros-and-forward-fill-small-gaps">
+<h2>Fill large gaps in appliances with zeros and forward-fill small gaps<a class="headerlink" href="#fill-large-gaps-in-appliances-with-zeros-and-forward-fill-small-gaps" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="prepend-and-append-zeros">
+<h2>Prepend and append zeros<a class="headerlink" href="#prepend-and-append-zeros" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="drop-missing-samples-from-mains">
+<h2>Drop missing samples from mains<a class="headerlink" href="#drop-missing-samples-from-mains" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="find-intersection-of-mains-and-appliance-datetime-indicies">
+<h2>Find intersection of mains and appliance datetime indicies<a class="headerlink" href="#find-intersection-of-mains-and-appliance-datetime-indicies" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, nilmtk authors.<br/>
+      Last updated on Jul 11, 2014.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

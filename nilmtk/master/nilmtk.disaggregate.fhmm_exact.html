@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.disaggregate.fhmm_exact &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.disaggregate.hart_85" href="nilmtk.disaggregate.hart_85.html" />
+    <link rel="prev" title="nilmtk.disaggregate.disaggregator" href="nilmtk.disaggregate.disaggregator.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.disaggregate.fhmm_exact</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.disaggregate.disaggregator.html" title="Previous Chapter: nilmtk.disaggregate.disaggregator"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.disagg...</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.disaggregate.hart_85.html" title="Next Chapter: nilmtk.disaggregate.hart_85"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.disagg... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.disaggregate.fhmm_exact.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-disaggregate-fhmm-exact">
+<h1>nilmtk.disaggregate.fhmm_exact<a class="headerlink" href="#nilmtk-disaggregate-fhmm-exact" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.disaggregate.fhmm_exact"></span><p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.compute_A_fhmm" title="nilmtk.disaggregate.fhmm_exact.compute_A_fhmm"><code class="xref py py-obj docutils literal"><span class="pre">compute_A_fhmm</span></code></a>(list_A)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.compute_means_fhmm" title="nilmtk.disaggregate.fhmm_exact.compute_means_fhmm"><code class="xref py py-obj docutils literal"><span class="pre">compute_means_fhmm</span></code></a>(list_means)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.compute_pi_fhmm" title="nilmtk.disaggregate.fhmm_exact.compute_pi_fhmm"><code class="xref py py-obj docutils literal"><span class="pre">compute_pi_fhmm</span></code></a>(list_pi)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.create_combined_hmm" title="nilmtk.disaggregate.fhmm_exact.create_combined_hmm"><code class="xref py py-obj docutils literal"><span class="pre">create_combined_hmm</span></code></a>(model)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.decode_hmm" title="nilmtk.disaggregate.fhmm_exact.decode_hmm"><code class="xref py py-obj docutils literal"><span class="pre">decode_hmm</span></code></a>(length_sequence,&nbsp;centroids,&nbsp;…)</td>
+<td>Decodes the HMM state sequence</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.return_sorting_mapping" title="nilmtk.disaggregate.fhmm_exact.return_sorting_mapping"><code class="xref py py-obj docutils literal"><span class="pre">return_sorting_mapping</span></code></a>(means)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.sort_covars" title="nilmtk.disaggregate.fhmm_exact.sort_covars"><code class="xref py py-obj docutils literal"><span class="pre">sort_covars</span></code></a>(mapping,&nbsp;covars)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.sort_learnt_parameters" title="nilmtk.disaggregate.fhmm_exact.sort_learnt_parameters"><code class="xref py py-obj docutils literal"><span class="pre">sort_learnt_parameters</span></code></a>(startprob,&nbsp;means,&nbsp;…)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.sort_startprob" title="nilmtk.disaggregate.fhmm_exact.sort_startprob"><code class="xref py py-obj docutils literal"><span class="pre">sort_startprob</span></code></a>(mapping,&nbsp;startprob)</td>
+<td>Sort the startprob according to power means; as returned by mapping</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.sort_transition_matrix" title="nilmtk.disaggregate.fhmm_exact.sort_transition_matrix"><code class="xref py py-obj docutils literal"><span class="pre">sort_transition_matrix</span></code></a>(mapping,&nbsp;A)</td>
+<td>Sorts the transition matrix according to increasing order of</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.FHMM" title="nilmtk.disaggregate.fhmm_exact.FHMM"><code class="xref py py-obj docutils literal"><span class="pre">FHMM</span></code></a>()</td>
+<td><p class="rubric">Attributes</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: FHMM</p>
+<dl class="class">
+<dt id="nilmtk.disaggregate.fhmm_exact.FHMM">
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">FHMM</code><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#FHMM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.FHMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.disaggregate.disaggregator.html#nilmtk.disaggregate.disaggregator.Disaggregator" title="nilmtk.disaggregate.disaggregator.Disaggregator"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.disaggregate.disaggregator.Disaggregator</span></code></a></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>model</strong></td>
+<td>(dict)</td>
+</tr>
+<tr class="row-even"><td><strong>predictions</strong></td>
+<td>(pd.DataFrame())</td>
+</tr>
+<tr class="row-odd"><td><strong>meters</strong></td>
+<td>(list)</td>
+</tr>
+<tr class="row-even"><td><strong>MIN_CHUNK_LENGTH</strong></td>
+<td>(int)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This class has inherited methods, see the base class(es) for additional methods</p>
+</div>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate" title="nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate"><code class="xref py py-obj docutils literal"><span class="pre">disaggregate</span></code></a>(mains,&nbsp;output_datastore,&nbsp;…)</td>
+<td>Disaggregate mains according to the model learnt previously.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate_across_buildings" title="nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate_across_buildings"><code class="xref py py-obj docutils literal"><span class="pre">disaggregate_across_buildings</span></code></a>(ds,&nbsp;…)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param ds:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate_chunk" title="nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate_chunk"><code class="xref py py-obj docutils literal"><span class="pre">disaggregate_chunk</span></code></a>(test_mains)</td>
+<td>Disaggregate the test data according to the model learnt previously</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.FHMM.train" title="nilmtk.disaggregate.fhmm_exact.FHMM.train"><code class="xref py py-obj docutils literal"><span class="pre">train</span></code></a>(metergroup[,&nbsp;num_states_dict])</td>
+<td>Train using 1d FHMM.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.fhmm_exact.FHMM.train_across_buildings" title="nilmtk.disaggregate.fhmm_exact.FHMM.train_across_buildings"><code class="xref py py-obj docutils literal"><span class="pre">train_across_buildings</span></code></a>(ds,&nbsp;…[,&nbsp;min_activation])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param ds:</th><td class="field-body">nilmtk.Dataset</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.disaggregate.fhmm_exact"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">FHMM</code><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#FHMM"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.disaggregate.disaggregator.html#nilmtk.disaggregate.disaggregator.Disaggregator" title="nilmtk.disaggregate.disaggregator.Disaggregator"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.disaggregate.disaggregator.Disaggregator</span></code></a></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>model</strong></td>
+<td>(dict)</td>
+</tr>
+<tr class="row-even"><td><strong>predictions</strong></td>
+<td>(pd.DataFrame())</td>
+</tr>
+<tr class="row-odd"><td><strong>meters</strong></td>
+<td>(list)</td>
+</tr>
+<tr class="row-even"><td><strong>MIN_CHUNK_LENGTH</strong></td>
+<td>(int)</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate">
+<code class="descname">disaggregate</code><span class="sig-paren">(</span><em>mains</em>, <em>output_datastore</em>, <em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#FHMM.disaggregate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disaggregate mains according to the model learnt previously.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mains</strong> : nilmtk.ElecMeter or nilmtk.MeterGroup</p>
+<p><strong>output_datastore</strong> : instance of nilmtk.DataStore subclass</p>
+<blockquote>
+<div><p>For storing power predictions from disaggregation algorithm.</p>
+</div></blockquote>
+<p><strong>sample_period</strong> : number, optional</p>
+<blockquote>
+<div><p>The desired sample period in seconds.</p>
+</div></blockquote>
+<p><strong>**load_kwargs</strong> : key word arguments</p>
+<blockquote class="last">
+<div><p>Passed to <cite>mains.power_series(**kwargs)</cite></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate_across_buildings">
+<code class="descname">disaggregate_across_buildings</code><span class="sig-paren">(</span><em>ds</em>, <em>output_datastore</em>, <em>list_of_buildings</em>, <em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#FHMM.disaggregate_across_buildings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate_across_buildings" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ds</strong> – </li>
+<li><strong>list_of_buildings</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate_chunk">
+<code class="descname">disaggregate_chunk</code><span class="sig-paren">(</span><em>test_mains</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#FHMM.disaggregate_chunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.FHMM.disaggregate_chunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disaggregate the test data according to the model learnt previously</p>
+<p>Performs 1D FHMM disaggregation.</p>
+<p>For now assuming there is no missing data at this stage.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.fhmm_exact.FHMM.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>metergroup</em>, <em>num_states_dict={}</em>, <em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#FHMM.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.FHMM.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train using 1d FHMM.</p>
+<p>Places the learnt model in <cite>model</cite> attribute
+The current version performs training ONLY on the first chunk.
+Online HMMs are welcome if someone can contribute :)
+Assumes all pre-processing has been done.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.fhmm_exact.FHMM.train_across_buildings">
+<code class="descname">train_across_buildings</code><span class="sig-paren">(</span><em>ds</em>, <em>list_of_buildings</em>, <em>list_of_appliances</em>, <em>min_activation=0.05</em>, <em>**load_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#FHMM.train_across_buildings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.FHMM.train_across_buildings" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ds</strong> – nilmtk.Dataset</li>
+<li><strong>list_of_buildings</strong> – List of buildings to use for training</li>
+<li><strong>list_of_appliances</strong> – List of appliances (nilm-metadata names)</li>
+<li><strong>min_activation</strong> – Minimum activation (in fraction) to use a home in training</li>
+<li><strong>load_kwargs</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.disaggregate.fhmm_exact.compute_A_fhmm">
+<code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">compute_A_fhmm</code><span class="sig-paren">(</span><em>list_A</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#compute_A_fhmm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.compute_A_fhmm" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>list_pi</strong> : List of PI’s of individual learnt HMMs</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>result</strong> : Combined Pi for the FHMM</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.disaggregate.fhmm_exact.compute_means_fhmm">
+<code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">compute_means_fhmm</code><span class="sig-paren">(</span><em>list_means</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#compute_means_fhmm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.compute_means_fhmm" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">[mu, cov]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.disaggregate.fhmm_exact.compute_pi_fhmm">
+<code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">compute_pi_fhmm</code><span class="sig-paren">(</span><em>list_pi</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#compute_pi_fhmm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.compute_pi_fhmm" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>list_pi</strong> : List of PI’s of individual learnt HMMs</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>result</strong> : Combined Pi for the FHMM</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.disaggregate.fhmm_exact.create_combined_hmm">
+<code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">create_combined_hmm</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#create_combined_hmm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.create_combined_hmm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.disaggregate.fhmm_exact.decode_hmm">
+<code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">decode_hmm</code><span class="sig-paren">(</span><em>length_sequence</em>, <em>centroids</em>, <em>appliance_list</em>, <em>states</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#decode_hmm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.decode_hmm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decodes the HMM state sequence</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.disaggregate.fhmm_exact.return_sorting_mapping">
+<code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">return_sorting_mapping</code><span class="sig-paren">(</span><em>means</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#return_sorting_mapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.return_sorting_mapping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.disaggregate.fhmm_exact.sort_covars">
+<code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">sort_covars</code><span class="sig-paren">(</span><em>mapping</em>, <em>covars</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#sort_covars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.sort_covars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.disaggregate.fhmm_exact.sort_learnt_parameters">
+<code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">sort_learnt_parameters</code><span class="sig-paren">(</span><em>startprob</em>, <em>means</em>, <em>covars</em>, <em>transmat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#sort_learnt_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.sort_learnt_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.disaggregate.fhmm_exact.sort_startprob">
+<code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">sort_startprob</code><span class="sig-paren">(</span><em>mapping</em>, <em>startprob</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#sort_startprob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.sort_startprob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort the startprob according to power means; as returned by mapping</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.disaggregate.fhmm_exact.sort_transition_matrix">
+<code class="descclassname">nilmtk.disaggregate.fhmm_exact.</code><code class="descname">sort_transition_matrix</code><span class="sig-paren">(</span><em>mapping</em>, <em>A</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/fhmm_exact.html#sort_transition_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.fhmm_exact.sort_transition_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts the transition matrix according to increasing order of
+power means; as returned by mapping</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mapping :</strong></p>
+<p><strong>A</strong> : numpy.array of shape (k, k)</p>
+<blockquote class="last">
+<div><p>transition matrix</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

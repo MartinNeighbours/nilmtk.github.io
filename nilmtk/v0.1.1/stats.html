@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Statistics and dataset diagnostics &mdash; nilmtk 0.1.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.1.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.1.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="nilmtk 0.1.1 documentation" href="index.html" />
+    <link rel="up" title="User Guide" href="userguide.html" />
+    <link rel="next" title="Dataset Preprocessing" href="preprocessing.html" />
+    <link rel="prev" title="User Guide" href="userguide.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          nilmtk</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Statistics and dataset diagnostics</a><ul>
+<li><a class="reference internal" href="#basic-stats-for-a-whole-building">Basic stats for a whole building</a></li>
+<li><a class="reference internal" href="#diagnosing-problems-with-data">Diagnosing problems with data</a></li>
+<li><a class="reference internal" href="#exploring-a-single-appliance">Exploring a single appliance</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="userguide.html" title="Previous Chapter: User Guide"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; User Guide</span>
+    </a>
+  </li>
+  <li>
+    <a href="preprocessing.html" title="Next Chapter: Dataset Preprocessing"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Dataset Preproce... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/stats.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="statistics-and-dataset-diagnostics">
+<h1>Statistics and dataset diagnostics<a class="headerlink" href="#statistics-and-dataset-diagnostics" title="Permalink to this headline">¶</a></h1>
+<p>As a demonstration, let us first load the REDD dataset (which has
+already been converted to HDF5 format):</p>
+<div class="section" id="basic-stats-for-a-whole-building">
+<h2>Basic stats for a whole building<a class="headerlink" href="#basic-stats-for-a-whole-building" title="Permalink to this headline">¶</a></h2>
+<p><cite>proportion_of_energy_submetered</cite> reports the proportion of energy in
+a building that is submetered where 0 = no energy submetered and 1 =
+all energy submetered:</p>
+</div>
+<div class="section" id="diagnosing-problems-with-data">
+<h2>Diagnosing problems with data<a class="headerlink" href="#diagnosing-problems-with-data" title="Permalink to this headline">¶</a></h2>
+<p>There are two reasons why data might not be recorded:</p>
+<ol class="arabic simple">
+<li>The appliance and appliance monitor were unplugged from the mains
+(hence the appliance is off when the appliance monitor is off).</li>
+<li>The appliance monitor is misbehaving (hence we have no reliable
+information about the state of the appliance).</li>
+</ol>
+<p>nilmtk has a number of functions to help find periods where samples
+for one or more sensors were not recorded.</p>
+<p>By default, <cite>plot_missing_samples_using_rectangles</cite> plots rectangles
+indicating the presence of a gap in the data, where a &#8216;gap&#8217; is defined
+by the <cite>max_sample_period</cite> argument.  If two consecutive samples are
+more than <cite>max_sample_period</cite> apart then that&#8217;s a gap!  The default is
+<cite>4 x sample_period</cite>. The plot below shows that the two mains channels
+are inactive for most of the second half of May 2011:</p>
+<p>The advantages of <cite>plot_missing_samples_using_rectangles</cite> are:</p>
+<ul class="simple">
+<li>clearly shows large gaps</li>
+<li>shows all data so can be zoomed in to your heart&#8217;s content</li>
+</ul>
+<p>The disadvantages are:</p>
+<ul class="simple">
+<li>The choice of <cite>max_sample_period</cite> is somewhat subjective</li>
+<li>Because it plots lots of rectangles, it can be slow to plot.</li>
+</ul>
+<p>To overcome both of these disadvantages, we have a sister function:</p>
+<p>Here, the darkness of the blue colour indicates the proportion of
+samples lost, where dark blue means all samples are lost, light blue
+means some samples are lost and white means no samples are lost.  In
+comparison to the <cite>plot_missing_samples_using_rectangles</cite> plot, the
+<cite>plot_missing_samples_using_bitmap</cite> function shows us that the
+circuits in REDD always lose &gt;20% of their samples, but these
+dropouts are spread evenly.</p>
+</div>
+<div class="section" id="exploring-a-single-appliance">
+<h2>Exploring a single appliance<a class="headerlink" href="#exploring-a-single-appliance" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s get a more precise understanding of the dropout rate of a
+REDD circuit by getting the dropout rate per day:</p>
+<p>And a histogram of power consumption:</p>
+<p>So we now know that the oven spends a lot of its time consuming about
+2-50 Watts but it appears to be properly &#8216;on&#8217; when it&#8217;s consuming over
+1600 watts.  So let&#8217;s use 1000 watts as the on power threshold.</p>
+<p>And some more stats:</p>
+<p>And we can plot some histograms to get an understanding of the
+behaviour of an appliance. Let&#8217;s see the usage of the appliance
+hour-by-hour over an average day:</p>
+<p>Not surprisingly, the oven is used most often around lunch and dinner times.</p>
+<p>Or the behaviour day-by-day over an average week:</p>
+<p>We can see that not much cooking was done in the middle of the week.</p>
+<p>Let&#8217;s find out length of time that the oven tends to be active for
+across the dataset.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, nilmtk authors.<br/>
+      Last updated on Jul 11, 2014.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

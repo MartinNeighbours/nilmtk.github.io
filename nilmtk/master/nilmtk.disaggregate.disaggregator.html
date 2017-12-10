@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.disaggregate.disaggregator &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.disaggregate.fhmm_exact" href="nilmtk.disaggregate.fhmm_exact.html" />
+    <link rel="prev" title="nilmtk.disaggregate.combinatorial_optimisation" href="nilmtk.disaggregate.combinatorial_optimisation.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.disaggregate.disaggregator</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.disaggregate.combinatorial_optimisation.html" title="Previous Chapter: nilmtk.disaggregate.combinatorial_optimisation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.disagg...</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.disaggregate.fhmm_exact.html" title="Next Chapter: nilmtk.disaggregate.fhmm_exact"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.disagg... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.disaggregate.disaggregator.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-disaggregate-disaggregator">
+<h1>nilmtk.disaggregate.disaggregator<a class="headerlink" href="#nilmtk-disaggregate-disaggregator" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.disaggregate.disaggregator"></span><p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.disaggregator.Disaggregator" title="nilmtk.disaggregate.disaggregator.Disaggregator"><code class="xref py py-obj docutils literal"><span class="pre">Disaggregator</span></code></a></td>
+<td>Provides a common interface to all disaggregation classes.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: Disaggregator</p>
+<dl class="class">
+<dt id="nilmtk.disaggregate.disaggregator.Disaggregator">
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.disaggregator.</code><code class="descname">Disaggregator</code><a class="reference internal" href="_modules/nilmtk/disaggregate/disaggregator.html#Disaggregator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.disaggregator.Disaggregator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Provides a common interface to all disaggregation classes.</p>
+<p>See <a class="reference external" href="https://github.com/nilmtk/nilmtk/issues/271">https://github.com/nilmtk/nilmtk/issues/271</a> for discussion, and
+nilmtk/docs/manual/development_guide/writing_a_disaggregation_algorithm.md
+for the development guide.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>model :</strong></td>
+<td>Each subclass should internally store models learned from training.</td>
+</tr>
+<tr class="row-even"><td><strong>MODEL_NAME</strong></td>
+<td>(string) A short name for this type of model. e.g. ‘CO’ for combinatorial optimisation. Used by self._save_metadata_for_disaggregation.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.disaggregator.Disaggregator.disaggregate" title="nilmtk.disaggregate.disaggregator.Disaggregator.disaggregate"><code class="xref py py-obj docutils literal"><span class="pre">disaggregate</span></code></a>(mains,&nbsp;output_datastore)</td>
+<td>Passes each chunk from mains generator to disaggregate_chunk() and passes the output to _write_disaggregated_chunk_to_datastore() Will have a default implementation in super class.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.disaggregator.Disaggregator.disaggregate_chunk" title="nilmtk.disaggregate.disaggregator.Disaggregator.disaggregate_chunk"><code class="xref py py-obj docutils literal"><span class="pre">disaggregate_chunk</span></code></a>(mains)</td>
+<td>In-memory disaggregation.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.disaggregator.Disaggregator.export_model" title="nilmtk.disaggregate.disaggregator.Disaggregator.export_model"><code class="xref py py-obj docutils literal"><span class="pre">export_model</span></code></a>(filename)</td>
+<td>Saves learned model to file.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.disaggregator.Disaggregator.import_model" title="nilmtk.disaggregate.disaggregator.Disaggregator.import_model"><code class="xref py py-obj docutils literal"><span class="pre">import_model</span></code></a>(filename)</td>
+<td>Loads learned model from file.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.disaggregate.disaggregator.Disaggregator.train" title="nilmtk.disaggregate.disaggregator.Disaggregator.train"><code class="xref py py-obj docutils literal"><span class="pre">train</span></code></a>(metergroup)</td>
+<td>Trains the model given a metergroup containing appliance meters (supervised) or a site meter (unsupervised).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.disaggregate.disaggregator.Disaggregator.train_on_chunk" title="nilmtk.disaggregate.disaggregator.Disaggregator.train_on_chunk"><code class="xref py py-obj docutils literal"><span class="pre">train_on_chunk</span></code></a>(chunk,&nbsp;meter)</td>
+<td>Signature is fine for site meter dataframes (unsupervised learning).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.disaggregate.disaggregator"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.disaggregate.disaggregator.</code><code class="descname">Disaggregator</code><a class="reference internal" href="_modules/nilmtk/disaggregate/disaggregator.html#Disaggregator"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Provides a common interface to all disaggregation classes.</p>
+<p>See <a class="reference external" href="https://github.com/nilmtk/nilmtk/issues/271">https://github.com/nilmtk/nilmtk/issues/271</a> for discussion, and
+nilmtk/docs/manual/development_guide/writing_a_disaggregation_algorithm.md
+for the development guide.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>model :</strong></td>
+<td>Each subclass should internally store models learned from training.</td>
+</tr>
+<tr class="row-even"><td><strong>MODEL_NAME</strong></td>
+<td>(string) A short name for this type of model. e.g. ‘CO’ for combinatorial optimisation. Used by self._save_metadata_for_disaggregation.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nilmtk.disaggregate.disaggregator.Disaggregator.disaggregate">
+<code class="descname">disaggregate</code><span class="sig-paren">(</span><em>mains</em>, <em>output_datastore</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/disaggregator.html#Disaggregator.disaggregate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.disaggregator.Disaggregator.disaggregate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Passes each chunk from mains generator to disaggregate_chunk() and
+passes the output to _write_disaggregated_chunk_to_datastore()
+Will have a default implementation in super class.  Can be
+overridden for more simple in-memory disaggregation, or more
+complex out-of-core disaggregation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mains</strong> : nilmtk.ElecMeter (single-phase) or</p>
+<blockquote>
+<div><p>nilmtk.MeterGroup (multi-phase)</p>
+</div></blockquote>
+<p><strong>output_datastore</strong> : instance of nilmtk.DataStore or str of</p>
+<blockquote class="last">
+<div><p>datastore location</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.disaggregator.Disaggregator.disaggregate_chunk">
+<code class="descname">disaggregate_chunk</code><span class="sig-paren">(</span><em>mains</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/disaggregator.html#Disaggregator.disaggregate_chunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.disaggregator.Disaggregator.disaggregate_chunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>In-memory disaggregation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mains</strong> : pd.DataFrame</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>appliances</strong> : pd.DataFrame where each column represents a</p>
+<blockquote class="last">
+<div><p>disaggregated appliance</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.disaggregator.Disaggregator.export_model">
+<code class="descname">export_model</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/disaggregator.html#Disaggregator.export_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.disaggregator.Disaggregator.export_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves learned model to file.
+Required to be overridden for learned models to persist.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> : str path to file to save model to</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.disaggregator.Disaggregator.import_model">
+<code class="descname">import_model</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/disaggregator.html#Disaggregator.import_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.disaggregator.Disaggregator.import_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads learned model from file.
+Required to be overridden for learned models to persist.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> : str path to file to load model from</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.disaggregator.Disaggregator.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>metergroup</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/disaggregator.html#Disaggregator.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.disaggregator.Disaggregator.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains the model given a metergroup containing appliance meters
+(supervised) or a site meter (unsupervised).  Will have a
+default implementation in super class.  Can be overridden for
+simpler in-memory training, or more complex out-of-core
+training.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>metergroup</strong> : a nilmtk.MeterGroup object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.disaggregate.disaggregator.Disaggregator.train_on_chunk">
+<code class="descname">train_on_chunk</code><span class="sig-paren">(</span><em>chunk</em>, <em>meter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/disaggregate/disaggregator.html#Disaggregator.train_on_chunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.disaggregate.disaggregator.Disaggregator.train_on_chunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signature is fine for site meter dataframes (unsupervised
+learning). Would need to be called for each appliance meter
+along with appliance identifier for supervised learning.
+Required to be overridden to provide out-of-core
+disaggregation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>chunk</strong> : pd.DataFrame where each column represents a</p>
+<blockquote>
+<div><p>disaggregated appliance</p>
+</div></blockquote>
+<p class="last"><strong>meter</strong> : ElecMeter for this chunk</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

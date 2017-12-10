@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.results &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for nilmtk.results</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="k">import</span> <span class="n">iteritems</span>
+<span class="kn">from</span> <span class="nn">.timeframe</span> <span class="k">import</span> <span class="n">TimeFrame</span>
+<span class="kn">from</span> <span class="nn">nilmtk.utils</span> <span class="k">import</span> <span class="n">get_tz</span><span class="p">,</span> <span class="n">tz_localize_naive</span>
+
+<div class="viewcode-block" id="Results"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results">[docs]</a><span class="k">class</span> <span class="nc">Results</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Stats results from each node need to be assigned to a specific</span>
+<span class="sd">    class so we know how to combine results from multiple chunks.  For</span>
+<span class="sd">    example, Energy can be simply summed; while dropout rate should be</span>
+<span class="sd">    averaged, and gaps need to be merged across chunk boundaries.  Results</span>
+<span class="sd">    objects contain a DataFrame, the index of which is the start timestamp for</span>
+<span class="sd">    which the results are valid; the first column (&#39;end&#39;) is the end</span>
+<span class="sd">    timestamp for which the results are valid.  Other columns are accumulators </span>
+<span class="sd">    for the results.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _data : DataFrame</span>
+<span class="sd">        Index is period start.  </span>
+<span class="sd">        Columns are: `end` and any columns for internal storage of stats.</span>
+
+<span class="sd">    Static Attributes</span>
+<span class="sd">    -----------------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        The string used to cache this results object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="Results.combined"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results.combined">[docs]</a>    <span class="k">def</span> <span class="nf">combined</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return all results from each chunk combined.  Either return single</span>
+<span class="sd">        float for all periods or a dict where necessary, e.g. if</span>
+<span class="sd">        calculating Energy for a meter which records both apparent</span>
+<span class="sd">        power and active power then get active power with</span>
+<span class="sd">        energyresults.combined[&#39;active&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_columns_with_end_removed</span><span class="p">()]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Results.per_period"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results.per_period">[docs]</a>    <span class="k">def</span> <span class="nf">per_period</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return a DataFrame.  Index is period start.  </span>
+<span class="sd">        Columns are: end and &lt;stat name&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Results.simple"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results.simple">[docs]</a>    <span class="k">def</span> <span class="nf">simple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the simplest representation of the results.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">combined</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Results.append"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeframe</span><span class="p">,</span> <span class="n">new_results</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Append a single result.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        timeframe : nilmtk.TimeFrame</span>
+<span class="sd">        new_results : dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timeframe</span><span class="p">,</span> <span class="n">TimeFrame</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;`timeframe` must be of type &#39;nilmtk.TimeFrame&#39;,&quot;</span>
+                            <span class="s2">&quot; not &#39;</span><span class="si">{}</span><span class="s2">&#39; type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">timeframe</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_results</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;`new_results` must of a dict, not &#39;</span><span class="si">{}</span><span class="s2">&#39; type.&quot;</span>
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">new_results</span><span class="p">)))</span>
+        
+        <span class="c1"># check that there is no overlap</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">series</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">tf</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">series</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">check_for_overlap</span><span class="p">(</span><span class="n">timeframe</span><span class="p">)</span>
+
+        <span class="n">row</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">timeframe</span><span class="o">.</span><span class="n">start</span><span class="p">],</span>
+                           <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">new_results</span><span class="p">))</span>
+        <span class="n">row</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeframe</span><span class="o">.</span><span class="n">end</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">new_results</span><span class="p">):</span>
+            <span class="n">row</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">verify_integrity</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Results.check_for_overlap"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results.check_for_overlap">[docs]</a>    <span class="k">def</span> <span class="nf">check_for_overlap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO this could be made much faster</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">index</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">row1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">tf1</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="n">row2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">tf2</span> <span class="o">=</span> <span class="n">TimeFrame</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">row2</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+                <span class="n">tf1</span><span class="o">.</span><span class="n">check_for_overlap</span><span class="p">(</span><span class="n">tf2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Results.update"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_result</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add results from a new chunk.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters </span>
+<span class="sd">        ---------- </span>
+<span class="sd">        new_result : Results subclass (same</span>
+<span class="sd">            class as self) from new chunk of data.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_result</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;new_results must be of type &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span>
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">new_result</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_result</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_for_overlap</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Results.unify"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results.unify">[docs]</a>    <span class="k">def</span> <span class="nf">unify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Take results from another table of data (another physical meter)</span>
+<span class="sd">        and merge those results into self.  For example, if we have a dual-split</span>
+<span class="sd">        mains supply then we want to merge the results from each physical meter.</span>
+<span class="sd">        The two sets of results must be for exactly the same timeframes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        other : Results subclass (same class as self).</span>
+<span class="sd">            Results calculated from another table of data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="ow">or</span>
+                <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;The sections we are trying to merge&quot;</span>
+                                   <span class="s2">&quot; do not have the same end times so we&quot;</span>
+                                   <span class="s2">&quot; cannot merge them.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Results.import_from_cache"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results.import_from_cache">[docs]</a>    <span class="k">def</span> <span class="nf">import_from_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_stat</span><span class="p">,</span> <span class="n">sections</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cached_stat : DataFrame of cached data</span>
+<span class="sd">        sections : list of nilmtk.TimeFrame objects</span>
+<span class="sd">            describing the sections we want to load stats for.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cached_stat</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">tz</span> <span class="o">=</span> <span class="n">get_tz</span><span class="p">(</span><span class="n">cached_stat</span><span class="p">)</span>
+        <span class="n">usable_sections_from_cache</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">def</span> <span class="nf">append_row</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+            <span class="c1"># We stripped off the timezone when exporting to cache</span>
+            <span class="c1"># so now we must put the timezone back.</span>
+            <span class="n">row</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tz_localize_naive</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">],</span> <span class="n">tz</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">section</span><span class="o">.</span><span class="n">end</span><span class="p">:</span>
+                <span class="n">usable_sections_from_cache</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">sections</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">section</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">rows_matching_start</span> <span class="o">=</span> <span class="n">cached_stat</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">section</span><span class="o">.</span><span class="n">start</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rows_matching_start</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+                    <span class="n">append_row</span><span class="p">(</span><span class="n">rows_matching_start</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">row_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows_matching_start</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                        <span class="n">row</span> <span class="o">=</span> <span class="n">rows_matching_start</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row_i</span><span class="p">]</span>
+                        <span class="n">append_row</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">usable_sections_from_cache</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Results.export_to_cache"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results.export_to_cache">[docs]</a>    <span class="k">def</span> <span class="nf">export_to_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pd.DataFrame</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Objects are converted using `DataFrame.convert_objects()`.</span>
+<span class="sd">        The reason for doing this is to strip out the timezone</span>
+<span class="sd">        information from data columns.  We have to do this otherwise</span>
+<span class="sd">        Pandas complains if we try to put a column with multiple</span>
+<span class="sd">        timezones (e.g. Europe/London across a daylight saving</span>
+<span class="sd">        boundary).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">convert_objects</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Results.timeframes"><a class="viewcode-back" href="../../nilmtk.results.html#nilmtk.results.Results.timeframes">[docs]</a>    <span class="k">def</span> <span class="nf">timeframes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a list of timeframes covered by this Result.&quot;&quot;&quot;</span>
+        <span class="c1"># For some reason, using `iterrows()` messes with the </span>
+        <span class="c1"># timezone of the index, hence we need to &#39;manually&#39; iterate</span>
+        <span class="c1"># over the rows.</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">TimeFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">))]</span></div>
+
+    <span class="k">def</span> <span class="nf">_columns_with_end_removed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">cols</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cols</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

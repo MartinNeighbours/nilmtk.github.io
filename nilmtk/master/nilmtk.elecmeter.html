@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.elecmeter &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.electric" href="nilmtk.electric.html" />
+    <link rel="prev" title="nilmtk.docinherit" href="nilmtk.docinherit.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.elecmeter</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.docinherit.html" title="Previous Chapter: nilmtk.docinherit"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.docinherit</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.electric.html" title="Next Chapter: nilmtk.electric"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.electric &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.elecmeter.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-elecmeter">
+<h1>nilmtk.elecmeter<a class="headerlink" href="#nilmtk-elecmeter" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.elecmeter"></span><p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter" title="nilmtk.elecmeter.ElecMeter"><code class="xref py py-obj docutils literal"><span class="pre">ElecMeter</span></code></a>([store,&nbsp;metadata,&nbsp;meter_id])</td>
+<td>Represents a physical electricity meter.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeterID" title="nilmtk.elecmeter.ElecMeterID"><code class="xref py py-obj docutils literal"><span class="pre">ElecMeterID</span></code></a></td>
+<td>Create new instance of ElecMeterID(instance, building, dataset)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: ElecMeter</p>
+<dl class="class">
+<dt id="nilmtk.elecmeter.ElecMeter">
+<em class="property">class </em><code class="descclassname">nilmtk.elecmeter.</code><code class="descname">ElecMeter</code><span class="sig-paren">(</span><em>store=None</em>, <em>metadata=None</em>, <em>meter_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.hashable.html#nilmtk.hashable.Hashable" title="nilmtk.hashable.Hashable"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.hashable.Hashable</span></code></a>, <a class="reference internal" href="nilmtk.electric.html#nilmtk.electric.Electric" title="nilmtk.electric.Electric"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.electric.Electric</span></code></a></p>
+<p>Represents a physical electricity meter.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>appliances</strong></td>
+<td>(list of Appliance objects connected immediately downstream) of this meter.  Will be [] if no appliances are connected directly to this meter.</td>
+</tr>
+<tr class="row-even"><td><strong>store</strong></td>
+<td>(nilmtk.DataStore)</td>
+</tr>
+<tr class="row-odd"><td><strong>key</strong></td>
+<td>(string) key into nilmtk.DataStore to access data.</td>
+</tr>
+<tr class="row-even"><td><strong>metadata</strong></td>
+<td>(dict.) See <a class="reference external" href="http://nilm-metadata.readthedocs.org/en/latest/dataset_metadata.html#elecmeter">http://nilm-metadata.readthedocs.org/en/latest/dataset_metadata.html#elecmeter</a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This class has inherited methods, see the base class(es) for additional methods</p>
+</div>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.available_ac_types" title="nilmtk.elecmeter.ElecMeter.available_ac_types"><code class="xref py py-obj docutils literal"><span class="pre">available_ac_types</span></code></a>(physical_quantity)</td>
+<td>Finds available alternating current types for a specific physical quantity.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.available_columns" title="nilmtk.elecmeter.ElecMeter.available_columns"><code class="xref py py-obj docutils literal"><span class="pre">available_columns</span></code></a>()</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.available_physical_quantities" title="nilmtk.elecmeter.ElecMeter.available_physical_quantities"><code class="xref py py-obj docutils literal"><span class="pre">available_physical_quantities</span></code></a>()</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.building" title="nilmtk.elecmeter.ElecMeter.building"><code class="xref py py-obj docutils literal"><span class="pre">building</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.clear_cache" title="nilmtk.elecmeter.ElecMeter.clear_cache"><code class="xref py py-obj docutils literal"><span class="pre">clear_cache</span></code></a>([verbose])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.dataset" title="nilmtk.elecmeter.ElecMeter.dataset"><code class="xref py py-obj docutils literal"><span class="pre">dataset</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.dominant_appliance" title="nilmtk.elecmeter.ElecMeter.dominant_appliance"><code class="xref py py-obj docutils literal"><span class="pre">dominant_appliance</span></code></a>()</td>
+<td>Tries to find the most dominant appliance on this meter, and then returns that appliance object.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.dropout_rate" title="nilmtk.elecmeter.ElecMeter.dropout_rate"><code class="xref py py-obj docutils literal"><span class="pre">dropout_rate</span></code></a>([ignore_gaps])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.dry_run_metadata" title="nilmtk.elecmeter.ElecMeter.dry_run_metadata"><code class="xref py py-obj docutils literal"><span class="pre">dry_run_metadata</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.get_cached_stat" title="nilmtk.elecmeter.ElecMeter.get_cached_stat"><code class="xref py py-obj docutils literal"><span class="pre">get_cached_stat</span></code></a>(key_for_stat)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.get_metadata" title="nilmtk.elecmeter.ElecMeter.get_metadata"><code class="xref py py-obj docutils literal"><span class="pre">get_metadata</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.get_source_node" title="nilmtk.elecmeter.ElecMeter.get_source_node"><code class="xref py py-obj docutils literal"><span class="pre">get_source_node</span></code></a>(**loader_kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.get_timeframe" title="nilmtk.elecmeter.ElecMeter.get_timeframe"><code class="xref py py-obj docutils literal"><span class="pre">get_timeframe</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.good_sections" title="nilmtk.elecmeter.ElecMeter.good_sections"><code class="xref py py-obj docutils literal"><span class="pre">good_sections</span></code></a>(**loader_kwargs)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.instance" title="nilmtk.elecmeter.ElecMeter.instance"><code class="xref py py-obj docutils literal"><span class="pre">instance</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.is_site_meter" title="nilmtk.elecmeter.ElecMeter.is_site_meter"><code class="xref py py-obj docutils literal"><span class="pre">is_site_meter</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.key_for_cached_stat" title="nilmtk.elecmeter.ElecMeter.key_for_cached_stat"><code class="xref py py-obj docutils literal"><span class="pre">key_for_cached_stat</span></code></a>(stat_name)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.label" title="nilmtk.elecmeter.ElecMeter.label"><code class="xref py py-obj docutils literal"><span class="pre">label</span></code></a>([pretty])</td>
+<td>Returns a string describing this meter.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.load" title="nilmtk.elecmeter.ElecMeter.load"><code class="xref py py-obj docutils literal"><span class="pre">load</span></code></a>(**kwargs)</td>
+<td>Returns a generator of DataFrames loaded from the DataStore.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.matches" title="nilmtk.elecmeter.ElecMeter.matches"><code class="xref py py-obj docutils literal"><span class="pre">matches</span></code></a>(key)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.sample_period" title="nilmtk.elecmeter.ElecMeter.sample_period"><code class="xref py py-obj docutils literal"><span class="pre">sample_period</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.save" title="nilmtk.elecmeter.ElecMeter.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>(destination,&nbsp;key)</td>
+<td>Convert all relevant attributes to a dict to be</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.total_energy" title="nilmtk.elecmeter.ElecMeter.total_energy"><code class="xref py py-obj docutils literal"><span class="pre">total_energy</span></code></a>(**loader_kwargs)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.upstream_meter" title="nilmtk.elecmeter.ElecMeter.upstream_meter"><code class="xref py py-obj docutils literal"><span class="pre">upstream_meter</span></code></a>([raise_warning])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.device" title="nilmtk.elecmeter.ElecMeter.device"><code class="xref py py-obj docutils literal"><span class="pre">device</span></code></a></td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.key" title="nilmtk.elecmeter.ElecMeter.key"><code class="xref py py-obj docutils literal"><span class="pre">key</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.meter_devices" title="nilmtk.elecmeter.ElecMeter.meter_devices"><code class="xref py py-obj docutils literal"><span class="pre">meter_devices</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.name" title="nilmtk.elecmeter.ElecMeter.name"><code class="xref py py-obj docutils literal"><span class="pre">name</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="topic">
+<p class="topic-title first">Class: ElecMeterID</p>
+<dl class="class">
+<dt id="nilmtk.elecmeter.ElecMeterID">
+<em class="property">class </em><code class="descclassname">nilmtk.elecmeter.</code><code class="descname">ElecMeterID</code><a class="headerlink" href="#nilmtk.elecmeter.ElecMeterID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></p>
+<p>Create new instance of ElecMeterID(instance, building, dataset)</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeterID.building" title="nilmtk.elecmeter.ElecMeterID.building"><code class="xref py py-obj docutils literal"><span class="pre">building</span></code></a></td>
+<td>Alias for field number 1</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeterID.dataset" title="nilmtk.elecmeter.ElecMeterID.dataset"><code class="xref py py-obj docutils literal"><span class="pre">dataset</span></code></a></td>
+<td>Alias for field number 2</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.elecmeter.ElecMeterID.instance" title="nilmtk.elecmeter.ElecMeterID.instance"><code class="xref py py-obj docutils literal"><span class="pre">instance</span></code></a></td>
+<td>Alias for field number 0</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.elecmeter"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.elecmeter.</code><code class="descname">ElecMeter</code><span class="sig-paren">(</span><em>store=None</em>, <em>metadata=None</em>, <em>meter_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.hashable.html#nilmtk.hashable.Hashable" title="nilmtk.hashable.Hashable"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.hashable.Hashable</span></code></a>, <a class="reference internal" href="nilmtk.electric.html#nilmtk.electric.Electric" title="nilmtk.electric.Electric"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.electric.Electric</span></code></a></p>
+<p>Represents a physical electricity meter.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>appliances</strong></td>
+<td>(list of Appliance objects connected immediately downstream) of this meter.  Will be [] if no appliances are connected directly to this meter.</td>
+</tr>
+<tr class="row-even"><td><strong>store</strong></td>
+<td>(nilmtk.DataStore)</td>
+</tr>
+<tr class="row-odd"><td><strong>key</strong></td>
+<td>(string) key into nilmtk.DataStore to access data.</td>
+</tr>
+<tr class="row-even"><td><strong>metadata</strong></td>
+<td>(dict.) See <a class="reference external" href="http://nilm-metadata.readthedocs.org/en/latest/dataset_metadata.html#elecmeter">http://nilm-metadata.readthedocs.org/en/latest/dataset_metadata.html#elecmeter</a></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.available_ac_types">
+<code class="descname">available_ac_types</code><span class="sig-paren">(</span><em>physical_quantity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.available_ac_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.available_ac_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds available alternating current types for a specific physical quantity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>physical_quantity</strong> : str or list of strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of strings e.g. [‘apparent’, ‘active’]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.available_columns">
+<code class="descname">available_columns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.available_columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.available_columns" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of 2-tuples of strings e.g. [(‘power’, ‘active’)]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.available_physical_quantities">
+<code class="descname">available_physical_quantities</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.available_physical_quantities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.available_physical_quantities" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of strings e.g. [‘power’, ‘energy’]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.building">
+<code class="descname">building</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.building"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.building" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.clear_cache">
+<code class="descname">clear_cache</code><span class="sig-paren">(</span><em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.clear_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.clear_cache" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">_compute_stat</span></code>, <code class="xref py py-obj docutils literal"><span class="pre">_get_stat_from_cache_or_compute</span></code>, <a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.key_for_cached_stat" title="nilmtk.elecmeter.ElecMeter.key_for_cached_stat"><code class="xref py py-obj docutils literal"><span class="pre">key_for_cached_stat</span></code></a>, <a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.get_cached_stat" title="nilmtk.elecmeter.ElecMeter.get_cached_stat"><code class="xref py py-obj docutils literal"><span class="pre">get_cached_stat</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.dataset">
+<code class="descname">dataset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.elecmeter.ElecMeter.device">
+<code class="descname">device</code><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.device" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict describing the MeterDevice for this meter (sample period etc).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.dominant_appliance">
+<code class="descname">dominant_appliance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.dominant_appliance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.dominant_appliance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to find the most dominant appliance on this meter,
+and then returns that appliance object.  Will return None
+if there are no appliances on this meter.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.dropout_rate">
+<code class="descname">dropout_rate</code><span class="sig-paren">(</span><em>ignore_gaps=True</em>, <em>**loader_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.dropout_rate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.dropout_rate" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>ignore_gaps</strong> : bool, default=True</p>
+<blockquote>
+<div><p>If True then will only calculate dropout rate for good sections.</p>
+</div></blockquote>
+<p><strong>full_results</strong> : bool, default=False</p>
+<p><strong>**loader_kwargs</strong> : key word arguments for DataStore.load()</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">DropoutRateResults object if <cite>full_results</cite> is True,</p>
+<p class="last">else float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.dry_run_metadata">
+<code class="descname">dry_run_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.dry_run_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.dry_run_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.get_cached_stat">
+<code class="descname">get_cached_stat</code><span class="sig-paren">(</span><em>key_for_stat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.get_cached_stat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.get_cached_stat" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key_for_stat</strong> : str</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">_compute_stat</span></code>, <code class="xref py py-obj docutils literal"><span class="pre">_get_stat_from_cache_or_compute</span></code>, <a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.key_for_cached_stat" title="nilmtk.elecmeter.ElecMeter.key_for_cached_stat"><code class="xref py py-obj docutils literal"><span class="pre">key_for_cached_stat</span></code></a>, <a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.clear_cache" title="nilmtk.elecmeter.ElecMeter.clear_cache"><code class="xref py py-obj docutils literal"><span class="pre">clear_cache</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.get_metadata">
+<code class="descname">get_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.get_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.get_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.get_source_node">
+<code class="descname">get_source_node</code><span class="sig-paren">(</span><em>**loader_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.get_source_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.get_source_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.get_timeframe">
+<code class="descname">get_timeframe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.get_timeframe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.get_timeframe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.good_sections">
+<code class="descname">good_sections</code><span class="sig-paren">(</span><em>**loader_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.good_sections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.good_sections" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>full_results</strong> : bool, default=False</p>
+<p><strong>**loader_kwargs</strong> : key word arguments for DataStore.load()</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">if <cite>full_results</cite> is True then return nilmtk.stats.GoodSectionsResults</p>
+<p class="last">object otherwise return list of TimeFrame objects.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.instance">
+<code class="descname">instance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.is_site_meter">
+<code class="descname">is_site_meter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.is_site_meter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.is_site_meter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.elecmeter.ElecMeter.key">
+<code class="descname">key</code><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.key_for_cached_stat">
+<code class="descname">key_for_cached_stat</code><span class="sig-paren">(</span><em>stat_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.key_for_cached_stat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.key_for_cached_stat" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stat_name</strong> : str</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>key</strong> : str</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.clear_cache" title="nilmtk.elecmeter.ElecMeter.clear_cache"><code class="xref py py-obj docutils literal"><span class="pre">clear_cache</span></code></a>, <code class="xref py py-obj docutils literal"><span class="pre">_compute_stat</span></code>, <code class="xref py py-obj docutils literal"><span class="pre">_get_stat_from_cache_or_compute</span></code>, <a class="reference internal" href="#nilmtk.elecmeter.ElecMeter.get_cached_stat" title="nilmtk.elecmeter.ElecMeter.get_cached_stat"><code class="xref py py-obj docutils literal"><span class="pre">get_cached_stat</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.label">
+<code class="descname">label</code><span class="sig-paren">(</span><em>pretty=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string describing this meter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pretty</strong> : boolean</p>
+<blockquote>
+<div><p>If True then just return the type name of the dominant appliance
+(without the instance number) or metadata[‘name’], with the
+first letter capitalised.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>string</strong> : A label listing all the appliance types.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a generator of DataFrames loaded from the DataStore.</p>
+<p>By default, <cite>load</cite> will load all available columns from the DataStore.
+Specific columns can be selected in one or two mutually exclusive ways:</p>
+<ol class="arabic simple">
+<li>specify a list of column names using the <cite>cols</cite> parameter.</li>
+<li>specify a <cite>physical_quantity</cite> and/or an <cite>ac_type</cite> parameter to ask
+<cite>load</cite> to automatically select columns.</li>
+</ol>
+<p>If ‘resample’ is set to ‘True’ then the default behaviour is for
+gaps shorter than max_sample_period will be forward filled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>physical_quantity</strong> : string or list of strings</p>
+<blockquote>
+<div><p>e.g. ‘power’ or ‘voltage’ or ‘energy’ or [‘power’, ‘energy’].
+If a single string then load columns only for that physical quantity.
+If a list of strings then load columns for all those physical
+quantities.</p>
+</div></blockquote>
+<p><strong>ac_type</strong> : string or list of strings, defaults to None</p>
+<blockquote>
+<div><p>Where ‘ac_type’ is short for ‘alternating current type’.  e.g.
+‘reactive’ or ‘active’ or ‘apparent’.
+If set to None then will load all AC types per physical quantity.
+If set to ‘best’ then load the single best AC type per
+physical quantity.
+If set to a single AC type then load just that single AC type per
+physical quantity, else raise an Exception.
+If set to a list of AC type strings then will load all those
+AC types and will raise an Exception if any cannot be found.</p>
+</div></blockquote>
+<p><strong>cols</strong> : list of tuples, using NILMTK’s vocabulary for measurements.</p>
+<blockquote>
+<div><p>e.g. [(‘power’, ‘active’), (‘voltage’, ‘’), (‘energy’, ‘reactive’)]
+<cite>cols</cite> can’t be used if <cite>ac_type</cite> and/or <cite>physical_quantity</cite> are set.</p>
+</div></blockquote>
+<p><strong>sample_period</strong> : int, defaults to None</p>
+<blockquote>
+<div><p>Number of seconds to use as the new sample period for resampling.
+If None then will use self.sample_period()</p>
+</div></blockquote>
+<p><strong>resample</strong> : boolean, defaults to False</p>
+<blockquote>
+<div><p>If True then will resample data using <cite>sample_period</cite>.
+Defaults to True if <cite>sample_period</cite> is not None.</p>
+</div></blockquote>
+<p><strong>resample_kwargs</strong> : dict of key word arguments (other than ‘rule’) to</p>
+<blockquote>
+<div><p><cite>pass to pd.DataFrame.resample()</cite>.  Defaults to set ‘limit’ to
+<cite>sample_period / max_sample_period</cite> and sets ‘fill_method’ to ffill.</p>
+</div></blockquote>
+<p><strong>preprocessing</strong> : list of Node subclass instances</p>
+<blockquote>
+<div><p>e.g. [Clip()].</p>
+</div></blockquote>
+<p><strong>**kwargs</strong> : any other key word arguments to pass to <cite>self.store.load()</cite></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Always return a generator of DataFrames (even if it only has a single</p>
+<p>column).</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><strong>nilmtk.exceptions.MeasurementError if a measurement is specified</strong></p>
+<p class="last"><strong>which is not available.</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="nilmtk.elecmeter.ElecMeter.load_meter_devices">
+<em class="property">classmethod </em><code class="descname">load_meter_devices</code><span class="sig-paren">(</span><em>store</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.load_meter_devices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.load_meter_devices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.matches">
+<code class="descname">matches</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.matches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.matches" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> : dict</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.elecmeter.ElecMeter.meter_devices">
+<code class="descname">meter_devices</code><em class="property"> = {}</em><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.meter_devices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.elecmeter.ElecMeter.name">
+<code class="descname">name</code><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.sample_period">
+<code class="descname">sample_period</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.sample_period"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.sample_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>destination</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert all relevant attributes to a dict to be
+saved as metadata in destination at location specified
+by key</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.total_energy">
+<code class="descname">total_energy</code><span class="sig-paren">(</span><em>**loader_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.total_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.total_energy" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>full_results</strong> : bool, default=False</p>
+<p><strong>**loader_kwargs</strong> : key word arguments for DataStore.load()</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">if <cite>full_results</cite> is True then return TotalEnergyResults object</p>
+<p class="last">else returns a pd.Series with a row for each AC type.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.elecmeter.ElecMeter.upstream_meter">
+<code class="descname">upstream_meter</code><span class="sig-paren">(</span><em>raise_warning=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/elecmeter.html#ElecMeter.upstream_meter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.elecmeter.ElecMeter.upstream_meter" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ElecMeterID of upstream meter or None if is site meter.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.elecmeter.</code><code class="descname">ElecMeterID</code></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></p>
+<p>Create new instance of ElecMeterID(instance, building, dataset)</p>
+<dl class="attribute">
+<dt id="nilmtk.elecmeter.ElecMeterID.building">
+<code class="descname">building</code><a class="headerlink" href="#nilmtk.elecmeter.ElecMeterID.building" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.elecmeter.ElecMeterID.dataset">
+<code class="descname">dataset</code><a class="headerlink" href="#nilmtk.elecmeter.ElecMeterID.dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.elecmeter.ElecMeterID.instance">
+<code class="descname">instance</code><a class="headerlink" href="#nilmtk.elecmeter.ElecMeterID.instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

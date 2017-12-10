@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.stats.totalenergy &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nilmtk.stats.totalenergyresults" href="nilmtk.stats.totalenergyresults.html" />
+    <link rel="prev" title="nilmtk.stats.histogram module" href="nilmtk.stats.histogram.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">nilmtk.stats.totalenergy</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nilmtk.stats.histogram.html" title="Previous Chapter: nilmtk.stats.histogram module"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nilmtk.stats....</span>
+    </a>
+  </li>
+  <li>
+    <a href="nilmtk.stats.totalenergyresults.html" title="Next Chapter: nilmtk.stats.totalenergyresults"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nilmtk.stats.... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/nilmtk.stats.totalenergy.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="nilmtk-stats-totalenergy">
+<h1>nilmtk.stats.totalenergy<a class="headerlink" href="#nilmtk-stats-totalenergy" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.stats.totalenergy"></span><p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.stats.totalenergy.get_total_energy" title="nilmtk.stats.totalenergy.get_total_energy"><code class="xref py py-obj docutils literal"><span class="pre">get_total_energy</span></code></a>(df,&nbsp;max_sample_period)</td>
+<td>Calculate total energy for energy / power data in a dataframe.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.stats.totalenergy.TotalEnergy" title="nilmtk.stats.totalenergy.TotalEnergy"><code class="xref py py-obj docutils literal"><span class="pre">TotalEnergy</span></code></a>([upstream,&nbsp;generator])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: TotalEnergy</p>
+<dl class="class">
+<dt id="nilmtk.stats.totalenergy.TotalEnergy">
+<em class="property">class </em><code class="descclassname">nilmtk.stats.totalenergy.</code><code class="descname">TotalEnergy</code><span class="sig-paren">(</span><em>upstream=None</em>, <em>generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/stats/totalenergy.html#TotalEnergy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.totalenergy.TotalEnergy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.node.html#nilmtk.node.Node" title="nilmtk.node.Node"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.node.Node</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>upstream</strong> : an ElecMeter or MeterGroup or a Node subclass</p>
+<blockquote>
+<div><p>Required methods:
+- dry_run_metadata
+- get_metadata
+- process (not required if <cite>generator</cite> supplied)</p>
+</div></blockquote>
+<p><strong>generator</strong> : Python generator. Optional</p>
+<blockquote class="last">
+<div><p>Used when <cite>upstream</cite> object is an ElecMeter or MeterGroup.
+Provides source of data.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This class has inherited methods, see the base class(es) for additional methods</p>
+</div>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.stats.totalenergy.TotalEnergy.process" title="nilmtk.stats.totalenergy.TotalEnergy.process"><code class="xref py py-obj docutils literal"><span class="pre">process</span></code></a>()</td>
+<td>Preference: Cumulative energy &gt; Energy &gt; Power</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.stats.totalenergy.TotalEnergy.required_measurements" title="nilmtk.stats.totalenergy.TotalEnergy.required_measurements"><code class="xref py py-obj docutils literal"><span class="pre">required_measurements</span></code></a>(state)</td>
+<td>TotalEnergy needs all power and energy measurements.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.stats.totalenergy.TotalEnergy.postconditions" title="nilmtk.stats.totalenergy.TotalEnergy.postconditions"><code class="xref py py-obj docutils literal"><span class="pre">postconditions</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.stats.totalenergy.TotalEnergy.requirements" title="nilmtk.stats.totalenergy.TotalEnergy.requirements"><code class="xref py py-obj docutils literal"><span class="pre">requirements</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.stats.totalenergy"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.stats.totalenergy.</code><code class="descname">TotalEnergy</code><span class="sig-paren">(</span><em>upstream=None</em>, <em>generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/stats/totalenergy.html#TotalEnergy"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.node.html#nilmtk.node.Node" title="nilmtk.node.Node"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.node.Node</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>upstream</strong> : an ElecMeter or MeterGroup or a Node subclass</p>
+<blockquote>
+<div><p>Required methods:
+- dry_run_metadata
+- get_metadata
+- process (not required if <cite>generator</cite> supplied)</p>
+</div></blockquote>
+<p><strong>generator</strong> : Python generator. Optional</p>
+<blockquote class="last">
+<div><p>Used when <cite>upstream</cite> object is an ElecMeter or MeterGroup.
+Provides source of data.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="nilmtk.stats.totalenergy.TotalEnergy.postconditions">
+<code class="descname">postconditions</code><em class="property"> = {'statistics': {'energy': {}}}</em><a class="headerlink" href="#nilmtk.stats.totalenergy.TotalEnergy.postconditions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.stats.totalenergy.TotalEnergy.process">
+<code class="descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/stats/totalenergy.html#TotalEnergy.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.totalenergy.TotalEnergy.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preference: Cumulative energy &gt; Energy &gt; Power</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nilmtk.stats.totalenergy.TotalEnergy.required_measurements">
+<code class="descname">required_measurements</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/stats/totalenergy.html#TotalEnergy.required_measurements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.totalenergy.TotalEnergy.required_measurements" title="Permalink to this definition">¶</a></dt>
+<dd><p>TotalEnergy needs all power and energy measurements.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.stats.totalenergy.TotalEnergy.requirements">
+<code class="descname">requirements</code><em class="property"> = {'device': {'max_sample_period': 'ANY VALUE'}, 'preprocessing_applied': {'clip': 'ANY VALUE'}}</em><a class="headerlink" href="#nilmtk.stats.totalenergy.TotalEnergy.requirements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nilmtk.stats.totalenergy.TotalEnergy.results_class">
+<code class="descname">results_class</code><a class="headerlink" href="#nilmtk.stats.totalenergy.TotalEnergy.results_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">TotalEnergyResults</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="nilmtk.stats.totalenergy.get_total_energy">
+<code class="descclassname">nilmtk.stats.totalenergy.</code><code class="descname">get_total_energy</code><span class="sig-paren">(</span><em>df</em>, <em>max_sample_period</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/stats/totalenergy.html#get_total_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.stats.totalenergy.get_total_energy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate total energy for energy / power data in a dataframe.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>df</strong> : pd.DataFrame</p>
+<p><strong>max_sample_period</strong> : float or int</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>energy</strong> : dict</p>
+<blockquote class="last">
+<div><p>With a key for each AC type (reactive, apparent, active) in <cite>df</cite>.
+Values are energy in kWh (or equivalent for reactive and apparent power).</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

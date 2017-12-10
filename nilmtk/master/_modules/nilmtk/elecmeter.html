@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nilmtk.elecmeter &#8212; NILMTK 0.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          NILMTK</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/nilmtk/nilmtk">github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../nilmtk.html">nilmtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for nilmtk.elecmeter</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="k">import</span> <span class="n">iteritems</span>
+<span class="kn">from</span> <span class="nn">.preprocessing</span> <span class="k">import</span> <span class="n">Clip</span>
+<span class="kn">from</span> <span class="nn">.stats</span> <span class="k">import</span> <span class="n">TotalEnergy</span><span class="p">,</span> <span class="n">GoodSections</span><span class="p">,</span> <span class="n">DropoutRate</span>
+<span class="kn">from</span> <span class="nn">.hashable</span> <span class="k">import</span> <span class="n">Hashable</span>
+<span class="kn">from</span> <span class="nn">.measurement</span> <span class="k">import</span> <span class="p">(</span><span class="n">select_best_ac_type</span><span class="p">,</span> <span class="n">PHYSICAL_QUANTITIES</span><span class="p">,</span>
+                          <span class="n">check_ac_type</span><span class="p">,</span> <span class="n">check_physical_quantity</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.node</span> <span class="k">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">.electric</span> <span class="k">import</span> <span class="n">Electric</span>
+<span class="kn">from</span> <span class="nn">nilmtk.exceptions</span> <span class="k">import</span> <span class="n">MeasurementError</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">flatten_2d_list</span><span class="p">,</span> <span class="n">capitalise_first_letter</span>
+<span class="kn">from</span> <span class="nn">nilmtk.timeframegroup</span> <span class="k">import</span> <span class="n">TimeFrameGroup</span>
+<span class="kn">import</span> <span class="nn">nilmtk</span>
+
+<span class="n">ElecMeterID</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;ElecMeterID&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;instance&#39;</span><span class="p">,</span> <span class="s1">&#39;building&#39;</span><span class="p">,</span> <span class="s1">&#39;dataset&#39;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="ElecMeter"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter">[docs]</a><span class="k">class</span> <span class="nc">ElecMeter</span><span class="p">(</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">Electric</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Represents a physical electricity meter.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    appliances : list of Appliance objects connected immediately downstream</span>
+<span class="sd">      of this meter.  Will be [] if no appliances are connected directly</span>
+<span class="sd">      to this meter.</span>
+
+<span class="sd">    store : nilmtk.DataStore</span>
+
+<span class="sd">    key : string</span>
+<span class="sd">        key into nilmtk.DataStore to access data.</span>
+
+<span class="sd">    metadata : dict.</span>
+<span class="sd">        See http://nilm-metadata.readthedocs.org/en/latest/dataset_metadata.html#elecmeter</span>
+
+<span class="sd">    STATIC ATTRIBUTES</span>
+<span class="sd">    -----------------</span>
+
+<span class="sd">    meter_devices : dict, static class attribute</span>
+<span class="sd">        See http://nilm-metadata.readthedocs.org/en/latest/dataset_metadata.html#meterdevice</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">meter_devices</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meter_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Store and check parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">appliances</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">metadata</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">store</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">=</span> <span class="n">meter_id</span>
+
+        <span class="c1"># Insert self into nilmtk.global_meter_group</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">ElecMeterID</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nilmtk</span><span class="o">.</span><span class="n">global_meter_group</span><span class="o">.</span><span class="n">meters</span><span class="p">:</span>
+                <span class="n">nilmtk</span><span class="o">.</span><span class="n">global_meter_group</span><span class="o">.</span><span class="n">meters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;data_location&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ElecMeter.instance"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.instance">[docs]</a>    <span class="k">def</span> <span class="nf">instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier_attr</span><span class="p">(</span><span class="s1">&#39;instance&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElecMeter.building"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.building">[docs]</a>    <span class="k">def</span> <span class="nf">building</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier_attr</span><span class="p">(</span><span class="s1">&#39;building&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElecMeter.dataset"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.dataset">[docs]</a>    <span class="k">def</span> <span class="nf">dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier_attr</span><span class="p">(</span><span class="s1">&#39;dataset&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">_identifier_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ElecMeter.get_timeframe"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.get_timeframe">[docs]</a>    <span class="k">def</span> <span class="nf">get_timeframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_store</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">get_timeframe</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_check_store</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;ElecMeter needs `store` attribute set to an&quot;</span>
+                               <span class="s2">&quot; instance of a `nilmtk.DataStore` subclass&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ElecMeter.upstream_meter"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.upstream_meter">[docs]</a>    <span class="k">def</span> <span class="nf">upstream_meter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raise_warning</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ElecMeterID of upstream meter or None if is site meter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_site_meter</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">raise_warning</span><span class="p">:</span>
+                <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;There is no meter upstream of this meter &#39;</span><span class="si">{}</span><span class="s2">&#39; because&quot;</span>
+                     <span class="s2">&quot; it is a site meter.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="n">submeter_of</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;submeter_of&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Sanity checks</span>
+        <span class="k">if</span> <span class="n">submeter_of</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;This meter has no &#39;submeter_of&#39; metadata attribute.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">submeter_of</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;submeter_of&#39; must be &gt;= 0.&quot;</span><span class="p">)</span>
+        <span class="n">upstream_meter_in_building</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;upstream_meter_in_building&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">upstream_meter_in_building</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
+                <span class="n">upstream_meter_in_building</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">building</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="s2">&quot;&#39;upstream_meter_in_building&#39; not implemented yet.&quot;</span><span class="p">)</span>
+
+        <span class="n">id_of_upstream</span> <span class="o">=</span> <span class="n">ElecMeterID</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">submeter_of</span><span class="p">,</span>
+                                     <span class="n">building</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">building</span><span class="p">,</span>
+                                     <span class="n">dataset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
+
+        <span class="n">upstream_meter</span> <span class="o">=</span> <span class="n">nilmtk</span><span class="o">.</span><span class="n">global_meter_group</span><span class="p">[</span><span class="n">id_of_upstream</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">upstream_meter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No upstream meter found for &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">upstream_meter</span></div>
+
+<div class="viewcode-block" id="ElecMeter.load_meter_devices"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.load_meter_devices">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load_meter_devices</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">store</span><span class="p">):</span>
+        <span class="n">dataset_metadata</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">load_metadata</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+        <span class="n">ElecMeter</span><span class="o">.</span><span class="n">meter_devices</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="n">dataset_metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;meter_devices&#39;</span><span class="p">,</span> <span class="p">{}))</span></div>
+
+<div class="viewcode-block" id="ElecMeter.save"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert all relevant attributes to a dict to be</span>
+<span class="sd">        saved as metadata in destination at location specified</span>
+<span class="sd">        by key</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># destination.write_metadata(key, self.metadata)</span>
+        <span class="c1"># then save data</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">device</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict describing the MeterDevice for this meter (sample period etc).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">device_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;device_model&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">device_model</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">ElecMeter</span><span class="o">.</span><span class="n">meter_devices</span><span class="p">[</span><span class="n">device_model</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="ElecMeter.sample_period"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.sample_period">[docs]</a>    <span class="k">def</span> <span class="nf">sample_period</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+        <span class="k">if</span> <span class="n">device</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">device</span><span class="p">[</span><span class="s1">&#39;sample_period&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ElecMeter.is_site_meter"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.is_site_meter">[docs]</a>    <span class="k">def</span> <span class="nf">is_site_meter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_meter&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElecMeter.dominant_appliance"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.dominant_appliance">[docs]</a>    <span class="k">def</span> <span class="nf">dominant_appliance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Tries to find the most dominant appliance on this meter,</span>
+<span class="sd">        and then returns that appliance object.  Will return None</span>
+<span class="sd">        if there are no appliances on this meter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n_appliances</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">appliances</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_appliances</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="n">n_appliances</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">appliances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">appliances</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dominant_appliance&#39;</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">app</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Multiple appliances are associated with meter </span><span class="si">{}</span><span class="s1">&#39;</span>
+                 <span class="s1">&#39; but none are marked as the dominant appliance. Hence&#39;</span>
+                 <span class="s1">&#39; returning the first appliance in the list.&#39;</span><span class="p">,</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">appliances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ElecMeter.label"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a string describing this meter.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pretty : boolean</span>
+<span class="sd">            If True then just return the type name of the dominant appliance</span>
+<span class="sd">            (without the instance number) or metadata[&#39;name&#39;], with the</span>
+<span class="sd">            first letter capitalised.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        string : A label listing all the appliance types.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">pretty</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pretty_label</span><span class="p">()</span>
+
+        <span class="n">meter_names</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_site_meter</span><span class="p">():</span>
+            <span class="n">meter_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;SITE METER&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">:</span>
+            <span class="n">meter_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">appliance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">appliances</span><span class="p">:</span>
+                <span class="n">appliance_name</span> <span class="o">=</span> <span class="n">appliance</span><span class="o">.</span><span class="n">label</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">appliance</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dominant_appliance&#39;</span><span class="p">):</span>
+                    <span class="n">appliance_name</span> <span class="o">=</span> <span class="n">appliance_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+                <span class="n">meter_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">appliance_name</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meter_names</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">label</span></div>
+
+    <span class="k">def</span> <span class="nf">_pretty_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_site_meter</span><span class="p">():</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Site meter&#39;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dominant_appliance</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dominant_appliance</span><span class="p">()</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">type</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">meter_names</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">appliance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">appliances</span><span class="p">:</span>
+                <span class="n">appliance_name</span> <span class="o">=</span> <span class="n">appliance</span><span class="o">.</span><span class="n">label</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">appliance</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dominant_appliance&#39;</span><span class="p">):</span>
+                    <span class="n">appliance_name</span> <span class="o">=</span> <span class="n">appliance_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+                <span class="n">meter_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">appliance_name</span><span class="p">)</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meter_names</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">label</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="n">capitalise_first_letter</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">label</span>
+
+<div class="viewcode-block" id="ElecMeter.available_ac_types"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.available_ac_types">[docs]</a>    <span class="k">def</span> <span class="nf">available_ac_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">physical_quantity</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds available alternating current types for a specific physical quantity.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        physical_quantity : str or list of strings</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of strings e.g. [&#39;apparent&#39;, &#39;active&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">ac_types</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">available_ac_types</span><span class="p">(</span><span class="n">pq</span><span class="p">)</span> <span class="k">for</span> <span class="n">pq</span> <span class="ow">in</span> <span class="n">physical_quantity</span><span class="p">]</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">flatten_2d_list</span><span class="p">(</span><span class="n">ac_types</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="n">physical_quantity</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PHYSICAL_QUANTITIES</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`physical_quantity` must by one of &#39;</span><span class="si">{}</span><span class="s2">&#39;, not &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span>
+                             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">PHYSICAL_QUANTITIES</span><span class="p">,</span> <span class="n">physical_quantity</span><span class="p">))</span>
+
+        <span class="n">measurements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">measurements</span>
+                <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;physical_quantity&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">physical_quantity</span>
+                <span class="ow">and</span> <span class="s1">&#39;type&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ElecMeter.available_physical_quantities"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.available_physical_quantities">[docs]</a>    <span class="k">def</span> <span class="nf">available_physical_quantities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of strings e.g. [&#39;power&#39;, &#39;energy&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">measurements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;physical_quantity&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">measurements</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="ElecMeter.available_columns"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.available_columns">[docs]</a>    <span class="k">def</span> <span class="nf">available_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of 2-tuples of strings e.g. [(&#39;power&#39;, &#39;active&#39;)]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">measurements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;physical_quantity&#39;</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+                         <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">measurements</span><span class="p">]))</span></div>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ElecMeter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+        <span class="c1"># Now add list of appliances...</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># remove last bracket</span>
+
+        <span class="c1"># Site meter</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_meter&#39;</span><span class="p">):</span>
+            <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;, site_meter&#39;</span>
+
+        <span class="c1"># Appliances</span>
+        <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;, appliances=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">appliances</span><span class="p">)</span>
+
+        <span class="c1"># METER ROOM</span>
+        <span class="n">room</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;room&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">room</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;, room=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">room</span><span class="p">)</span>
+
+        <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;)&#39;</span>
+        <span class="k">return</span> <span class="n">string</span>
+
+<div class="viewcode-block" id="ElecMeter.matches"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.matches">[docs]</a>    <span class="k">def</span> <span class="nf">matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key : dict</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+
+        <span class="n">match</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">elif</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">elif</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
+                <span class="n">metadata_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">metadata_value</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span>
+                        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">metadata_value</span><span class="p">:</span>
+                        <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">elif</span> <span class="n">metadata_value</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; not a valid key.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">match</span></div>
+
+<div class="viewcode-block" id="ElecMeter.load"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a generator of DataFrames loaded from the DataStore.</span>
+
+<span class="sd">        By default, `load` will load all available columns from the DataStore.</span>
+<span class="sd">        Specific columns can be selected in one or two mutually exclusive ways:</span>
+
+<span class="sd">        1. specify a list of column names using the `cols` parameter.</span>
+<span class="sd">        2. specify a `physical_quantity` and/or an `ac_type` parameter to ask</span>
+<span class="sd">           `load` to automatically select columns.</span>
+
+<span class="sd">        If &#39;resample&#39; is set to &#39;True&#39; then the default behaviour is for</span>
+<span class="sd">        gaps shorter than max_sample_period will be forward filled.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ---------------</span>
+<span class="sd">        physical_quantity : string or list of strings</span>
+<span class="sd">            e.g. &#39;power&#39; or &#39;voltage&#39; or &#39;energy&#39; or [&#39;power&#39;, &#39;energy&#39;].</span>
+<span class="sd">            If a single string then load columns only for that physical quantity.</span>
+<span class="sd">            If a list of strings then load columns for all those physical</span>
+<span class="sd">            quantities.</span>
+
+<span class="sd">        ac_type : string or list of strings, defaults to None</span>
+<span class="sd">            Where &#39;ac_type&#39; is short for &#39;alternating current type&#39;.  e.g.</span>
+<span class="sd">            &#39;reactive&#39; or &#39;active&#39; or &#39;apparent&#39;.</span>
+<span class="sd">            If set to None then will load all AC types per physical quantity.</span>
+<span class="sd">            If set to &#39;best&#39; then load the single best AC type per</span>
+<span class="sd">            physical quantity.</span>
+<span class="sd">            If set to a single AC type then load just that single AC type per</span>
+<span class="sd">            physical quantity, else raise an Exception.</span>
+<span class="sd">            If set to a list of AC type strings then will load all those</span>
+<span class="sd">            AC types and will raise an Exception if any cannot be found.</span>
+
+<span class="sd">        cols : list of tuples, using NILMTK&#39;s vocabulary for measurements.</span>
+<span class="sd">            e.g. [(&#39;power&#39;, &#39;active&#39;), (&#39;voltage&#39;, &#39;&#39;), (&#39;energy&#39;, &#39;reactive&#39;)]</span>
+<span class="sd">            `cols` can&#39;t be used if `ac_type` and/or `physical_quantity` are set.</span>
+
+<span class="sd">        sample_period : int, defaults to None</span>
+<span class="sd">            Number of seconds to use as the new sample period for resampling.</span>
+<span class="sd">            If None then will use self.sample_period()</span>
+
+<span class="sd">        resample : boolean, defaults to False</span>
+<span class="sd">            If True then will resample data using `sample_period`.</span>
+<span class="sd">            Defaults to True if `sample_period` is not None.</span>
+
+<span class="sd">        resample_kwargs : dict of key word arguments (other than &#39;rule&#39;) to</span>
+<span class="sd">            `pass to pd.DataFrame.resample()`.  Defaults to set &#39;limit&#39; to</span>
+<span class="sd">            `sample_period / max_sample_period` and sets &#39;fill_method&#39; to ffill.</span>
+
+<span class="sd">        preprocessing : list of Node subclass instances</span>
+<span class="sd">            e.g. [Clip()].</span>
+
+<span class="sd">        **kwargs : any other key word arguments to pass to `self.store.load()`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Always return a generator of DataFrames (even if it only has a single</span>
+<span class="sd">        column).</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        nilmtk.exceptions.MeasurementError if a measurement is specified</span>
+<span class="sd">        which is not available.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">verbose</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ElecMeter.load&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;sample_period&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;resample&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;resample&#39;</span><span class="p">):</span>
+            <span class="c1"># Set default key word arguments for resampling.</span>
+            <span class="n">resample_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;resample_kwargs&#39;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">resample_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;fill_method&#39;</span><span class="p">,</span> <span class="s1">&#39;ffill&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;limit&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">resample_kwargs</span><span class="p">:</span>
+                <span class="n">sample_period</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample_period&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_period</span><span class="p">())</span>
+                <span class="n">max_number_of_rows_to_ffill</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">[</span><span class="s1">&#39;max_sample_period&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sample_period</span><span class="p">))</span>
+                <span class="n">resample_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;limit&#39;</span><span class="p">:</span> <span class="n">max_number_of_rows_to_ffill</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;kwargs after setting resample setting:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prep_kwargs_for_sample_period_and_resample</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;kwargs after processing&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Get source node</span>
+        <span class="n">preprocessing</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;preprocessing&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">last_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_source_node</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">generator</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">generator</span>
+
+        <span class="c1"># Connect together all preprocessing nodes</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">preprocessing</span><span class="p">:</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">upstream</span> <span class="o">=</span> <span class="n">last_node</span>
+            <span class="n">last_node</span> <span class="o">=</span> <span class="n">node</span>
+            <span class="n">generator</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">generator</span></div>
+
+    <span class="k">def</span> <span class="nf">_ac_type_to_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ac_type</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ac_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ac_type</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">cols2d</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_ac_type_to_columns</span><span class="p">(</span><span class="n">a_t</span><span class="p">)</span> <span class="k">for</span> <span class="n">a_t</span> <span class="ow">in</span> <span class="n">ac_type</span><span class="p">]</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">flatten_2d_list</span><span class="p">(</span><span class="n">cols2d</span><span class="p">)))</span>
+
+        <span class="n">check_ac_type</span><span class="p">(</span><span class="n">ac_type</span><span class="p">)</span>
+        <span class="n">cols_matching</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_columns</span><span class="p">()</span>
+                         <span class="k">if</span> <span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">ac_type</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">cols_matching</span>
+
+    <span class="k">def</span> <span class="nf">_physical_quantity_to_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">physical_quantity</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">physical_quantity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">cols2d</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_physical_quantity_to_columns</span><span class="p">(</span><span class="n">p_q</span><span class="p">)</span>
+                      <span class="k">for</span> <span class="n">p_q</span> <span class="ow">in</span> <span class="n">physical_quantity</span><span class="p">]</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">flatten_2d_list</span><span class="p">(</span><span class="n">cols2d</span><span class="p">)))</span>
+
+        <span class="n">check_physical_quantity</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">)</span>
+        <span class="n">cols_matching</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_columns</span><span class="p">()</span>
+                         <span class="k">if</span> <span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">physical_quantity</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">cols_matching</span>
+
+    <span class="k">def</span> <span class="nf">_get_columns_with_best_ac_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">physical_quantity</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">physical_quantity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">physical_quantity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_physical_quantities</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">pq</span> <span class="ow">in</span> <span class="n">physical_quantity</span><span class="p">:</span>
+                <span class="n">best</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_columns_with_best_ac_type</span><span class="p">(</span><span class="n">pq</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">best</span><span class="p">:</span>
+                    <span class="n">columns</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">best</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+
+        <span class="n">check_physical_quantity</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">)</span>
+        <span class="n">available_pqs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_physical_quantities</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">physical_quantity</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">available_pqs</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">ac_types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_ac_types</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">best_ac_type</span> <span class="o">=</span> <span class="n">select_best_ac_type</span><span class="p">(</span><span class="n">ac_types</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[(</span><span class="n">physical_quantity</span><span class="p">,</span> <span class="n">best_ac_type</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">_convert_physical_quantity_and_ac_type_to_cols</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">physical_quantity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ac_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns kwargs dict with physical_quantity and ac_type removed</span>
+<span class="sd">        and cols populated appropriately.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cols</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">ac_type</span> <span class="ow">or</span> <span class="n">physical_quantity</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use `ac_type` and/or `physical_quantity`&quot;</span>
+                                 <span class="s2">&quot; with `cols` parameter.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">available_columns</span><span class="p">()):</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cols&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cols</span>
+                    <span class="k">return</span> <span class="n">kwargs</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is not a subset of the available columns: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span>
+                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_columns</span><span class="p">()))</span>
+                    <span class="k">raise</span> <span class="n">MeasurementError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">ac_type</span> <span class="ow">or</span> <span class="n">physical_quantity</span><span class="p">):</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_columns</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">ac_type</span> <span class="o">==</span> <span class="s1">&#39;best&#39;</span><span class="p">:</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_columns_with_best_ac_type</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">cols</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot;No AC types for physical quantity </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ac_type</span><span class="p">:</span>
+                <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ac_type_to_columns</span><span class="p">(</span><span class="n">ac_type</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">cols</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot;AC type &#39;</span><span class="si">{}</span><span class="s2">&#39; not available. &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ac_type</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">physical_quantity</span><span class="p">:</span>
+                <span class="n">cols_matching_pq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_physical_quantity_to_columns</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">cols_matching_pq</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;Physical quantity &#39;</span><span class="si">{}</span><span class="s2">&#39; not available. &quot;</span>
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">cols</span><span class="p">:</span>
+                    <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">cols_matching_pq</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">cols</span><span class="p">:</span>
+                        <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;No measurement matching (</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">). &quot;</span>
+                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">physical_quantity</span><span class="p">,</span> <span class="n">ac_type</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cols</span> <span class="o">=</span> <span class="n">cols_matching_pq</span>
+
+        <span class="k">if</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot;Available columns = </span><span class="si">{}</span><span class="s2">. &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">available_columns</span><span class="p">())</span>
+            <span class="k">raise</span> <span class="n">MeasurementError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cols&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cols</span>
+        <span class="k">return</span> <span class="n">kwargs</span>
+
+<div class="viewcode-block" id="ElecMeter.dry_run_metadata"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.dry_run_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">dry_run_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span></div>
+
+<div class="viewcode-block" id="ElecMeter.get_metadata"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.get_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">get_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span></div>
+
+<div class="viewcode-block" id="ElecMeter.get_source_node"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.get_source_node">[docs]</a>    <span class="k">def</span> <span class="nf">get_source_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">loader_kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Cannot get source node if meter.store is None!&quot;</span><span class="p">)</span>
+
+        <span class="n">loader_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_physical_quantity_and_ac_type_to_cols</span><span class="p">(</span><span class="o">**</span><span class="n">loader_kwargs</span><span class="p">)</span>
+        <span class="n">generator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="o">**</span><span class="n">loader_kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+        <span class="k">return</span> <span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator</span><span class="o">=</span><span class="n">generator</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElecMeter.total_energy"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.total_energy">[docs]</a>    <span class="k">def</span> <span class="nf">total_energy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">loader_kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        full_results : bool, default=False</span>
+<span class="sd">        **loader_kwargs : key word arguments for DataStore.load()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        if `full_results` is True then return TotalEnergyResults object</span>
+<span class="sd">        else returns a pd.Series with a row for each AC type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">Clip</span><span class="p">,</span> <span class="n">TotalEnergy</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stat_from_cache_or_compute</span><span class="p">(</span>
+            <span class="n">nodes</span><span class="p">,</span> <span class="n">TotalEnergy</span><span class="o">.</span><span class="n">results_class</span><span class="p">(),</span> <span class="n">loader_kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElecMeter.dropout_rate"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.dropout_rate">[docs]</a>    <span class="k">def</span> <span class="nf">dropout_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ignore_gaps</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">loader_kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ignore_gaps : bool, default=True</span>
+<span class="sd">            If True then will only calculate dropout rate for good sections.</span>
+<span class="sd">        full_results : bool, default=False</span>
+<span class="sd">        **loader_kwargs : key word arguments for DataStore.load()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DropoutRateResults object if `full_results` is True,</span>
+<span class="sd">        else float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">DropoutRate</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ignore_gaps</span><span class="p">:</span>
+            <span class="n">loader_kwargs</span><span class="p">[</span><span class="s1">&#39;sections&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">good_sections</span><span class="p">(</span><span class="o">**</span><span class="n">loader_kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stat_from_cache_or_compute</span><span class="p">(</span>
+            <span class="n">nodes</span><span class="p">,</span> <span class="n">DropoutRate</span><span class="o">.</span><span class="n">results_class</span><span class="p">(),</span> <span class="n">loader_kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElecMeter.good_sections"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.good_sections">[docs]</a>    <span class="k">def</span> <span class="nf">good_sections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">loader_kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        full_results : bool, default=False</span>
+<span class="sd">        **loader_kwargs : key word arguments for DataStore.load()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        if `full_results` is True then return nilmtk.stats.GoodSectionsResults</span>
+<span class="sd">        object otherwise return list of TimeFrame objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">loader_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;n_look_ahead_rows&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">GoodSections</span><span class="p">]</span>
+        <span class="n">results_obj</span> <span class="o">=</span> <span class="n">GoodSections</span><span class="o">.</span><span class="n">results_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">[</span><span class="s1">&#39;max_sample_period&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stat_from_cache_or_compute</span><span class="p">(</span>
+            <span class="n">nodes</span><span class="p">,</span> <span class="n">results_obj</span><span class="p">,</span> <span class="n">loader_kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_stat_from_cache_or_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">results_obj</span><span class="p">,</span> <span class="n">loader_kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;General function for computing statistics and/or loading them from</span>
+<span class="sd">        cache.</span>
+
+<span class="sd">        Cached statistics lives in the DataStore at</span>
+<span class="sd">        &#39;building&lt;I&gt;/elec/cache/meter&lt;K&gt;/&lt;statistic_name&gt;&#39; e.g.</span>
+<span class="sd">        &#39;building1/elec/cache/meter1/total_energy&#39;.  We store the</span>
+<span class="sd">        &#39;full&#39; statistic... i.e we store a representation of the `Results._data`</span>
+<span class="sd">        DataFrame. Some times we need to do some conversion to store</span>
+<span class="sd">        `Results._data` on disk.  The logic for doing this conversion lives</span>
+<span class="sd">        in the `Results` class or subclass.  The cache can be cleared by calling</span>
+<span class="sd">        `ElecMeter.clear_cache()`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        nodes : list of nilmtk.Node classes</span>
+<span class="sd">        results_obj : instance of nilmtk.Results subclass</span>
+<span class="sd">        loader_kwargs : dict</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        if `full_results` is True then return nilmtk.Results subclass</span>
+<span class="sd">        instance otherwise return nilmtk.Results.simple().</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        clear_cache</span>
+<span class="sd">        _compute_stat</span>
+<span class="sd">        key_for_cached_stat</span>
+<span class="sd">        get_cached_stat</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">full_results</span> <span class="o">=</span> <span class="n">loader_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;full_results&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">verbose</span> <span class="o">=</span> <span class="n">loader_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;ac_type&#39;</span> <span class="ow">in</span> <span class="n">loader_kwargs</span> <span class="ow">or</span> <span class="s1">&#39;physical_quantity&#39;</span> <span class="ow">in</span> <span class="n">loader_kwargs</span><span class="p">:</span>
+            <span class="n">loader_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_physical_quantity_and_ac_type_to_cols</span><span class="p">(</span><span class="o">**</span><span class="n">loader_kwargs</span><span class="p">)</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="n">loader_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cols&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">ac_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="n">results_obj_copy</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">results_obj</span><span class="p">)</span>
+
+        <span class="c1"># Prepare `sections` list</span>
+        <span class="n">sections</span> <span class="o">=</span> <span class="n">loader_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sections&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sections</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_timeframe</span><span class="p">()</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">include_end</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">sections</span> <span class="o">=</span> <span class="p">[</span><span class="n">tf</span><span class="p">]</span>
+        <span class="n">sections</span> <span class="o">=</span> <span class="n">TimeFrameGroup</span><span class="p">(</span><span class="n">sections</span><span class="p">)</span>
+        <span class="n">sections</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sections</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="o">.</span><span class="n">empty</span><span class="p">]</span>
+
+        <span class="c1"># Retrieve usable stats from cache</span>
+        <span class="n">key_for_cached_stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_for_cached_stat</span><span class="p">(</span><span class="n">results_obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">loader_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;preprocessing&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cached_stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cached_stat</span><span class="p">(</span><span class="n">key_for_cached_stat</span><span class="p">)</span>
+            <span class="n">results_obj</span><span class="o">.</span><span class="n">import_from_cache</span><span class="p">(</span><span class="n">cached_stat</span><span class="p">,</span> <span class="n">sections</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">find_sections_to_compute</span><span class="p">():</span>
+                <span class="c1"># Get sections_to_compute</span>
+                <span class="n">results_obj_timeframes</span> <span class="o">=</span> <span class="n">results_obj</span><span class="o">.</span><span class="n">timeframes</span><span class="p">()</span>
+                <span class="n">sections_to_compute</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">sections</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">results_obj_timeframes</span><span class="p">)</span>
+                <span class="n">sections_to_compute</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sections_to_compute</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">sections_to_compute</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ac_type_keys</span> <span class="o">=</span> <span class="n">results_obj</span><span class="o">.</span><span class="n">simple</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">sections_to_compute</span> <span class="o">=</span> <span class="n">find_sections_to_compute</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ac_types</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">ac_type_keys</span><span class="p">):</span>
+                    <span class="n">sections_to_compute</span> <span class="o">=</span> <span class="n">find_sections_to_compute</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">sections_to_compute</span> <span class="o">=</span> <span class="n">sections</span>
+                    <span class="n">results_obj</span> <span class="o">=</span> <span class="n">results_obj_copy</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sections_to_compute</span> <span class="o">=</span> <span class="n">sections</span>
+
+        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">results_obj</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using cached result.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># If we get to here then we have to compute some stats</span>
+        <span class="k">if</span> <span class="n">sections_to_compute</span><span class="p">:</span>
+            <span class="n">loader_kwargs</span><span class="p">[</span><span class="s1">&#39;sections&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sections_to_compute</span>
+            <span class="n">computed_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_stat</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">loader_kwargs</span><span class="p">)</span>
+
+            <span class="c1"># Merge cached results with newly computed</span>
+            <span class="n">results_obj</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">computed_result</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
+
+            <span class="c1"># Save to disk newly computed stats</span>
+            <span class="n">stat_for_store</span> <span class="o">=</span> <span class="n">computed_result</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">export_to_cache</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key_for_cached_stat</span><span class="p">,</span> <span class="n">stat_for_store</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="c1"># the old table probably had different columns</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key_for_cached_stat</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">key_for_cached_stat</span><span class="p">,</span> <span class="n">results_obj</span><span class="o">.</span><span class="n">export_to_cache</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">full_results</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">results_obj</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">results_obj</span><span class="o">.</span><span class="n">simple</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">ac_types</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">ac_type_keys</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">res</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="n">ac_types</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">ac_types</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">_compute_stat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">loader_kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        nodes : list of nilmtk.Node subclass objects</span>
+<span class="sd">        loader_kwargs : dict</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Node subclass object</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        clear_cache</span>
+<span class="sd">        _get_stat_from_cache_or_compute</span>
+<span class="sd">        key_for_cached_stat</span>
+<span class="sd">        get_cached_stat</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_source_node</span><span class="p">(</span><span class="o">**</span><span class="n">loader_kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">node</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">results</span>
+
+<div class="viewcode-block" id="ElecMeter.key_for_cached_stat"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.key_for_cached_stat">[docs]</a>    <span class="k">def</span> <span class="nf">key_for_cached_stat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stat_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        stat_name : str</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        key : str</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        clear_cache</span>
+<span class="sd">        _compute_stat</span>
+<span class="sd">        _get_stat_from_cache_or_compute</span>
+<span class="sd">        get_cached_stat</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">(),</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">meter_str</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">())])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">meter_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;building</span><span class="si">{:d}</span><span class="s2">/elec/cache/meter</span><span class="si">{}</span><span class="s2">/</span><span class="si">{:s}</span><span class="s2">&quot;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">building</span><span class="p">(),</span> <span class="n">meter_str</span><span class="p">,</span> <span class="n">stat_name</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ElecMeter.clear_cache"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.clear_cache">[docs]</a>    <span class="k">def</span> <span class="nf">clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        _compute_stat</span>
+<span class="sd">        _get_stat_from_cache_or_compute</span>
+<span class="sd">        key_for_cached_stat</span>
+<span class="sd">        get_cached_stat</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">key_for_cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_for_cached_stat</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key_for_cache</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No existing cache for&quot;</span><span class="p">,</span> <span class="n">key_for_cache</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Removed&quot;</span><span class="p">,</span> <span class="n">key_for_cache</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElecMeter.get_cached_stat"><a class="viewcode-back" href="../../nilmtk.elecmeter.html#nilmtk.elecmeter.ElecMeter.get_cached_stat">[docs]</a>    <span class="k">def</span> <span class="nf">get_cached_stat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_for_stat</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key_for_stat : str</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pd.DataFrame</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        _compute_stat</span>
+<span class="sd">        _get_stat_from_cache_or_compute</span>
+<span class="sd">        key_for_cached_stat</span>
+<span class="sd">        clear_cache</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">stat_from_cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">key_for_stat</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span> <span class="k">if</span> <span class="n">stat_from_cache</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">stat_from_cache</span></div></div>
+
+    <span class="c1"># def total_on_duration(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;Return timedelta&quot;&quot;&quot;</span>
+    <span class="c1">#     raise NotImplementedError</span>
+
+    <span class="c1"># def on_durations(self):</span>
+    <span class="c1">#     raise NotImplementedError</span>
+
+    <span class="c1"># def activity_distribution(self, bin_size, timespan):</span>
+    <span class="c1">#     raise NotImplementedError</span>
+
+    <span class="c1"># def on_off_events(self):</span>
+    <span class="c1"># use self.metadata.minimum_[off|on]_duration</span>
+    <span class="c1">#     raise NotImplementedError</span>
+
+    <span class="c1"># def discrete_appliance_activations(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     Return a Mask defining the start and end times of each appliance</span>
+    <span class="c1">#     activation.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     raise NotImplementedError</span>
+
+    <span class="c1"># def contiguous_sections(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;retuns Mask object&quot;&quot;&quot;</span>
+    <span class="c1">#     raise NotImplementedError</span>
+
+    <span class="c1"># def clean_and_export(self, destination_datastore):</span>
+    <span class="c1">#     &quot;&quot;&quot;Apply all cleaning configured in meter.cleaning and then export.  Also identifies</span>
+    <span class="c1">#     and records the locations of gaps.  Also records metadata about exactly which</span>
+    <span class="c1">#     cleaning steps have been executed and some summary results (e.g. the number of</span>
+    <span class="c1">#     implausible values removed)&quot;&quot;&quot;</span>
+    <span class="c1">#     raise NotImplementedError</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, NILMTK Authors.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
