@@ -56,6 +56,7 @@ nilmtk\.elecmeter
             key_for_cached_stat
             label
             load
+            load_meter_devices
             matches
             sample_period
             save

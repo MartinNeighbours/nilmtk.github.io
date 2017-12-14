@@ -29,11 +29,15 @@ nilmtk\.tests\.test\_metrics
        :no-members:
        :no-undoc-members:
             
+       .. Note:: This class has inherited methods, see the base class(es) for additional methods
+            
             
        .. rubric:: Methods
 
        .. autosummary::
                 
+            setUpClass
+            tearDownClass
             test_f1
             
             

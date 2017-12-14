@@ -51,6 +51,7 @@ nilmtk\.timeframe
             check_tz
             clear
             copy_constructor
+            from_dict
             intersection
             query_terms
             slice

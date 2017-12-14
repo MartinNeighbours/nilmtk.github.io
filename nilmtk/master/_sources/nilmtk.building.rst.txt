@@ -30,8 +30,6 @@ nilmtk\.building
        :no-members:
        :no-undoc-members:
             
-       .. Note:: This class has inherited methods, see the base class(es) for additional methods
-            
             
        .. rubric:: Methods
 

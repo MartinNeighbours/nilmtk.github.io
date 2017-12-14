@@ -29,11 +29,15 @@ nilmtk\.tests\.test\_metergroup
        :no-members:
        :no-undoc-members:
             
+       .. Note:: This class has inherited methods, see the base class(es) for additional methods
+            
             
        .. rubric:: Methods
 
        .. autosummary::
                 
+            setUpClass
+            tearDownClass
             test_dual_supply
             test_from_list
             test_full_results_with_no_sections_raises_runtime_error

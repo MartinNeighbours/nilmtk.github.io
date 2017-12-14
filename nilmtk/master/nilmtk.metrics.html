@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nilmtk.metrics &#8212; NILMTK 0.2 documentation</title>
+    <title>nilmtk.metrics module &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -80,9 +80,9 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">nilmtk.metrics</a><ul>
-<li><a class="reference internal" href="#id1">Notation</a></li>
-<li><a class="reference internal" href="#id2">Functions</a></li>
+<li><a class="reference internal" href="#">nilmtk.metrics module</a><ul>
+<li><a class="reference internal" href="#notation">Notation</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -132,11 +132,9 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="nilmtk-metrics">
-<h1>nilmtk.metrics<a class="headerlink" href="#nilmtk-metrics" title="Permalink to this headline">¶</a></h1>
-<div class="topic">
-<p class="topic-title first">Module summary</p>
-<span class="target" id="module-nilmtk.metrics"></span><p>Metrics to compare disaggregation performance against ground truth
+  <div class="section" id="module-nilmtk.metrics">
+<span id="nilmtk-metrics-module"></span><h1>nilmtk.metrics module<a class="headerlink" href="#module-nilmtk.metrics" title="Permalink to this headline">¶</a></h1>
+<p>Metrics to compare disaggregation performance against ground truth
 data.</p>
 <p>All metrics functions have the same interface.  Each function takes
 <cite>predictions</cite> and <cite>ground_truth</cite> parameters.  Both of which are
@@ -158,55 +156,6 @@ of ints for MeterGroups.</p>
 </div>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<p class="rubric">Functions</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.metrics.error_in_assigned_energy" title="nilmtk.metrics.error_in_assigned_energy"><code class="xref py py-obj docutils literal"><span class="pre">error_in_assigned_energy</span></code></a>(predictions,&nbsp;…)</td>
-<td>Compute error in assigned energy.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#nilmtk.metrics.f1_score" title="nilmtk.metrics.f1_score"><code class="xref py py-obj docutils literal"><span class="pre">f1_score</span></code></a>(predictions,&nbsp;ground_truth)</td>
-<td>Compute F1 scores.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.metrics.fraction_energy_assigned_correctly" title="nilmtk.metrics.fraction_energy_assigned_correctly"><code class="xref py py-obj docutils literal"><span class="pre">fraction_energy_assigned_correctly</span></code></a>(…)</td>
-<td>Compute fraction of energy assigned correctly</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#nilmtk.metrics.mean_normalized_error_power" title="nilmtk.metrics.mean_normalized_error_power"><code class="xref py py-obj docutils literal"><span class="pre">mean_normalized_error_power</span></code></a>(predictions,&nbsp;…)</td>
-<td>Compute mean normalized error in assigned power</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.metrics.rms_error_power" title="nilmtk.metrics.rms_error_power"><code class="xref py py-obj docutils literal"><span class="pre">rms_error_power</span></code></a>(predictions,&nbsp;ground_truth)</td>
-<td>Compute RMS error in assigned power</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p class="rubric">Module detail</p>
-<span class="target" id="module-nilmtk.metrics"></span><p>Metrics to compare disaggregation performance against ground truth
-data.</p>
-<p>All metrics functions have the same interface.  Each function takes
-<cite>predictions</cite> and <cite>ground_truth</cite> parameters.  Both of which are
-nilmtk.MeterGroup objects.  Each function returns one of two types:
-either a pd.Series or a single float.  Most functions return a
-pd.Series where each index element is a meter instance int or a tuple
-of ints for MeterGroups.</p>
-<div class="section" id="id1">
-<h2>Notation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>Below is the notation used to mathematically define each metric.</p>
-<p><span class="math">\(T\)</span> - number of time slices.</p>
-<p><span class="math">\(t\)</span> - a time slice.</p>
-<p><span class="math">\(N\)</span> - number of appliances.</p>
-<p><span class="math">\(n\)</span> - an appliance.</p>
-<p><span class="math">\(y^{(n)}_t\)</span> -  ground truth power of appliance <span class="math">\(n\)</span> in time slice <span class="math">\(t\)</span>.</p>
-<p><span class="math">\(\hat{y}^{(n)}_t\)</span> -  estimated power of appliance <span class="math">\(n\)</span> in time slice <span class="math">\(t\)</span>.</p>
-<p><span class="math">\(x^{(n)}_t\)</span> - ground truth state of appliance <span class="math">\(n\)</span> in time slice <span class="math">\(t\)</span>.</p>
-<p><span class="math">\(\hat{x}^{(n)}_t\)</span> - estimated state of appliance <span class="math">\(n\)</span> in time slice <span class="math">\(t\)</span>.</p>
-</div>
-<div class="section" id="id2">
-<h2>Functions<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="nilmtk.metrics.error_in_assigned_energy">
 <code class="descclassname">nilmtk.metrics.</code><code class="descname">error_in_assigned_energy</code><span class="sig-paren">(</span><em>predictions</em>, <em>ground_truth</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/metrics.html#error_in_assigned_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.metrics.error_in_assigned_energy" title="Permalink to this definition">¶</a></dt>
