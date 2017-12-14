@@ -1,7 +1,65 @@
-nilmtk\.datastore\.csvdatastore module
-======================================
+nilmtk\.datastore\.csvdatastore
+===============================
+
+.. topic:: Module summary
+
+    .. automodule:: nilmtk.datastore.csvdatastore
+       :no-members:
+       :no-undoc-members:
+       :no-show-inheritance: 
+
+    
+       .. rubric:: Classes
+
+       .. autosummary::
+        
+          CSVDataStore
+    
+
+
+    
+
+
+    
+        
+
+.. topic:: Class: CSVDataStore
+
+    .. autoclass:: CSVDataStore
+       :no-members:
+       :no-undoc-members:
+            
+            
+       .. rubric:: Methods
+
+       .. autosummary::
+                
+            append
+            close
+            elements_below_key
+            get_timeframe
+            load
+            load_metadata
+            open
+            put
+            remove
+            save_metadata
+            
+            
+       .. rubric:: Attributes
+
+       .. autosummary::
+                
+            window
+            
+    
+
+
+.. rubric:: Module detail
 
 .. automodule:: nilmtk.datastore.csvdatastore
     :members:
     :undoc-members:
     :show-inheritance:
+
+

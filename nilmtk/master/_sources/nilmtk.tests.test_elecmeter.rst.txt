@@ -37,6 +37,8 @@ nilmtk\.tests\.test\_elecmeter
        .. autosummary::
                 
             correlation
+            setUpClass
+            tearDownClass
             test_load
             test_proportion_of_energy
             test_total_energy

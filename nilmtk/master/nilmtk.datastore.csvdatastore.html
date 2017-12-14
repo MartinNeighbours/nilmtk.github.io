@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nilmtk.datastore.csvdatastore module &#8212; NILMTK 0.2 documentation</title>
+    <title>nilmtk.datastore.csvdatastore &#8212; NILMTK 0.2 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -80,7 +80,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">nilmtk.datastore.csvdatastore module</a></li>
+<li><a class="reference internal" href="#">nilmtk.datastore.csvdatastore</a></li>
 </ul>
 </ul>
 </li>
@@ -128,11 +128,95 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="module-nilmtk.datastore.csvdatastore">
-<span id="nilmtk-datastore-csvdatastore-module"></span><h1>nilmtk.datastore.csvdatastore module<a class="headerlink" href="#module-nilmtk.datastore.csvdatastore" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="nilmtk-datastore-csvdatastore">
+<h1>nilmtk.datastore.csvdatastore<a class="headerlink" href="#nilmtk-datastore-csvdatastore" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Module summary</p>
+<span class="target" id="module-nilmtk.datastore.csvdatastore"></span><p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore" title="nilmtk.datastore.csvdatastore.CSVDataStore"><code class="xref py py-obj docutils literal"><span class="pre">CSVDataStore</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="topic">
+<p class="topic-title first">Class: CSVDataStore</p>
 <dl class="class">
 <dt id="nilmtk.datastore.csvdatastore.CSVDataStore">
 <em class="property">class </em><code class="descclassname">nilmtk.datastore.csvdatastore.</code><code class="descname">CSVDataStore</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nilmtk.datastore.csvdatastore.CSVDataStore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nilmtk.datastore.datastore.html#nilmtk.datastore.datastore.DataStore" title="nilmtk.datastore.datastore.DataStore"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.datastore.datastore.DataStore</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> : string</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore.append" title="nilmtk.datastore.csvdatastore.CSVDataStore.append"><code class="xref py py-obj docutils literal"><span class="pre">append</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore.close" title="nilmtk.datastore.csvdatastore.CSVDataStore.close"><code class="xref py py-obj docutils literal"><span class="pre">close</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore.elements_below_key" title="nilmtk.datastore.csvdatastore.CSVDataStore.elements_below_key"><code class="xref py py-obj docutils literal"><span class="pre">elements_below_key</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore.get_timeframe" title="nilmtk.datastore.csvdatastore.CSVDataStore.get_timeframe"><code class="xref py py-obj docutils literal"><span class="pre">get_timeframe</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore.load" title="nilmtk.datastore.csvdatastore.CSVDataStore.load"><code class="xref py py-obj docutils literal"><span class="pre">load</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore.load_metadata" title="nilmtk.datastore.csvdatastore.CSVDataStore.load_metadata"><code class="xref py py-obj docutils literal"><span class="pre">load_metadata</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore.open" title="nilmtk.datastore.csvdatastore.CSVDataStore.open"><code class="xref py py-obj docutils literal"><span class="pre">open</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore.put" title="nilmtk.datastore.csvdatastore.CSVDataStore.put"><code class="xref py py-obj docutils literal"><span class="pre">put</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore.remove" title="nilmtk.datastore.csvdatastore.CSVDataStore.remove"><code class="xref py py-obj docutils literal"><span class="pre">remove</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nilmtk.datastore.csvdatastore.CSVDataStore.save_metadata" title="nilmtk.datastore.csvdatastore.CSVDataStore.save_metadata"><code class="xref py py-obj docutils literal"><span class="pre">save_metadata</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">window</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<p class="rubric">Module detail</p>
+<span class="target" id="module-nilmtk.datastore.csvdatastore"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">nilmtk.datastore.csvdatastore.</code><code class="descname">CSVDataStore</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nilmtk/datastore/csvdatastore.html#CSVDataStore"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="nilmtk.datastore.datastore.html#nilmtk.datastore.datastore.DataStore" title="nilmtk.datastore.datastore.DataStore"><code class="xref py py-class docutils literal"><span class="pre">nilmtk.datastore.datastore.DataStore</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

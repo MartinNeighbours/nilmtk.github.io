@@ -65,6 +65,7 @@ nilmtk\.metergroup
             entropy_per_meter
             fraction_per_meter
             from_list
+            from_other_metergroup
             get_labels
             get_timeframe
             good_sections

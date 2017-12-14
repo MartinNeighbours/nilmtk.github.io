@@ -29,11 +29,15 @@ nilmtk\.stats\.tests\.test\_locategoodsections
        :no-members:
        :no-undoc-members:
             
+       .. Note:: This class has inherited methods, see the base class(es) for additional methods
+            
             
        .. rubric:: Methods
 
        .. autosummary::
                 
+            setUpClass
+            tearDownClass
             test_pipeline
             test_process_chunk
             

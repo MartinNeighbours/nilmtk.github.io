@@ -1,7 +1,65 @@
-nilmtk\.datastore\.hdfdatastore module
-======================================
+nilmtk\.datastore\.hdfdatastore
+===============================
+
+.. topic:: Module summary
+
+    .. automodule:: nilmtk.datastore.hdfdatastore
+       :no-members:
+       :no-undoc-members:
+       :no-show-inheritance: 
+
+    
+       .. rubric:: Classes
+
+       .. autosummary::
+        
+          HDFDataStore
+    
+
+
+    
+
+
+    
+        
+
+.. topic:: Class: HDFDataStore
+
+    .. autoclass:: HDFDataStore
+       :no-members:
+       :no-undoc-members:
+            
+            
+       .. rubric:: Methods
+
+       .. autosummary::
+                
+            append
+            close
+            elements_below_key
+            get_timeframe
+            load
+            load_metadata
+            open
+            put
+            remove
+            save_metadata
+            
+            
+       .. rubric:: Attributes
+
+       .. autosummary::
+                
+            window
+            
+    
+
+
+.. rubric:: Module detail
 
 .. automodule:: nilmtk.datastore.hdfdatastore
     :members:
     :undoc-members:
     :show-inheritance:
+
+
